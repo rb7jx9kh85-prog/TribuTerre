@@ -192,6 +192,54 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .hero[data-intro].intro-in .hero__sub { transition: opacity .8s ease .35s, transform .8s var(--ease-soft) .35s; opacity: 1; transform: none; }
 .hero[data-intro].intro-in .scroll-cue { transition: opacity .8s ease .6s; opacity: 1; }
 
+/* hero : fond animé (visible après la séquence vidéo) */
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+  opacity: 0; transition: opacity 2s ease 0.6s;
+}
+.hero__bg::before {
+  content: "";
+  position: absolute; inset: -30%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(210,0,55,0.38), transparent 32%),
+    radial-gradient(circle at 80% 25%, rgba(95,0,35,0.55), transparent 34%),
+    radial-gradient(circle at 50% 80%, rgba(150,0,45,0.42), transparent 38%),
+    radial-gradient(circle at 30% 70%, rgba(255,25,70,0.18), transparent 36%),
+    linear-gradient(120deg, #020202 0%, #120006 20%, #320010 40%, #6b001f 55%, #26000c 72%, #020202 100%);
+  filter: blur(55px);
+  animation: heroGlow 22s ease-in-out infinite alternate;
+}
+.hero[data-intro].intro-in .hero__bg { opacity: 1; }
+@keyframes heroGlow {
+  0%   { transform: translate(-4%,-3%) scale(1) rotate(0deg); }
+  50%  { transform: translate(3%,4%) scale(1.08) rotate(5deg); }
+  100% { transform: translate(5%,-2%) scale(1.14) rotate(-4deg); }
+}
+
+.hero__bg-particles {
+  position: absolute; inset: 0; z-index: 3;
+  overflow: hidden; pointer-events: none;
+  opacity: 0; transition: opacity 2.5s ease 1.4s;
+}
+.hero[data-intro].intro-in .hero__bg-particles { opacity: 1; }
+.hero__bg-particles span {
+  position: absolute; bottom: -10px;
+  width: 1px; height: 1px; border-radius: 50%;
+  background: rgba(255,45,85,0.65);
+  box-shadow: 0 0 6px 1px rgba(255,45,85,0.65);
+  animation: heroParticle linear infinite;
+}
+.hero__bg-particles span:nth-child(odd) {
+  background: rgba(140,0,45,0.8);
+  box-shadow: 0 0 5px rgba(140,0,45,0.8);
+}
+@keyframes heroParticle {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  18%  { opacity: 0.8; }
+  100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+}
+
 /* ============================================================ MARQUEE */
 .marquee { background: var(--tt-rouge); color: var(--tt-papier); overflow: hidden; padding: clamp(0.7rem,2vh,1.2rem) 0; border-block: 1px solid rgba(246,243,236,0.14); }
 .marquee__track { display: flex; width: max-content; will-change: transform; animation: marq 28s linear infinite; }
@@ -336,7 +384,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .bottle-copy h2, .next-reveal h2 { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 6rem); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.4rem; font-weight: 500; }
 .bottle-copy p, .next-reveal p { color: var(--tt-pierre); font-size: 1.05rem; line-height: 1.8; }
 .bottle-zoom-wrap { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-.bottle-image { width: min(52vw, 720px); height: auto; transform-origin: 42% 52%; will-change: transform, opacity, filter; filter: drop-shadow(0 40px 100px rgba(0,0,0,0.6)); }
+.bottle-image { width: min(52vw, 720px); height: auto; transform-origin: 50% 80%; will-change: transform, opacity, filter; filter: drop-shadow(0 40px 100px rgba(0,0,0,0.6)); }
 .bottle-vignette { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.7;
   background: radial-gradient(circle at center, transparent 18%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.9) 100%); }
 .next-reveal { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 7vw; text-align: center; opacity: 0; transform: translateY(50px); filter: blur(12px); pointer-events: none; will-change: transform, opacity, filter; }
@@ -363,7 +411,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
   .bottle-stage { position: static; height: auto; padding: 4rem 0; flex-direction: column; }
   .next-reveal { position: static; opacity: 1; transform: none; filter: none; padding: 3rem 7vw 0; }
   .bottle-copy { position: static; transform: none; max-width: none; margin-bottom: 2rem; }
-  body::before, .marquee__track { animation: none; }
+  body::before, .marquee__track, .hero__bg::before, .hero__bg-particles span { animation: none; }
   .reveal, .word-reveal span, .line-reveal { transition: none; opacity: 1; transform: none; filter: none; width: auto; }
   .scroll-cue i { animation: none; height: 28px; opacity: 0.6; }
   .cursor { display: none; }

@@ -132,7 +132,8 @@
     function phase2(){ show(v2); hide(v1); caption("Du raisin au vin"); runClip(v2, phase3); }
     function phase3(){
       if(cap) cap.classList.remove("show");
-      if(v2) v2.classList.add("is-dim");
+      if(v2) v2.classList.remove("is-on");
+      if(v1) v1.classList.remove("is-on");
       requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
     }
     if(REDUCE){ phase3(); return; }
@@ -404,6 +405,26 @@
     });
   }
 
+  /* -------------------- HERO PARTICLES -------------------- */
+  function spawnHeroParticles(){
+    var cont = document.getElementById("heroPart"); if(!cont) return;
+    var cfg = [
+      {left:5,  dur:22, delay:0},  {left:12, dur:28, delay:3},
+      {left:18, dur:25, delay:7},  {left:26, dur:31, delay:2},
+      {left:35, dur:24, delay:9},  {left:44, dur:33, delay:4},
+      {left:53, dur:27, delay:1},  {left:62, dur:35, delay:8},
+      {left:71, dur:26, delay:5},  {left:79, dur:32, delay:2},
+      {left:87, dur:29, delay:6},  {left:94, dur:36, delay:10}
+    ];
+    cfg.forEach(function(c){
+      var s = document.createElement("span");
+      s.style.left = c.left + "%";
+      s.style.animationDuration = c.dur + "s";
+      s.style.animationDelay   = c.delay + "s";
+      cont.appendChild(s);
+    });
+  }
+
   /* -------------------- Lenis (optionnel, si chargé) -------------------- */
   function smooth(){
     if(REDUCE || typeof window.Lenis === "undefined") return;
@@ -417,6 +438,7 @@
   function boot(){
     ageGate();
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
+    spawnHeroParticles();
     buildCuvees();
     buildDispo();
     imgFallbacks();
