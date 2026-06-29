@@ -36,6 +36,18 @@
   ];
   window.TT_CUVEES = CUVEES;
 
+  /* -------------------- vins disponibles (petites cartes) -------------------- */
+  var DISPO = [
+    { name:"Fendant",        info:"AOC · 2025 · 75 cl",          famille:"blanc",  img:null },
+    { name:"Le Gamay",       info:"AOC Leytron · 2025 · 75 cl",  famille:"rouge",  img:"assets/VieillesVignesGamay.webp" },
+    { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          famille:"rose",   img:"assets/TerreDeRose.webp" },
+    { name:"Terre N° 13",    info:"Merlot · VDP 2023 · 75 cl",   famille:"rouge",  img:"assets/TerreN13.webp" },
+    { name:"Terre Blanche",  info:"VDT · MMXXII · 75 cl",        famille:"blanc",  img:"assets/TerreBlanche.webp" },
+    { name:"Terre Rouge",    info:"MMXXII · 75 cl",              famille:"rouge",  img:"assets/TerreRouge.webp" },
+    { name:"Merlot Prestige",info:"2022 · 75 cl",                famille:"rouge",  img:"assets/MerlotPrestige.webp" },
+    { name:"Orange 2.4",     info:"VDT nature · 50 cl",          famille:"orange", img:null }
+  ];
+
   function accent(f){ return f === "blanc" ? "#0b4a12" : "#7e0a0a"; }
   function phBottle(f, dark){
     var bg = dark ? "#141015" : "#efeadd", col = accent(f);
@@ -282,6 +294,23 @@
     });
   }
 
+  function buildDispo(){
+    var host = document.querySelector("[data-dispo]"); if(!host) return;
+    var frag = document.createDocumentFragment();
+    DISPO.forEach(function(d){
+      var fam = d.famille === "blanc" ? "blanc" : "rouge";
+      var card = document.createElement("article");
+      card.className = "dispo-card reveal";
+      card.setAttribute("data-famille", d.famille);
+      var src = d.img || phBottle(fam, false);
+      var fb = d.img ? ' data-fallback="bottle" data-famille="'+fam+'"' : '';
+      card.innerHTML = '<img src="'+src+'" alt="'+d.name+'" loading="lazy"'+fb+'>'+
+        '<div class="dispo-info"><h4>'+d.name+'</h4><p>'+d.info+'</p></div>';
+      frag.appendChild(card);
+    });
+    host.appendChild(frag);
+  }
+
   /* -------------------- Lenis (optionnel, si chargé) -------------------- */
   function smooth(){
     if(REDUCE || typeof window.Lenis === "undefined") return;
@@ -295,6 +324,7 @@
   function boot(){
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     buildCuvees();
+    buildDispo();
     imgFallbacks();
     marquee();
     header();

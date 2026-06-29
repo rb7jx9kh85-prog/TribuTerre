@@ -2,7 +2,8 @@
 
 Site vitrine de la cave **Tributerre** — Christian Vouillamoz, vigneron-encaveur
 à Leytron / Riddes, Valais. Les vignes sous la paroi calcaire de l'Ardevaz ; la
-cave et l'élevage à Riddes, dans un bâtiment de 1908. Trois générations.
+cave et l'élevage à Riddes (1908 Valais). Christian est le premier de la famille
+(Paul → Roger → Christian) à vinifier lui-même la plus grande part de la récolte.
 
 ## Stack
 

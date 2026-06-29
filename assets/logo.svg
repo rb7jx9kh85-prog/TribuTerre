@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 132" fill="none" role="img" aria-label="Tributerre">
+  <g fill="#9a1414">
+    <!-- TT monogramme : barre supérieure commune + deux fûts -->
+    <rect x="20" y="14" width="120" height="15"/>
+    <rect x="20" y="14" width="9" height="28"/>
+    <rect x="131" y="14" width="9" height="28"/>
+    <rect x="57" y="14" width="15" height="94"/>
+    <rect x="86" y="14" width="15" height="94"/>
+    <rect x="46" y="101" width="37" height="7"/>
+    <rect x="75" y="101" width="37" height="7"/>
+  </g>
+  <text x="172" y="85" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="600" letter-spacing="4" fill="#9a1414">TRIBUTERRE</text>
+</svg>

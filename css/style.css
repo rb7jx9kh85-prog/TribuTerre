@@ -114,8 +114,10 @@ body::before {  /* grain pellicule, fixe, très subtil */
 }
 /* en-tête sur pages claires : texte sombre tant que pas scrollé */
 .theme-light .site-header:not(.scrolled) { color: var(--tt-texte); }
-.brand { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.16em; font-size: 1.15rem; text-transform: uppercase; }
+.brand { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.16em; font-size: 1.15rem; text-transform: uppercase; display: flex; align-items: center; }
 .brand .tt { color: var(--tt-rouge); }
+.brand-logo { height: 30px; width: auto; display: block; }
+.site-header.scrolled .brand-logo { height: 26px; }
 .site-nav { display: flex; gap: clamp(1.1rem, 2.4vw, 2.4rem); align-items: center; }
 .site-nav a { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; opacity: 0.82; transition: opacity .3s; position: relative; }
 .site-nav a::after { content: ""; position: absolute; left: 0; bottom: -5px; height: 1px; width: 0; background: currentColor; transition: width .35s var(--ease-soft); }
@@ -174,6 +176,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
   font-size: clamp(2.6rem, 13vw, 12rem); line-height: 0.92; letter-spacing: 0.01em; max-width: 100%;
 }
 .hero__wordmark .tt { color: var(--tt-rouge); }
+.hero__wordmark img { width: clamp(280px, 60vw, 760px); height: auto; display: inline-block; }
 @media (min-width: 769px){ .hero__wordmark { font-size: clamp(4rem, 14vw, 13rem); } }
 .hero__sub { margin-top: clamp(0.8rem,2vh,1.3rem); color: var(--tt-pierre); }
 
@@ -282,6 +285,15 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvee-card[data-dark="true"] .cuvee-desc { color: rgba(245,238,228,0.74); }
 .cuvee-bottom { margin-top: auto; padding-top: 0.9rem; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(21,16,12,0.55); border-top: 1px solid rgba(35,25,15,0.1); }
 .cuvee-card[data-dark="true"] .cuvee-bottom { color: rgba(245,238,228,0.62); border-top-color: rgba(245,238,228,0.12); }
+
+/* ============================================================ VINS DISPONIBLES (petites cartes) */
+.dispo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.9rem; }
+.dispo-card { --accent: var(--tt-rouge); display: flex; gap: 1rem; align-items: center; padding: 0.85rem 1.1rem; border: 1px solid rgba(27,24,18,0.12); border-radius: 14px; background: var(--tt-papier-2); transition: transform .35s var(--ease-soft), border-color .35s ease, box-shadow .35s ease; }
+.dispo-card[data-famille="blanc"] { --accent: var(--tt-vert); }
+.dispo-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 18px 40px -26px rgba(27,24,18,0.5); }
+.dispo-card img { height: 74px; width: auto; object-fit: contain; flex: 0 0 auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14)); }
+.dispo-info h4 { font-family: var(--font-display); font-size: 1.18rem; font-weight: 500; line-height: 1.04; }
+.dispo-info p { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt-vigne); margin-top: 0.35rem; }
 
 /* ============================================================ BOUTON vin */
 .wine-btn {

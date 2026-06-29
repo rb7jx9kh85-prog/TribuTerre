@@ -14,9 +14,17 @@ Toute image manquante est remplacée automatiquement par un placeholder cohéren
 - `ardevaz.webp` — la vraie paroi de l'Ardevaz (HEIC converti), section terroir + accueil
 - `gammes.webp` — la gamme des 8 bouteilles, section « Nos gammes »
 
+## Logo
+- `logo.svg` — logomark provisoire (monogramme TT + TRIBUTERRE) utilisé dans
+  l'en-tête et à la fin du hero. **Pour le vrai logo : déposer `assets/logo.png`**
+  (PNG transparent) — il remplace automatiquement le SVG partout (le code teste
+  `logo.png` puis retombe sur `logo.svg`).
+
 ## Encore attendus → placeholder automatique
+- `logo.png` — le vrai logo officiel (voir ci-dessus)
+- `Fendant` + `Orange 2.4` — bouteilles absentes du Drive → carte avec monogramme TT
 - `vignes.jpg` — les vignes sous l'Ardevaz (page terroir)
-- `cave.jpg` — la cave de Riddes 1908 (histoire + contact)
+- `cave.jpg` — la cave de Riddes (histoire + contact)
 - police du logo (fichier .otf/.ttf) — pour remplacer Cormorant Garamond (var `--font-display`)
 
 En leur absence, les emplacements concernés montrent un paysage stylisé. Aucune
