@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terroir — Tributerre · L'Ardevaz, Leytron</title>
+<meta name="description" content="L'Ardevaz, la paroi calcaire qui surplombe les vignes de Leytron. Biodynamie, sans désherbants, vendanges à la main." />
+<script>document.documentElement.classList.add("js");document.documentElement.classList.remove("no-js");</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0c'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='56' font-weight='700' text-anchor='middle' fill='%237e0a0a'%3ETT%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  .terroir-hero { position: relative; min-height: 78svh; display: flex; align-items: flex-end; padding: clamp(8rem,18vh,12rem) var(--pad-x) clamp(3rem,8vh,5rem); overflow: hidden; color: var(--tt-papier); background: var(--tt-noir); }
+  .terroir-hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.55; z-index:0; }
+  .terroir-hero::after { content:""; position:absolute; inset:0; z-index:1; background: linear-gradient(to top, rgba(10,10,12,.9), rgba(10,10,12,.25)); }
+  .terroir-hero .wrap { position: relative; z-index: 2; }
+  .stat-row { display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(1.4rem,4vw,3rem); margin-top: clamp(2.4rem,6vh,4rem); }
+  .stat .n { font-family: var(--font-display); font-size: clamp(2.6rem,6vw,4.4rem); color: var(--tt-rouge); line-height:1; }
+  .stat p { color: var(--tt-pierre); margin-top:.4rem; }
+  @media (max-width:680px){ .stat-row { grid-template-columns:1fr; gap:1.4rem; } }
+</style>
+</head>
+<body>
+<div class="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <div class="loader__mark"><span class="tt">TT</span></div>
+    <div class="loader__word">Tributerre</div>
+    <div class="loader__bar"><i></i></div>
+    <div class="loader__pct">000</div>
+  </div>
+</div>
+<div class="cursor" aria-hidden="true"></div>
+
+<header class="site-header">
+  <a href="index.html" class="brand">Tribu<span class="tt">terre</span></a>
+  <nav class="site-nav" id="nav">
+    <a href="index.html">Accueil</a>
+    <a href="histoire.html">Histoire</a>
+    <a href="terroir.html" aria-current="page">Terroir</a>
+    <a href="cuvees.html">Cuvées</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<main>
+  <section class="terroir-hero">
+    <img src="assets/ardevaz.jpg" alt="La paroi calcaire de l'Ardevaz au-dessus du vignoble de Leytron" data-fallback="scene" data-label="L'Ardevaz · Leytron" />
+    <div class="wrap">
+      <span class="kicker" style="color:var(--tt-pierre);">02 · Terroir</span>
+      <h1 class="word-reveal" style="font-size:clamp(2.8rem,9vw,6.5rem);margin-top:1rem;">L'Ardevaz</h1>
+    </div>
+  </section>
+
+  <section class="section section--noir">
+    <div class="wrap split">
+      <div>
+        <h2 class="word-reveal" style="font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;">La paroi surplombe les vignes de Leytron</h2>
+        <div class="line-reveal" style="margin:2rem 0;"></div>
+        <p class="reveal" style="max-width:48ch;color:var(--tt-pierre);">La vigne s'accroche. Le calcaire retient la chaleur du jour. La nuit descend froide. C'est ce contraste qui fait le vin.</p>
+      </div>
+      <div class="hover-frame reveal reveal-d1">
+        <img src="assets/vignes.jpg" alt="Les vignes sous l'Ardevaz" data-fallback="scene" data-label="Vignes · Leytron" />
+      </div>
+    </div>
+    <div class="wrap stat-row">
+      <div class="stat reveal"><div class="n">100%</div><p>Vendanges à la main, en caisse</p></div>
+      <div class="stat reveal reveal-d1"><div class="n">0</div><p>Désherbant. Culture en biodynamie</p></div>
+      <div class="stat reveal reveal-d2"><div class="n">III</div><p>Générations sous la même paroi</p></div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap--narrow" style="text-align:center;">
+      <p class="lead reveal">« Culture en biodynamie. Pas de désherbants. Les vendanges à la main, en caisse. »</p>
+      <p class="reveal reveal-d1" style="margin-top:2.2rem;"><a href="cuvees.html" class="wine-btn" data-cursor>Les cuvées du terroir <span class="dot"></span></a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Tribu<span class="tt">terre</span></h4>
+      <p class="muted" style="margin-bottom:0.8rem;">Christian Vouillamoz · Artisan du vin</p>
+      <p style="opacity:.72;max-width:34ch;">Les vignes sous la paroi de l'Ardevaz, à Leytron. La cave à Riddes, dans un bâtiment de 1908.</p>
+    </div>
+    <div class="footer-col"><h5>Pages</h5><a href="histoire.html">Histoire</a><a href="terroir.html">Terroir</a><a href="cuvees.html">Cuvées</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h5>La cave</h5><p>1908 Riddes, Valais</p><a href="mailto:contact@tributerre.ch">contact@tributerre.ch</a><p class="muted">Vente directe · sur rendez-vous</p></div>
+  </div>
+  <div class="footer-bottom"><span>© <span id="year"></span> Tributerre · Christian Vouillamoz</span><span>Leytron / Riddes · Valais · Suisse</span></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

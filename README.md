@@ -1,62 +1,47 @@
 # Tributerre
 
 Site vitrine de la cave **Tributerre** — Christian Vouillamoz, vigneron-encaveur
-à Leytron / Riddes, Valais. Les vignes poussent sous la paroi calcaire de
-l'Ardevaz ; la cave et l'élevage sont à Riddes, dans un bâtiment de 1908. Entre
-les deux, trois générations.
+à Leytron / Riddes, Valais. Les vignes sous la paroi calcaire de l'Ardevaz ; la
+cave et l'élevage à Riddes, dans un bâtiment de 1908. Trois générations.
 
 ## Stack
 
-HTML / CSS / JS **vanilla**, un seul fichier autosuffisant : `index.html`.
-Aucune étape de build, aucun framework.
+Site **multi-pages**, HTML / CSS / JS **vanilla**, sans build, sans framework.
 
-- [Lenis](https://github.com/darkroomengineering/lenis) `1.1.14` — smooth scroll (CDN)
-- [GSAP](https://gsap.com/) `3.12.5` + ScrollTrigger + SplitText (CDN)
-- Google Fonts : **Fraunces** (display) + **Work Sans** (texte)
+- `index.html` · `histoire.html` · `terroir.html` · `cuvees.html` · `contact.html`
+- `css/style.css` — styles partagés
+- `js/main.js` — comportements partagés (loader, reveals, parallax, light-card, nav, curseur…)
+- [Lenis](https://github.com/darkroomengineering/lenis) en CDN — smooth scroll **optionnel** (le site fonctionne sans)
+- Google Fonts : **Cormorant Garamond** (titres) + **Work Sans** (texte)
+
+> Police : « Cormorant Garamond » est un substitut proche en attendant la vraie
+> police du logo. Pour la remplacer : ajouter un `@font-face` et changer la
+> variable `--font-display` dans `css/style.css` (un seul endroit).
+
+## Animations (toutes en vanilla, IntersectionObserver / rAF)
+
+- Faux **écran de chargement** (logo + barre + compteur), rapide après la 1re visite (sessionStorage)
+- Intro hero : kicker → lignes en italique (rideau) → grand wordmark TRIBUTERRE
+- `.reveal` (blur-up + translate), `.word-reveal` (mot à mot), `.line-reveal` (trait)
+- Parallax au scroll sur les images encadrées
+- Cartes cuvées : halo qui suit la souris (light-card), lift au survol
+- Header collant (`.scrolled`), menu mobile plein écran, curseur custom, marquee, bouton « vin »
+- Texture : grain pellicule + grain papier (profondeur), vignettes
+
+Tout est désactivé proprement avec `prefers-reduced-motion: reduce`.
 
 ## Lancer en local
 
-Ouvrir `index.html` dans un navigateur, ou servir le dossier :
-
 ```bash
-python3 -m http.server 8000
-# puis http://localhost:8000
+python3 -m http.server 8000   # puis http://localhost:8000
 ```
 
 ## Déploiement
 
-Compatible Vercel en drag-and-drop (site statique, racine = ce dossier).
-Aucune configuration nécessaire.
-
-## Structure
-
-```
-tributerre/
-├── index.html      ← site complet (styles + scripts inline)
-├── assets/         ← images (voir assets/README.md)
-└── README.md
-```
+Statique — compatible Vercel en drag-and-drop, racine = ce dossier.
 
 ## Assets
 
-Les images réelles ne sont pas encore toutes fournies. Le site **dégrade
-proprement** : chaque image manquante est remplacée par un placeholder cohérent
-(monogramme TT dans la couleur de la famille, ou paysage stylisé pour
-l'Ardevaz). Déposez les fichiers dans `assets/` avec les noms attendus —
-voir `assets/README.md` — pour activer les vrais visuels.
-
-## Sections
-
-1. **Hero** — Ardevaz en parallax, accroche révélée caractère par caractère
-2. **La famille** — Christian Vouillamoz, trois générations, révélations clip-path
-3. **Le terroir** — l'Ardevaz, biodynamie, vendanges à la main
-4. **Les cuvées** — scroll horizontal *pinned* (desktop) / grille (mobile)
-5. **La cave** — Riddes 1908, grain argentique animé, filigrane TT
-6. **Contact** — vente directe, bouton magnétique
-
-## Accessibilité & performance
-
-- `prefers-reduced-motion: reduce` → animations désactivées, contenu statique lisible
-- Curseur custom masqué sur écrans tactiles (`pointer: coarse`)
-- Grain animé plafonné à 24 fps et stoppé hors écran
-- Le site reste lisible même si les CDN ou les images ne chargent pas
+Voir `assets/README.md`. Toute image manquante est remplacée par un placeholder
+cohérent (monogramme TT / paysage stylisé) ; rien ne casse. Le hero est **prêt
+pour une vidéo** : déposez `assets/hero.mp4` et elle s'affiche automatiquement.
