@@ -162,15 +162,29 @@ h1, h2, h3, .display {
   align-items: center;
   gap: clamp(1.4rem, 4vh, 2.6rem);
 }
-.hero-logo { width: clamp(180px, 32vw, 320px); height: auto; }
-.hero-tagline {
+.hero-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.6vh, 1rem);
+  margin-bottom: clamp(1.4rem, 4vh, 2.8rem);
+}
+.hero-kicker { color: var(--tt-pierre); letter-spacing: 0.3em; }
+.hero-line-mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
+.hero-line {
+  display: block;
   font-family: "Fraunces", serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.7rem, 5.2vw, 3.6rem);
+  font-size: clamp(1.5rem, 4.6vw, 3.1rem);
   line-height: 1.12;
-  max-width: 16ch;
-  text-wrap: balance;
+  will-change: transform;
+}
+.hero-logo {
+  width: clamp(240px, 46vw, 520px);
+  height: auto;
+  transform-origin: center;
+  will-change: transform, opacity;
 }
 .scroll-indicator {
   position: absolute;
@@ -595,8 +609,12 @@ h1, h2, h3, .display {
   <div class="hero-overlay-loader" aria-hidden="true"></div>
 
   <div class="hero-inner">
+    <div class="hero-lines">
+      <span class="hero-kicker label">Leytron · Riddes · Valais</span>
+      <span class="hero-line-mask"><span class="hero-line">Une cave sous la roche.</span></span>
+      <span class="hero-line-mask"><span class="hero-line">Trois générations.</span></span>
+    </div>
     <img class="hero-logo" src="assets/logo-tributerre.jpg" alt="Tributerre — Christian Vouillamoz" data-fallback="logo" data-on-dark="true" />
-    <p class="hero-tagline">« Une cave sous la roche. Leytron. Trois générations. »</p>
   </div>
 
   <div class="scroll-indicator" aria-hidden="true">
@@ -738,7 +756,7 @@ h1, h2, h3, .display {
     { name: "Terre Rouge", famille: "rouge", cepage: "Blend", format: "75 cl",
       desc: "La cuvée phare. Étiquette noire mate, TT rouge gaufré.",
       origin: "Vin du Valais", dark: true,
-      ld: "assets/TerreRouge_LD.jpg", png: "assets/TerreRouge.png" },
+      ld: "assets/TerreRouge.png", png: null },
 
     { name: "Terre N° 13", famille: "rouge", cepage: "Merlot", format: "75 cl",
       desc: "Un merlot droit, élevé sans détour.",
@@ -766,9 +784,14 @@ h1, h2, h3, .display {
       ld: "assets/TerreDeRose_LD.jpg", png: "assets/TerreDeRose.png" },
 
     { name: "Terre Blanche", famille: "blanc", cepage: "Blend blanc", format: "75 cl",
-      desc: "L'assemblage blanc de la maison. TT vert.",
+      desc: "L'assemblage blanc de la maison. Étiquette charbon, TT vert.",
       origin: "Vin de pays Suisse",
-      ld: null, png: null },
+      ld: "assets/TerreBlanche.png", png: null },
+
+    { name: "Le Bray", famille: "blanc", cepage: "Fendant (Chasselas)", format: "75 cl",
+      desc: "Fendant de Leytron. Droit, sur la pierre. AOC Valais.",
+      origin: "AOC Valais",
+      ld: "assets/LeBray.png", png: null },
 
     { name: "L'Ardoisière", famille: "blanc", cepage: "Blend blanc", format: "75 cl",
       desc: "Né du terroir ardoisier de Leytron. TT vert.",
@@ -1115,20 +1138,20 @@ h1, h2, h3, .display {
       return;
     }
 
-    /* ---- Hero : timeline de chargement ---- */
+    /* ---- Hero : les textes arrivent, puis le logo arrive en grand ---- */
     var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.to(".hero-overlay-loader", { opacity: 0, duration: 0.8, onComplete: function () {
+    tl.to(".hero-overlay-loader", { opacity: 0, duration: 0.7, onComplete: function () {
       var l = document.querySelector(".hero-overlay-loader");
       if (l) l.style.display = "none";
     }});
-    tl.from(".hero-logo", { y: 40, opacity: 0, duration: 1.0 }, "-=0.3");
-
-    var tagline = document.querySelector(".hero-tagline");
-    if (tagline) {
-      var chars = splitChars(tagline);
-      tl.from(chars, { opacity: 0, y: 20, stagger: 0.04, duration: 0.6, ease: "power2.out" }, "-=0.6");
-    }
-    tl.from(".scroll-indicator", { opacity: 0, duration: 0.5 }, "+=0.2");
+    // 1. le kicker apparaît
+    tl.from(".hero-kicker", { opacity: 0, y: 16, duration: 0.6 }, "-=0.15");
+    // 2. les lignes montent derrière leur masque (effet rideau)
+    tl.from(".hero-line", { yPercent: 120, duration: 0.9, stagger: 0.14, ease: "power4.out" }, "-=0.25");
+    // 3. le logo arrive en grand (zoom + fondu)
+    tl.from(".hero-logo", { opacity: 0, scale: 0.78, y: 12, duration: 1.15, ease: "power3.out" }, "-=0.1");
+    // 4. l'indicateur de scroll
+    tl.from(".scroll-indicator", { opacity: 0, duration: 0.5 }, "-=0.3");
 
     if (!ScrollTrigger) return;
 
