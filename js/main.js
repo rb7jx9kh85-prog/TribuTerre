@@ -9,43 +9,46 @@
 
   /* -------------------- données cuvées -------------------- */
   var CUVEES = [
-    { name:"Terre Rouge", type:"Rouge · Assemblage", famille:"rouge", dark:true,
-      desc:"Nez intense et ouvert sur le cacao, le kirsch et la vanille. Bouche souple, caressante, pure, à la concentration certaine. Bel élevage discret, longue finale aux tanins fins et intégrés.",
-      origin:"Valais · MMXXII", format:"75 cl", img:"assets/TerreRouge.webp" },
-    { name:"Terre N° 13", type:"Rouge · Merlot", famille:"rouge",
-      desc:"Merlot droit, élevé sans détour. Fruit noir, profondeur et trame sobre, pour un vin franc et de caractère.",
-      origin:"Vin de pays · 2023", format:"75 cl", img:"assets/TerreN13.webp" },
+    { name:"Terre Blanche", type:"Blanc · Assemblage", famille:"blanc",
+      desc:"L'assemblage blanc de la maison. Nez fin et délicat, bouche fraîche, dynamique et équilibrée, à la finale saline et minérale.",
+      origin:"Vin de table · MMXXII", format:"75 cl", img:"assets/TerreBlanche.webp" },
+    { name:"L'Ardoisière", type:"Blanc · Assemblage", famille:"blanc",
+      desc:"Née du terroir ardoisier de Leytron. Un blanc tendu et lumineux, sur la pierre et les agrumes, à la finale précise.",
+      origin:"Vin de pays", format:"75 cl", img:"assets/LArdoisiere.webp" },
+    { name:"Orange 2.4", type:"Orange · Macération", famille:"orange",
+      desc:"Macération pelliculaire longue, fermentation spontanée. Robe ambrée, nez complexe et généreux, bouche ample, texturée, à la finale légèrement tannique. Un vin vivant, nature.",
+      origin:"VDT nature", format:"50 cl", img:null },
+    { name:"Terre de Rosée", type:"Rosé · Assemblage", famille:"rose",
+      desc:"Belle robe saumonée. Nez expressif, ouvert, printanier. Bouche puissante, fruitée et florale, ronde, sur les fruits à noyaux (brugnon, mirabelle). Finale gourmande.",
+      origin:"VPD · 2024 · 13 % vol", format:"50 cl", img:"assets/TerreDeRose.webp" },
     { name:"Vieilles Vignes Gamay", type:"Rouge · Gamay", famille:"rouge",
       desc:"Robe rubis, grand nez sur la griotte et la pivoine. Bouche ciselée, précise, sapide et aérienne, aux nuances de violette et de fraise des bois. Finale élégante aux tanins délicats.",
       origin:"AOC Leytron", format:"75 cl", img:"assets/VieillesVignesGamay.webp" },
     { name:"Terre d'Automne", type:"Rouge · Assemblage", famille:"rouge",
       desc:"L'assemblage de saison de la maison. Un rouge généreux, sur le fruit mûr et la rondeur, à partager sans façon.",
       origin:"Vin de table", format:"75 cl", img:"assets/TerreDAutomne.webp" },
+    { name:"Terre N° 13", type:"Rouge · Merlot", famille:"rouge",
+      desc:"Merlot droit, élevé sans détour. Fruit noir, profondeur et trame sobre, pour un vin franc et de caractère.",
+      origin:"Vin de pays · 2023", format:"75 cl", img:"assets/TerreN13.webp" },
+    { name:"Terre Rouge", type:"Rouge · Assemblage", famille:"rouge", dark:true,
+      desc:"Nez intense et ouvert sur le cacao, le kirsch et la vanille. Bouche souple, caressante, pure, à la concentration certaine. Bel élevage discret, longue finale aux tanins fins et intégrés.",
+      origin:"Valais · MMXXII", format:"75 cl", img:"assets/TerreRouge.webp" },
     { name:"Merlot Prestige", type:"Rouge · Merlot", famille:"prestige", dark:true,
       desc:"La cuvée haut de gamme. Un merlot d'élevage patient, dense et raffiné, à la trame serrée et à la longue finale boisée.",
-      origin:"Prestige · 2022", format:"75 cl", img:"assets/MerlotPrestige.webp" },
-    { name:"Terre de Rosée", type:"Rosé · Assemblage", famille:"rose",
-      desc:"Belle robe saumonée. Nez expressif, ouvert, printanier. Bouche puissante, fruitée et florale, ronde, sur les fruits à noyaux (brugnon, mirabelle). Finale gourmande.",
-      origin:"VPD · 2024 · 13 % vol", format:"50 cl", img:"assets/TerreDeRose.webp" },
-    { name:"Terre Blanche", type:"Blanc · Assemblage", famille:"blanc", dark:true,
-      desc:"L'assemblage blanc de la maison. Nez fin et délicat, bouche fraîche, dynamique et équilibrée, à la finale saline et minérale.",
-      origin:"Vin de table · MMXXII", format:"75 cl", img:"assets/TerreBlanche.webp" },
-    { name:"L'Ardoisière", type:"Blanc · Assemblage", famille:"blanc",
-      desc:"Née du terroir ardoisier de Leytron. Un blanc tendu et lumineux, sur la pierre et les agrumes, à la finale précise.",
-      origin:"Vin de pays", format:"75 cl", img:"assets/LArdoisiere.webp" }
+      origin:"Prestige · 2022", format:"75 cl", img:"assets/MerlotPrestige.webp" }
   ];
   window.TT_CUVEES = CUVEES;
 
   /* -------------------- vins disponibles (petites cartes) -------------------- */
   var DISPO = [
     { name:"Fendant",        info:"AOC · 2025 · 75 cl",          famille:"blanc",  img:null },
-    { name:"Le Gamay",       info:"AOC Leytron · 2025 · 75 cl",  famille:"rouge",  img:"assets/VieillesVignesGamay.webp" },
-    { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          famille:"rose",   img:"assets/TerreDeRose.webp" },
-    { name:"Terre N° 13",    info:"Merlot · VDP 2023 · 75 cl",   famille:"rouge",  img:"assets/TerreN13.webp" },
     { name:"Terre Blanche",  info:"VDT · MMXXII · 75 cl",        famille:"blanc",  img:"assets/TerreBlanche.webp" },
+    { name:"Orange 2.4",     info:"VDT nature · 50 cl",          famille:"orange", img:null },
+    { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          famille:"rose",   img:"assets/TerreDeRose.webp" },
+    { name:"Le Gamay",       info:"AOC Leytron · 2025 · 75 cl",  famille:"rouge",  img:"assets/VieillesVignesGamay.webp" },
+    { name:"Terre N° 13",    info:"Merlot · VDP 2023 · 75 cl",   famille:"rouge",  img:"assets/TerreN13.webp" },
     { name:"Terre Rouge",    info:"MMXXII · 75 cl",              famille:"rouge",  img:"assets/TerreRouge.webp" },
-    { name:"Merlot Prestige",info:"2022 · 75 cl",                famille:"rouge",  img:"assets/MerlotPrestige.webp" },
-    { name:"Orange 2.4",     info:"VDT nature · 50 cl",          famille:"orange", img:null }
+    { name:"Merlot Prestige",info:"2022 · 75 cl",                famille:"rouge",  img:"assets/MerlotPrestige.webp" }
   ];
 
   function accent(f){ return f === "blanc" ? "#0b4a12" : "#7e0a0a"; }

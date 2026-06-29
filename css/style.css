@@ -587,3 +587,8 @@ body::before {  /* grain pellicule, fixe, très subtil */
   line-height: 1.6;
   color: rgba(27,24,18,0.68);
 }
+
+/* famille orange */
+.cuvee-card[data-famille="orange"] { --accent: #7a4210; }
+.dispo-card[data-famille="orange"] { --accent: #7a4210; }
+.wine-order-row[data-famille="orange"] .wor-name { color: #7a4210; }
