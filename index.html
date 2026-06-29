@@ -6,38 +6,38 @@
 <title>Tributerre — Christian Vouillamoz · Leytron / Riddes, Valais</title>
 <meta name="description" content="Tributerre, la cave de Christian Vouillamoz. Les vignes poussent sous la paroi de l'Ardevaz, à Leytron. La cave est à Riddes, dans un bâtiment de 1908. Trois générations." />
 
-<!-- Favicon : monogramme TT -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f6f3ec'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='56' font-weight='600' text-anchor='middle' fill='%237e0a0a'%3ETT%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0c'/%3E%3Ctext x='50' y='70' font-family='Georgia,serif' font-size='58' font-weight='700' text-anchor='middle' fill='%237e0a0a'%3ETT%3C/text%3E%3C/svg%3E" />
 
-<!-- Typographie -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
 <style>
 /* ============================================================
-   TRIBUTERRE — feuille de style
+   TRIBUTERRE — feuille de style (refonte)
    ============================================================ */
-
 :root {
-  --tt-rouge:          #7e0a0a;   /* monogramme TT rouges/rosés/prestige */
+  --tt-rouge:          #7e0a0a;
   --tt-rouge-fonce:    #5a0606;
-  --tt-vert:           #0b4a12;   /* monogramme TT blancs uniquement */
+  --tt-rouge-vif:      #9a1414;
+  --tt-vert:           #0b4a12;
   --tt-vert-fonce:     #062b0a;
-  --tt-noir:           #0a0a0c;   /* verre + étiquettes noires — jamais #000 plat */
+  --tt-noir:           #0a0a0c;
+  --tt-noir-2:         #141015;   /* panneaux sombres */
   --tt-pierre:         #b9b3a6;   /* calcaire de l'Ardevaz */
-  --tt-bleu-ardevaz:   #2e4a68;   /* ciel au-dessus de la paroi */
-  --tt-vigne-automne:  #6b5d34;   /* accent chaud très ponctuel */
-  --tt-papier:         #f6f3ec;   /* fond clair — jamais #ffffff pur */
-  --tt-texte:          #1b1812;   /* quasi-noir chaud */
+  --tt-stone-fonce:    #2a2521;   /* pierre sombre, chaude — remplace tout bleu */
+  --tt-vigne-automne:  #6b5d34;
+  --tt-papier:         #f6f3ec;
+  --tt-papier-2:       #efeadd;
+  --tt-texte:          #1b1812;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --maxw: 1280px;
+  --ease-io:   cubic-bezier(0.65, 0, 0.35, 1);
+  --maxw: 1320px;
 }
 
-/* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
 body {
   font-family: "Work Sans", system-ui, sans-serif;
   font-weight: 400;
@@ -51,532 +51,238 @@ body {
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
+::selection { background: var(--tt-rouge); color: var(--tt-papier); }
 
-/* Lenis */
-html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 
-/* ---------- Typographie ---------- */
 h1, h2, h3, .display {
   font-family: "Fraunces", Georgia, serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  line-height: 1.0;
+  letter-spacing: -0.015em;
 }
 .label {
   font-family: "Work Sans", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: clamp(0.66rem, 1.1vw, 0.78rem);
+  letter-spacing: 0.24em;
+  font-size: clamp(0.64rem, 1vw, 0.76rem);
 }
-.body-copy { font-weight: 400; }
-.body-copy.light { font-weight: 300; }
+.light { font-weight: 300; }
 
-/* ============================================================
-   NAV (sobre, apparaît au scroll)
-   ============================================================ */
+/* ---------- Barre de progression page ---------- */
+.page-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+  background: var(--tt-rouge);
+  transform: scaleX(0); transform-origin: left;
+  z-index: 200; pointer-events: none;
+}
+
+/* ============================================================ NAV */
 .nav {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 1.1rem clamp(1.2rem, 4vw, 3rem);
-  mix-blend-mode: difference;
-  color: var(--tt-papier);
-  transition: opacity 0.5s ease;
-  pointer-events: none;
+  color: var(--tt-papier); mix-blend-mode: difference;
+  transition: opacity 0.5s ease; pointer-events: none;
 }
 .nav.is-visible { pointer-events: auto; }
-.nav__brand {
-  font-family: "Fraunces", serif;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-}
-.nav__links { display: flex; gap: clamp(1rem, 2.5vw, 2.2rem); }
-.nav__links a {
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
+.nav__brand { font-family: "Fraunces", serif; font-weight: 600; letter-spacing: 0.2em; font-size: 0.95rem; text-transform: uppercase; }
+.nav__links { display: flex; gap: clamp(1rem, 2.4vw, 2.2rem); }
+.nav__links a { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; opacity: 0.85; transition: opacity 0.3s; }
 .nav__links a:hover { opacity: 1; }
-@media (max-width: 640px) { .nav__links { display: none; } }
+@media (max-width: 680px) { .nav__links { display: none; } }
 
-/* ============================================================
-   SECTION 1 — HERO
-   ============================================================ */
+/* ============================================================ HERO */
 .hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
+  position: relative; min-height: 100svh;
+  display: grid; place-items: center;
+  overflow: hidden; isolation: isolate;
   background:
-    radial-gradient(120% 90% at 50% 10%, var(--tt-bleu-ardevaz) 0%, var(--tt-noir) 60%);
+    radial-gradient(120% 95% at 50% -8%, #3a0e0e 0%, #1a0c0c 38%, var(--tt-noir) 100%);
   color: var(--tt-papier);
 }
 .hero-bg {
-  position: absolute;
-  inset: -10% 0 0 0;
-  width: 100%;
-  height: 120%;
-  object-fit: cover;
-  object-position: 50% center;
-  z-index: 0;
+  position: absolute; inset: -8% 0 0 0; width: 100%; height: 116%;
+  object-fit: cover; object-position: 55% center; z-index: 0; opacity: 0.5;
   will-change: transform;
 }
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top,
-    rgba(10,10,12,0.55) 0%,
-    rgba(10,10,12,0.30) 45%,
-    rgba(10,10,12,0.05) 100%);
+.hero-grain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; mix-blend-mode: screen; opacity: 0.5; pointer-events: none; }
+.hero-watermark {
+  position: absolute; z-index: 1; left: 50%; top: 52%; transform: translate(-50%,-50%);
+  font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(22rem, 58vw, 56rem);
+  line-height: 1; color: var(--tt-rouge); opacity: 0.06; pointer-events: none; user-select: none; white-space: nowrap;
 }
-/* loader overlay */
-.hero-overlay-loader {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  background: var(--tt-noir);
+/* bouteille phare */
+.hero-bottle {
+  position: absolute; z-index: 2; right: clamp(-6%, -2vw, 2%); bottom: -2%;
+  height: clamp(70%, 86vh, 96%); display: flex; align-items: flex-end; pointer-events: none;
 }
+.hero-bottle::before {
+  content: ""; position: absolute; inset: 8% -30% 6% -30%; z-index: -1;
+  background: radial-gradient(50% 45% at 50% 50%, rgba(154,20,20,0.55) 0%, rgba(126,10,10,0.18) 45%, transparent 72%);
+  filter: blur(8px);
+}
+.hero-bottle img { height: 100%; width: auto; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.6)); will-change: transform; }
+@media (max-width: 820px) { .hero-bottle { opacity: 0.12; right: -26%; } }
+
 .hero-inner {
-  position: relative;
-  z-index: 3;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(1.4rem, 4vh, 2.6rem);
+  position: relative; z-index: 3; text-align: center;
+  padding: 2rem 1.5rem; display: flex; flex-direction: column; align-items: center;
 }
-.hero-lines {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.5rem, 1.6vh, 1rem);
-  margin-bottom: clamp(1.4rem, 4vh, 2.8rem);
-}
-.hero-kicker { color: var(--tt-pierre); letter-spacing: 0.3em; }
-.hero-line-mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
+.hero-kicker { color: var(--tt-pierre); letter-spacing: 0.34em; margin-bottom: clamp(1.2rem,3vh,2rem); }
+.hero-lines { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; margin-bottom: clamp(1rem,2.4vh,1.6rem); }
+.line-mask { display: block; overflow: hidden; padding-bottom: 0.12em; }
 .hero-line {
-  display: block;
-  font-family: "Fraunces", serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.5rem, 4.6vw, 3.1rem);
-  line-height: 1.12;
-  will-change: transform;
+  display: block; font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+  font-size: clamp(1.2rem, 3vw, 2.1rem); line-height: 1.12; color: var(--tt-papier); will-change: transform;
 }
-.hero-logo {
-  width: clamp(240px, 46vw, 520px);
-  height: auto;
-  transform-origin: center;
-  will-change: transform, opacity;
+.hero-wordmark {
+  font-family: "Fraunces", serif; font-weight: 600; font-optical-sizing: auto;
+  font-size: clamp(2rem, 12.5vw, 13rem); line-height: 0.9; letter-spacing: -0.02em;
+  color: var(--tt-papier); will-change: transform, opacity; max-width: 100%;
 }
+.hero-wordmark .tt-mark { color: var(--tt-rouge); }
+@media (min-width: 769px) { .hero-wordmark { font-size: clamp(4rem, 14.5vw, 14rem); } }
+.hero-sub { margin-top: clamp(0.8rem,2vh,1.4rem); color: var(--tt-pierre); }
 .scroll-indicator {
-  position: absolute;
-  bottom: clamp(1.6rem, 5vh, 3rem);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
+  position: absolute; bottom: clamp(1.4rem,4vh,2.6rem); left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
 }
-.scroll-indicator span {
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-.scroll-indicator .line {
-  width: 1px;
-  height: 46px;
-  background: linear-gradient(to bottom, var(--tt-papier), transparent);
-  transform-origin: top;
-  animation: scrollPulse 2s var(--ease-soft) infinite;
-}
-@keyframes scrollPulse {
-  0%   { transform: scaleY(0); opacity: 0; }
-  35%  { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(1) translateY(20px); opacity: 0; }
-}
+.scroll-indicator span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.7; }
+.scroll-indicator .line { width: 1px; height: 46px; background: linear-gradient(var(--tt-papier), transparent); transform-origin: top; animation: scrollPulse 2s var(--ease-soft) infinite; }
+@keyframes scrollPulse { 0%{transform:scaleY(0);opacity:0} 35%{transform:scaleY(1);opacity:1} 100%{transform:scaleY(1) translateY(20px);opacity:0} }
 
-/* ============================================================
-   Conteneur de section générique
-   ============================================================ */
-.section { position: relative; padding: clamp(4rem, 12vh, 9rem) clamp(1.4rem, 5vw, 4rem); }
+/* ============================================================ MARQUEE */
+.marquee {
+  background: var(--tt-rouge); color: var(--tt-papier);
+  overflow: hidden; padding: clamp(0.8rem,2.2vh,1.4rem) 0; border-block: 1px solid rgba(246,243,236,0.12);
+}
+.marquee-track { display: flex; width: max-content; will-change: transform; }
+.marquee-track span {
+  font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+  font-size: clamp(1.4rem, 4vw, 2.6rem); padding: 0 1.2rem; white-space: nowrap;
+}
+.marquee-track .dot { color: var(--tt-pierre); }
+
+/* ============================================================ SECTION générique */
+.section { position: relative; padding: clamp(4.5rem,13vh,10rem) clamp(1.4rem,5vw,4rem); }
 .section__inner { max-width: var(--maxw); margin: 0 auto; }
-.eyebrow { color: var(--tt-rouge); margin-bottom: 1.1rem; display: block; }
+.eyebrow { color: var(--tt-rouge); display: block; margin-bottom: 1.2rem; }
 
-/* ============================================================
-   SECTION 2 — LA FAMILLE
-   ============================================================ */
+/* ============================================================ FAMILLE */
 .famille { background: var(--tt-papier); }
-.famille__head {
-  margin-bottom: clamp(2.2rem, 6vh, 3.6rem);
-}
-.famille__name {
-  font-size: clamp(2.4rem, 7vw, 5.2rem);
-  font-weight: 400;
-}
-.famille__role { margin-top: 0.6rem; color: var(--tt-vigne-automne); }
-.famille__grid {
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  gap: clamp(1.6rem, 4vw, 3.4rem);
-  align-items: start;
-}
-.famille__rule {
-  align-self: stretch;
-  width: 1px;
-  background: var(--tt-rouge);
-  opacity: 0.55;
-}
-.famille__col p {
-  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
-  margin-bottom: 1.2rem;
-}
+.famille__name { font-size: clamp(2.6rem,8vw,6rem); }
+.famille__role { margin-top: 0.7rem; color: var(--tt-vigne-automne); }
+.famille__grid { margin-top: clamp(2.4rem,6vh,4rem); display: grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(1.6rem,4vw,3.6rem); align-items: start; }
+.famille__rule { align-self: stretch; width: 1px; background: var(--tt-rouge); opacity: 0.5; }
+.famille__col p { font-size: clamp(1.05rem,1.7vw,1.32rem); margin-bottom: 1.2rem; }
 .famille__col p:last-child { margin-bottom: 0; }
-.famille__col .lead {
-  font-family: "Fraunces", serif;
-  font-weight: 400;
-  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-  line-height: 1.3;
-}
+.famille__col .lead { font-family: "Fraunces", serif; font-size: clamp(1.4rem,2.6vw,2rem); line-height: 1.25; }
 @media (max-width: 768px) {
   .famille__grid { grid-template-columns: 1fr; gap: 1.6rem; }
-  .famille__rule {
-    width: 60%; height: 1px; margin: 0.4rem 0;
-    background: var(--tt-rouge);
-  }
+  .famille__rule { width: 56%; height: 1px; margin: 0.3rem 0; }
 }
 
-/* ============================================================
-   SECTION 3 — LE TERROIR
-   ============================================================ */
+/* ============================================================ TERROIR (sombre, sans bleu) */
 .terroir {
-  background: var(--tt-bleu-ardevaz);
-  color: var(--tt-papier);
-  overflow: hidden;
+  background:
+    radial-gradient(110% 80% at 80% 10%, var(--tt-stone-fonce) 0%, var(--tt-noir) 60%);
+  color: var(--tt-papier); overflow: hidden;
 }
-.terroir__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
-}
-.terroir__media {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 2px;
-  background: linear-gradient(160deg, var(--tt-pierre), var(--tt-bleu-ardevaz));
-  will-change: clip-path;
-}
-.terroir__media img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.terroir__title { font-size: clamp(2.2rem, 6vw, 4.2rem); margin-bottom: 1.6rem; }
-.terroir__text p {
-  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
-  margin-bottom: 1.1rem;
-  color: var(--tt-papier);
-}
+.terroir__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4.5rem); align-items: center; }
+.terroir__media { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 2px; background: linear-gradient(160deg, var(--tt-pierre), var(--tt-stone-fonce)); will-change: clip-path; }
+.terroir__media img { width: 100%; height: 100%; object-fit: cover; }
+.terroir__title { font-size: clamp(2.4rem,7vw,5rem); margin-bottom: 1.6rem; }
+.terroir__text p { font-size: clamp(1.05rem,1.7vw,1.28rem); margin-bottom: 1.1rem; }
 .terroir__text p.accent { color: var(--tt-pierre); }
 .terroir .eyebrow { color: var(--tt-pierre); }
-@media (max-width: 768px) {
-  .terroir__grid { grid-template-columns: 1fr; gap: 1.8rem; }
-  .terroir__media { aspect-ratio: 16 / 11; order: -1; }
-}
+@media (max-width: 768px) { .terroir__grid { grid-template-columns: 1fr; gap: 1.8rem; } .terroir__media { aspect-ratio: 16/11; order: -1; } }
 
-/* ============================================================
-   SECTION 4 — LES CUVÉES
-   ============================================================ */
+/* ============================================================ CUVÉES */
 .cuvees { background: var(--tt-papier); overflow: hidden; }
-.cuvees__head {
-  max-width: var(--maxw);
-  margin: 0 auto clamp(2rem, 5vh, 3rem);
-  padding: 0 clamp(1.4rem, 5vw, 4rem);
-}
-.cuvees__title { font-size: clamp(2.4rem, 7vw, 5rem); }
-.cuvees__sub { margin-top: 0.8rem; max-width: 46ch; color: var(--tt-vigne-automne); }
+.cuvees__head { max-width: var(--maxw); margin: 0 auto clamp(1.6rem,4vh,2.6rem); padding: 0 clamp(1.4rem,5vw,4rem); display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+.cuvees__title { font-size: clamp(2.6rem,7vw,5.4rem); }
+.cuvees__sub { max-width: 36ch; color: var(--tt-vigne-automne); }
 
-/* rail */
 .cuvees-section { position: relative; }
+.cuvees-progress { position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: rgba(27,24,18,0.10); z-index: 5; }
+.cuvees-progress i { display: block; height: 100%; width: 100%; background: var(--tt-rouge); transform: scaleX(0); transform-origin: left; }
 .cuvees-track {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.2rem, 3vw, 2rem);
-  padding: 0 clamp(1.4rem, 5vw, 4rem) 1rem;
-  max-width: var(--maxw);
-  margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: clamp(1.2rem,3vw,2rem);
+  padding: 0 clamp(1.4rem,5vw,4rem) 1rem; max-width: var(--maxw); margin: 0 auto;
 }
-/* mode horizontal (desktop, activé en JS) */
 .cuvees-section.horizontal-mode { height: 100svh; display: flex; align-items: center; }
-.cuvees-section.horizontal-mode .cuvees-track {
-  flex-wrap: nowrap;
-  max-width: none;
-  margin: 0;
-  padding-left: clamp(1.4rem, 5vw, 4rem);
-  padding-right: 12vw;
-  will-change: transform;
-}
+.cuvees-section.horizontal-mode .cuvees-track { flex-wrap: nowrap; max-width: none; margin: 0; padding: 0 14vw 0 clamp(1.4rem,5vw,4rem); will-change: transform; }
 
-/* carte */
 .cuvee-card {
   --accent: var(--tt-rouge);
-  flex: 0 0 auto;
-  width: min(86vw, 360px);
-  background: var(--tt-papier);
-  border: 1px solid rgba(27,24,18,0.10);
-  border-radius: 3px;
-  padding: 1.6rem 1.6rem 1.9rem;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.4s ease, transform 0.4s var(--ease-soft);
+  position: relative; flex: 0 0 auto; width: min(86vw, 380px);
+  background: var(--tt-papier-2); border: 1px solid rgba(27,24,18,0.10); border-radius: 4px;
+  padding: 1.6rem 1.7rem 2rem; display: flex; flex-direction: column; overflow: hidden;
+  transition: border-color 0.4s, transform 0.5s var(--ease-soft), box-shadow 0.5s var(--ease-soft);
 }
-.cuvee-card[data-famille="rouge"],
-.cuvee-card[data-famille="rose"],
-.cuvee-card[data-famille="prestige"] { --accent: var(--tt-rouge); }
 .cuvee-card[data-famille="blanc"] { --accent: var(--tt-vert); }
+.cuvee-card[data-dark="true"] { background: var(--tt-noir-2); color: var(--tt-papier); border-color: rgba(246,243,236,0.12); }
+.cuvee-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 30px 50px -24px rgba(27,24,18,0.4); }
 
-.cuvee-card[data-dark="true"] {
-  background: var(--tt-noir);
-  color: var(--tt-papier);
-  border-color: rgba(246,243,236,0.12);
+.cuvee-index {
+  position: absolute; top: 0.4rem; right: 1rem; z-index: 0;
+  font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(5rem, 9vw, 8rem);
+  line-height: 1; color: var(--accent); opacity: 0.10; pointer-events: none;
 }
-.cuvee-card:hover { border-color: var(--accent); }
+.cuvee-card[data-dark="true"] .cuvee-index { color: var(--tt-rouge); opacity: 0.22; }
 
-.bottle-figure {
-  position: relative;
-  height: clamp(220px, 34vh, 300px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.4rem;
-}
-.bottle-img, .bottle-placeholder {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  transition: transform 0.4s var(--ease-soft), filter 0.4s ease;
-  will-change: transform;
-}
-.bottle-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 3;
-}
-.cuvee-card:hover .bottle-img,
-.cuvee-card:hover .bottle-placeholder {
-  transform: scale(1.06) translateY(-8px);
-  filter: drop-shadow(0 22px 26px rgba(126,10,10,0.28));
-}
-.cuvee-card[data-famille="blanc"]:hover .bottle-img,
-.cuvee-card[data-famille="blanc"]:hover .bottle-placeholder {
-  filter: drop-shadow(0 22px 26px rgba(11,74,18,0.26));
-}
+.bottle-figure { position: relative; z-index: 1; height: clamp(240px,40vh,340px); display: flex; align-items: flex-end; justify-content: center; margin-bottom: 1.4rem; }
+.bottle-img, .bottle-placeholder { height: 100%; width: auto; max-width: 100%; object-fit: contain; transition: transform 0.5s var(--ease-soft), filter 0.5s ease; will-change: transform; }
+.bottle-placeholder { display: flex; align-items: center; justify-content: center; aspect-ratio: 1/3; }
+.cuvee-card:hover .bottle-img, .cuvee-card:hover .bottle-placeholder { transform: scale(1.07) translateY(-10px); filter: drop-shadow(0 26px 30px rgba(126,10,10,0.32)); }
+.cuvee-card[data-famille="blanc"]:hover .bottle-img { filter: drop-shadow(0 26px 30px rgba(11,74,18,0.30)); }
 
-.cuvee-meta { color: var(--accent); margin-bottom: 0.5rem; }
+.cuvee-meta { position: relative; z-index: 1; color: var(--accent); margin-bottom: 0.5rem; }
 .cuvee-card[data-dark="true"] .cuvee-meta { color: var(--tt-rouge); }
-.cuvee-name {
-  font-family: "Fraunces", serif;
-  font-weight: 400;
-  font-size: clamp(1.5rem, 2.6vw, 2rem);
-  line-height: 1.05;
-}
-.cuvee-rule {
-  width: 46px; height: 2px;
-  background: var(--accent);
-  margin: 0.9rem 0 1rem;
-}
-.cuvee-desc {
-  font-weight: 300;
-  font-size: 0.96rem;
-  margin-bottom: 1rem;
-  opacity: 0.92;
-}
-.cuvee-foot {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-}
-.cuvee-foot .origin { opacity: 0.7; }
-.cuvee-foot .mark {
-  font-family: "Fraunces", serif;
-  letter-spacing: 0.2em;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  opacity: 0.6;
-}
+.cuvee-name { position: relative; z-index: 1; font-family: "Fraunces", serif; font-size: clamp(1.5rem,2.6vw,2.05rem); line-height: 1.04; }
+.cuvee-rule { position: relative; z-index: 1; width: 46px; height: 2px; background: var(--accent); margin: 0.9rem 0 1rem; transition: width 0.5s var(--ease-soft); }
+.cuvee-card:hover .cuvee-rule { width: 84px; }
+.cuvee-desc { position: relative; z-index: 1; font-weight: 300; font-size: 0.96rem; margin-bottom: 1rem; opacity: 0.92; }
+.cuvee-foot { position: relative; z-index: 1; margin-top: auto; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.78rem; }
+.cuvee-foot .origin { opacity: 0.72; }
+.cuvee-foot .mark { font-family: "Fraunces", serif; letter-spacing: 0.2em; font-size: 0.7rem; text-transform: uppercase; opacity: 0.55; }
 
-/* ============================================================
-   SECTION 5 — LA CAVE
-   ============================================================ */
-.cave {
-  position: relative;
-  background: var(--tt-noir);
-  color: var(--tt-papier);
-  overflow: hidden;
-  text-align: center;
-}
-#grain-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.9;
-  mix-blend-mode: screen;
-}
-.cave__watermark {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Fraunces", serif;
-  font-weight: 600;
-  font-size: clamp(20rem, 50vw, 44rem);
-  color: var(--tt-rouge);
-  opacity: 0.05;
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-}
-.cave__inner {
-  position: relative;
-  z-index: 2;
-  max-width: 720px;
-  margin: 0 auto;
-}
-.cave__title { font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1.8rem; }
-.cave__text p {
-  font-size: clamp(1.1rem, 1.9vw, 1.4rem);
-  margin-bottom: 1.1rem;
-  color: var(--tt-papier);
-}
+/* ============================================================ CAVE */
+.cave { position: relative; background: var(--tt-noir); color: var(--tt-papier); overflow: hidden; text-align: center; }
+.cave-grain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; mix-blend-mode: screen; opacity: 0.9; }
+.cave__watermark { position: absolute; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(20rem,50vw,44rem); color: var(--tt-rouge); opacity: 0.05; pointer-events: none; user-select: none; line-height: 1; }
+.cave__inner { position: relative; z-index: 2; max-width: 740px; margin: 0 auto; }
+.cave__title { font-size: clamp(2.2rem,6vw,3.8rem); margin-bottom: 1.8rem; }
+.cave__text p { font-size: clamp(1.1rem,1.9vw,1.4rem); margin-bottom: 1.1rem; }
 .cave .eyebrow { color: var(--tt-pierre); }
 
-/* ============================================================
-   SECTION 6 — CONTACT
-   ============================================================ */
+/* ============================================================ CONTACT */
 .contact { background: var(--tt-papier); text-align: center; }
-.contact__name {
-  font-size: clamp(2.6rem, 8vw, 5.6rem);
-  margin-bottom: 1.2rem;
-}
-.contact__lines p {
-  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-  margin-bottom: 0.5rem;
-}
+.contact__name { font-size: clamp(2.8rem,9vw,6rem); margin-bottom: 1.2rem; }
+.contact__lines p { font-size: clamp(1.05rem,1.8vw,1.3rem); margin-bottom: 0.5rem; }
 .contact__lines .muted { color: var(--tt-vigne-automne); }
-.cta-wrap {
-  margin-top: clamp(2rem, 5vh, 3.2rem);
-  display: flex;
-  justify-content: center;
-}
-.cta-magnetic {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 1.05rem 2.4rem;
-  background: var(--tt-rouge);
-  color: var(--tt-papier);
-  border-radius: 999px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.82rem;
-  will-change: transform;
-  transition: background 0.35s ease;
-}
+.cta-wrap { margin-top: clamp(2rem,5vh,3.2rem); display: flex; justify-content: center; }
+.cta-magnetic { position: relative; display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.1rem 2.6rem; background: var(--tt-rouge); color: var(--tt-papier); border-radius: 999px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.82rem; will-change: transform; transition: background 0.35s; }
 .cta-magnetic:hover { background: var(--tt-rouge-fonce); }
-.cta-magnetic .dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--tt-papier);
-}
+.cta-magnetic .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--tt-papier); }
+.footer { border-top: 1px solid rgba(27,24,18,0.12); padding: 2.4rem clamp(1.4rem,5vw,4rem); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; max-width: var(--maxw); margin: clamp(3rem,8vh,5rem) auto 0; }
+.footer__mark { font-family: "Fraunces", serif; font-weight: 600; letter-spacing: 0.2em; color: var(--tt-rouge); }
+.footer__legal { font-size: 0.72rem; letter-spacing: 0.06em; opacity: 0.6; }
 
-/* footer */
-.footer {
-  border-top: 1px solid rgba(27,24,18,0.12);
-  padding: 2.4rem clamp(1.4rem, 5vw, 4rem);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  max-width: var(--maxw);
-  margin: clamp(3rem, 8vh, 5rem) auto 0;
-}
-.footer__mark {
-  font-family: "Fraunces", serif;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: var(--tt-rouge);
-}
-.footer__legal {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--tt-texte);
-  opacity: 0.6;
-}
+/* ============================================================ CURSEUR */
+.custom-cursor { position: fixed; top: 0; left: 0; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--tt-rouge); opacity: 0.65; z-index: 9999; pointer-events: none; mix-blend-mode: multiply; transition: transform 0.25s var(--ease-soft), opacity 0.25s; will-change: transform; }
+.custom-cursor.is-hover { transform: scale(3); opacity: 0.28; }
+@media (pointer: coarse), (max-width: 768px) { .custom-cursor { display: none; } }
 
-/* ============================================================
-   Curseur custom
-   ============================================================ */
-.custom-cursor {
-  position: fixed;
-  top: 0; left: 0;
-  width: 20px; height: 20px;
-  margin: -10px 0 0 -10px;
-  border-radius: 50%;
-  background: var(--tt-rouge);
-  opacity: 0.7;
-  z-index: 9999;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  transition: transform 0.25s var(--ease-soft), opacity 0.25s ease;
-  will-change: transform;
-}
-.custom-cursor.is-hover { transform: scale(3); opacity: 0.3; }
-@media (pointer: coarse), (max-width: 768px) {
-  .custom-cursor { display: none; }
-}
-
-/* ============================================================
-   Helpers reveal
-   ============================================================ */
 .reveal-text { will-change: clip-path, opacity; }
 
-/* ============================================================
-   prefers-reduced-motion
-   ============================================================ */
+/* ============================================================ reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-indicator .line { animation: none; height: 32px; opacity: 0.6; }
-  .hero-overlay-loader { display: none; }
+  .scroll-indicator .line { animation: none; height: 30px; opacity: 0.6; }
   .custom-cursor { display: none; }
   * { scroll-behavior: auto !important; }
 }
@@ -584,11 +290,9 @@ h1, h2, h3, .display {
 </head>
 
 <body>
-
-<!-- Curseur custom -->
+<div class="page-progress" aria-hidden="true"></div>
 <div class="custom-cursor" aria-hidden="true"></div>
 
-<!-- Nav -->
 <nav class="nav" aria-label="Navigation principale">
   <a href="#hero" class="nav__brand">Tributerre</a>
   <div class="nav__links">
@@ -600,48 +304,48 @@ h1, h2, h3, .display {
   </div>
 </nav>
 
-<!-- ============================================================
-     SECTION 1 — HERO
-     ============================================================ -->
+<!-- ============================ HERO ============================ -->
 <header class="hero" id="hero">
-  <img class="hero-bg" src="assets/ardevaz.jpg" alt="La paroi calcaire de l'Ardevaz surplombant les vignes de Leytron" data-fallback="hero" />
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-overlay-loader" aria-hidden="true"></div>
+  <img class="hero-bg" src="assets/ardevaz.jpg" alt="" data-fallback="hero" aria-hidden="true" />
+  <canvas class="hero-grain grain-canvas" aria-hidden="true"></canvas>
+  <div class="hero-watermark" aria-hidden="true">TT</div>
+
+  <div class="hero-bottle" aria-hidden="true">
+    <img src="assets/TerreRouge.webp" alt="" data-fallback="bottle" data-famille="rouge" />
+  </div>
 
   <div class="hero-inner">
+    <span class="hero-kicker label">Leytron · Riddes · Valais</span>
     <div class="hero-lines">
-      <span class="hero-kicker label">Leytron · Riddes · Valais</span>
-      <span class="hero-line-mask"><span class="hero-line">Une cave sous la roche.</span></span>
-      <span class="hero-line-mask"><span class="hero-line">Trois générations.</span></span>
+      <span class="line-mask"><span class="hero-line">Une cave sous la roche.</span></span>
+      <span class="line-mask"><span class="hero-line">Trois générations.</span></span>
     </div>
-    <img class="hero-logo" src="assets/logo-tributerre.jpg" alt="Tributerre — Christian Vouillamoz" data-fallback="logo" data-on-dark="true" />
+    <h1 class="hero-wordmark">TRIBU<span class="tt-mark">TER</span>RE</h1>
+    <p class="hero-sub label">Christian Vouillamoz · Artisan du vin · 1908</p>
   </div>
 
-  <div class="scroll-indicator" aria-hidden="true">
-    <span>Descendre</span>
-    <div class="line"></div>
-  </div>
+  <div class="scroll-indicator" aria-hidden="true"><span>Descendre</span><div class="line"></div></div>
 </header>
 
-<!-- ============================================================
-     SECTION 2 — LA FAMILLE
-     ============================================================ -->
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track"></div>
+</div>
+
+<!-- ============================ FAMILLE ============================ -->
 <section class="section famille" id="famille">
   <div class="section__inner">
-    <div class="famille__head reveal-text">
+    <div class="reveal-text">
       <span class="label eyebrow">Christian Vouillamoz</span>
       <h2 class="famille__name">Artisan du vin</h2>
       <p class="famille__role label">1908 Riddes · Valais</p>
     </div>
-
     <div class="famille__grid">
       <div class="famille__col">
         <p class="lead reveal-text">Les vignes poussent sous la paroi de l'Ardevaz, à Leytron.</p>
         <p class="reveal-text">La cave est à Riddes, dans un bâtiment de 1908. Entre les deux, trois générations de la famille Vouillamoz.</p>
       </div>
-
       <div class="famille__rule" aria-hidden="true"></div>
-
       <div class="famille__col">
         <p class="reveal-text">Roger Vouillamoz a travaillé cette terre avant lui.</p>
         <p class="reveal-text">Christian continue. Peu de cuvées. Faites à la main.</p>
@@ -650,19 +354,16 @@ h1, h2, h3, .display {
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 3 — LE TERROIR
-     ============================================================ -->
+<!-- ============================ TERROIR ============================ -->
 <section class="section terroir" id="terroir">
   <div class="section__inner">
     <div class="terroir__grid">
       <figure class="terroir__media">
         <img src="assets/ardevaz.jpg" alt="La paroi calcaire de l'Ardevaz au-dessus du vignoble de Leytron" data-fallback="terroir" />
       </figure>
-
       <div class="terroir__text">
         <span class="label eyebrow">L'Ardevaz</span>
-        <h2 class="terroir__title reveal-text">La paroi calcaire surplombe les vignes de Leytron.</h2>
+        <h2 class="terroir__title reveal-text">La paroi surplombe<br />les vignes de Leytron.</h2>
         <p class="reveal-text">La vigne s'accroche. Le calcaire retient la chaleur du jour. La nuit descend froide.</p>
         <p class="accent reveal-text">Culture en biodynamie. Pas de désherbants.</p>
         <p class="accent reveal-text">Les vendanges à la main, en caisse.</p>
@@ -671,28 +372,24 @@ h1, h2, h3, .display {
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 4 — LES CUVÉES
-     ============================================================ -->
+<!-- ============================ CUVÉES ============================ -->
 <section class="cuvees" id="cuvees">
   <div class="cuvees__head">
-    <span class="label eyebrow">Les cuvées</span>
-    <h2 class="cuvees__title reveal-text">Peu de cuvées.<br />Faites à la main.</h2>
-    <p class="cuvees__sub reveal-text">Des rouges, un rosé, des blancs et le prestige. Chaque bouteille part en vente directe, depuis la cave de Riddes.</p>
-  </div>
-
-  <div class="cuvees-section">
-    <div class="cuvees-track">
-      <!-- Les cartes sont injectées en JS depuis les données ci-dessous -->
+    <div>
+      <span class="label eyebrow">Les cuvées</span>
+      <h2 class="cuvees__title reveal-text">Huit cuvées.<br />Faites à la main.</h2>
     </div>
+    <p class="cuvees__sub reveal-text">Des rouges, un rosé, des blancs, le prestige. Chaque bouteille part en vente directe, depuis la cave de Riddes.</p>
+  </div>
+  <div class="cuvees-section">
+    <div class="cuvees-progress" aria-hidden="true"><i></i></div>
+    <div class="cuvees-track"></div>
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 5 — LA CAVE
-     ============================================================ -->
+<!-- ============================ CAVE ============================ -->
 <section class="section cave" id="cave">
-  <canvas id="grain-canvas" aria-hidden="true"></canvas>
+  <canvas class="cave-grain grain-canvas" aria-hidden="true"></canvas>
   <div class="cave__watermark" aria-hidden="true">TT</div>
   <div class="cave__inner">
     <span class="label eyebrow">Riddes · 1908</span>
@@ -704,9 +401,7 @@ h1, h2, h3, .display {
   </div>
 </section>
 
-<!-- ============================================================
-     SECTION 6 — CONTACT
-     ============================================================ -->
+<!-- ============================ CONTACT ============================ -->
 <section class="section contact" id="contact">
   <div class="section__inner">
     <span class="label eyebrow">Tributerre</span>
@@ -715,589 +410,269 @@ h1, h2, h3, .display {
       <p class="label muted">Artisan du vin · 1908 Riddes, Valais</p>
       <p>Vente directe — sur rendez-vous ou à la cave.</p>
     </div>
-
     <div class="cta-wrap">
       <a href="mailto:contact@tributerre.ch" class="cta-magnetic" data-cursor="hover">
-        <span class="dot" aria-hidden="true"></span>
-        Prendre contact
+        <span class="dot" aria-hidden="true"></span> Prendre contact
       </a>
     </div>
-
     <footer class="footer">
       <span class="footer__mark">TT — Tributerre</span>
-      <span class="footer__legal">© <span id="year"></span> Tributerre · Christian Vouillamoz · Leytron / Riddes, Valais — Tous droits réservés</span>
+      <span class="footer__legal">© <span id="year"></span> Tributerre · Christian Vouillamoz · Leytron / Riddes, Valais</span>
     </footer>
   </div>
 </section>
 
-<!-- ============================================================
-     LIBRAIRIES
-     ============================================================ -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
 
 <script>
-/* ============================================================
-   TRIBUTERRE — script
-   ============================================================ */
 (function () {
   "use strict";
-
   var REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasGSAP = typeof window.gsap !== "undefined";
   var hasLenis = typeof window.Lenis !== "undefined";
 
-  /* ----------------------------------------------------------
-     Données des cuvées (ordre du rail imposé par le cahier)
-     ---------------------------------------------------------- */
+  /* -------------------- données cuvées -------------------- */
   var CUVEES = [
-    { name: "Terre Rouge", famille: "rouge", cepage: "Blend", format: "75 cl",
-      desc: "La cuvée phare. Étiquette noire mate, TT rouge gaufré.",
-      origin: "Vin du Valais", dark: true,
-      ld: "assets/TerreRouge.png", png: null },
-
-    { name: "Terre N° 13", famille: "rouge", cepage: "Merlot", format: "75 cl",
-      desc: "Un merlot droit, élevé sans détour.",
-      origin: "Vin de pays Suisse",
-      ld: "assets/TerreN_13_LD.jpg", png: "assets/TerreN_13.png" },
-
-    { name: "Vieilles Vignes Gamay", famille: "rouge", cepage: "Gamay", format: "75 cl",
-      desc: "De vieilles vignes, peu de rendement, beaucoup de fruit.",
-      origin: "Vin de pays Suisse",
-      ld: "assets/VieillesVignesGamay_LD.jpg", png: "assets/VieillesVignesGamay.png" },
-
-    { name: "Terre d'Automne", famille: "rouge", cepage: "Blend rouge", format: "75 cl",
-      desc: "Un assemblage de saison, vin de table de la maison.",
-      origin: "Vin de table",
-      ld: "assets/TerreD_Automne_LD.jpg", png: "assets/TerreD_Automne.png" },
-
-    { name: "Merlot Prestige", famille: "prestige", cepage: "Merlot", format: "75 cl",
-      desc: "La cuvée haut de gamme. Étiquette noire.",
-      origin: "Cuvée prestige",
-      ld: null, png: null },
-
-    { name: "Terre de Rosée", famille: "rose", cepage: "Blend rosé", format: "50 cl",
-      desc: "Bouteille longue, capsule grège. 13 % vol.",
-      origin: "Vin de pays Suisse",
-      ld: "assets/TerreDeRose_LD.jpg", png: "assets/TerreDeRose.png" },
-
-    { name: "Terre Blanche", famille: "blanc", cepage: "Blend blanc", format: "75 cl",
-      desc: "L'assemblage blanc de la maison. Étiquette charbon, TT vert.",
-      origin: "Vin de pays Suisse",
-      ld: "assets/TerreBlanche.png", png: null },
-
-    { name: "Le Bray", famille: "blanc", cepage: "Fendant (Chasselas)", format: "75 cl",
-      desc: "Fendant de Leytron. Droit, sur la pierre. AOC Valais.",
-      origin: "AOC Valais",
-      ld: "assets/LeBray.png", png: null },
-
-    { name: "L'Ardoisière", famille: "blanc", cepage: "Blend blanc", format: "75 cl",
-      desc: "Né du terroir ardoisier de Leytron. TT vert.",
-      origin: "Vin de pays Suisse",
-      ld: null, png: null }
+    { name:"Terre Rouge", famille:"rouge", cepage:"Blend", format:"75 cl", dark:true,
+      desc:"La cuvée phare. Étiquette noire, TT rouge gaufré.", origin:"Vin du Valais", img:"assets/TerreRouge.webp" },
+    { name:"Terre N° 13", famille:"rouge", cepage:"Merlot", format:"75 cl",
+      desc:"Merlot. Droit, élevé sans détour.", origin:"Vin de pays Suisse", img:"assets/TerreN13.webp" },
+    { name:"Vieilles Vignes Gamay", famille:"rouge", cepage:"Gamay", format:"75 cl",
+      desc:"Vieilles vignes, petits rendements, beaucoup de fruit.", origin:"Vin de pays Suisse", img:"assets/VieillesVignesGamay.webp" },
+    { name:"Terre d'Automne", famille:"rouge", cepage:"Blend rouge", format:"75 cl",
+      desc:"L'assemblage de saison de la maison.", origin:"Vin de table", img:"assets/TerreDAutomne.webp" },
+    { name:"Merlot Prestige", famille:"prestige", cepage:"Merlot", format:"75 cl", dark:true,
+      desc:"La cuvée haut de gamme. Étiquette noire.", origin:"Cuvée prestige", img:"assets/MerlotPrestige.webp" },
+    { name:"Terre de Rosée", famille:"rose", cepage:"Blend rosé", format:"50 cl",
+      desc:"Bouteille longue, capsule grège. 13 % vol.", origin:"Vin de pays Suisse", img:"assets/TerreDeRose.webp" },
+    { name:"Terre Blanche", famille:"blanc", cepage:"Blend blanc", format:"75 cl", dark:true,
+      desc:"L'assemblage blanc de la maison. TT vert.", origin:"Vin de pays Suisse", img:"assets/TerreBlanche.webp" },
+    { name:"L'Ardoisière", famille:"blanc", cepage:"Blend blanc", format:"75 cl",
+      desc:"Né du terroir ardoisier de Leytron. TT vert.", origin:"Vin de pays Suisse", img:"assets/LArdoisiere.webp" }
   ];
 
-  /* ----------------------------------------------------------
-     Placeholder monogramme TT (SVG data-URI)
-     ---------------------------------------------------------- */
-  function accentColor(famille) {
-    return famille === "blanc" ? "#0b4a12" : "#7e0a0a";
-  }
-  function placeholderBottle(famille, dark) {
-    var bg = dark ? "#0a0a0c" : "#f6f3ec";
-    var col = accentColor(famille);
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 360'>" +
-        "<rect width='120' height='360' rx='6' fill='" + bg + "'/>" +
-        "<rect x='2' y='2' width='116' height='356' rx='5' fill='none' stroke='" + col + "' stroke-opacity='0.35' stroke-width='1.5'/>" +
-        "<text x='60' y='196' font-family='Georgia,serif' font-size='52' font-weight='600' text-anchor='middle' fill='" + col + "'>TT</text>" +
-        "<text x='60' y='232' font-family='Helvetica,Arial,sans-serif' font-size='9' letter-spacing='3' text-anchor='middle' fill='" + col + "' fill-opacity='0.7'>TRIBUTERRE</text>" +
-      "</svg>";
+  /* -------------------- placeholders SVG -------------------- */
+  function accent(f){ return f === "blanc" ? "#0b4a12" : "#7e0a0a"; }
+  function phBottle(f, dark){
+    var bg = dark ? "#141015" : "#efeadd", col = accent(f);
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 360'><rect width='120' height='360' rx='6' fill='"+bg+"'/><rect x='2' y='2' width='116' height='356' rx='5' fill='none' stroke='"+col+"' stroke-opacity='0.35' stroke-width='1.5'/><text x='60' y='196' font-family='Georgia,serif' font-size='52' font-weight='700' text-anchor='middle' fill='"+col+"'>TT</text><text x='60' y='232' font-family='Helvetica,Arial,sans-serif' font-size='9' letter-spacing='3' text-anchor='middle' fill='"+col+"' fill-opacity='0.7'>TRIBUTERRE</text></svg>";
     return "data:image/svg+xml," + encodeURIComponent(svg);
   }
-  function placeholderLogo(onDark) {
-    var col = "#7e0a0a";
-    var bg = onDark ? "none" : "transparent";
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 150'>" +
-        (onDark ? "" : "") +
-        "<text x='160' y='78' font-family='Georgia,serif' font-size='64' font-weight='600' letter-spacing='4' text-anchor='middle' fill='" + col + "'>TT</text>" +
-        "<text x='160' y='120' font-family='Helvetica,Arial,sans-serif' font-size='20' letter-spacing='9' text-anchor='middle' fill='" + col + "'>TRIBUTERRE</text>" +
-      "</svg>";
-    return "data:image/svg+xml," + encodeURIComponent(svg);
-  }
-  function placeholderScene(label) {
-    // paysage stylisé : roche + ciel + vignes
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 1500' preserveAspectRatio='xMidYMid slice'>" +
-        "<defs><linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'>" +
-          "<stop offset='0' stop-color='#2e4a68'/><stop offset='1' stop-color='#b9b3a6'/>" +
-        "</linearGradient></defs>" +
-        "<rect width='1200' height='1500' fill='url(#sky)'/>" +
-        "<path d='M0 620 L240 360 L430 520 L640 300 L860 540 L1060 380 L1200 560 L1200 1500 L0 1500 Z' fill='#b9b3a6'/>" +
-        "<path d='M0 900 L1200 820 L1200 1500 L0 1500 Z' fill='#6b5d34' fill-opacity='0.85'/>" +
-        "<g stroke='#0b4a12' stroke-opacity='0.5' stroke-width='4'>" +
-          "<line x1='120' y1='980' x2='160' y2='1480'/><line x1='320' y1='960' x2='360' y2='1480'/>" +
-          "<line x1='520' y1='950' x2='560' y2='1480'/><line x1='720' y1='945' x2='760' y2='1480'/>" +
-          "<line x1='920' y1='950' x2='960' y2='1480'/><line x1='1100' y1='965' x2='1140' y2='1480'/>" +
-        "</g>" +
-        "<text x='600' y='1440' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='#f6f3ec' fill-opacity='0.65'>" + (label || "L'Ardevaz") + "</text>" +
-      "</svg>";
+  function phScene(label){
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 1500' preserveAspectRatio='xMidYMid slice'><defs><linearGradient id='s' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#2a2521'/><stop offset='1' stop-color='#b9b3a6'/></linearGradient></defs><rect width='1200' height='1500' fill='url(#s)'/><path d='M0 620 L240 360 L430 520 L640 300 L860 540 L1060 380 L1200 560 L1200 1500 L0 1500 Z' fill='#b9b3a6'/><path d='M0 900 L1200 820 L1200 1500 L0 1500 Z' fill='#6b5d34' fill-opacity='0.9'/><g stroke='#0a0a0c' stroke-opacity='0.35' stroke-width='4'><line x1='120' y1='980' x2='160' y2='1480'/><line x1='320' y1='960' x2='360' y2='1480'/><line x1='520' y1='950' x2='560' y2='1480'/><line x1='720' y1='945' x2='760' y2='1480'/><line x1='920' y1='950' x2='960' y2='1480'/><line x1='1100' y1='965' x2='1140' y2='1480'/></g><text x='600' y='1440' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='#f6f3ec' fill-opacity='0.7'>"+(label||"L'Ardevaz")+"</text></svg>";
     return "data:image/svg+xml," + encodeURIComponent(svg);
   }
 
-  /* ----------------------------------------------------------
-     Construction des cartes de cuvées
-     ---------------------------------------------------------- */
-  function buildCuvees() {
+  function buildCuvees(){
     var track = document.querySelector(".cuvees-track");
-    if (!track) return;
+    if(!track) return;
     var frag = document.createDocumentFragment();
-
-    CUVEES.forEach(function (c) {
+    CUVEES.forEach(function(c, i){
       var card = document.createElement("article");
       card.className = "cuvee-card";
       card.setAttribute("data-famille", c.famille);
-      if (c.dark) card.setAttribute("data-dark", "true");
+      if(c.dark) card.setAttribute("data-dark","true");
+      card.setAttribute("data-cursor","hover");
+
+      var idx = document.createElement("span");
+      idx.className = "cuvee-index";
+      idx.textContent = (i+1 < 10 ? "0" : "") + (i+1);
+      card.appendChild(idx);
 
       var fig = document.createElement("figure");
       fig.className = "bottle-figure";
-
-      if (c.ld) {
-        var img = document.createElement("img");
-        img.className = "bottle-img";
-        img.alt = c.name;
-        img.loading = "lazy";
-        img.src = c.ld;
-        img.setAttribute("data-png", c.png || "");
-        img.setAttribute("data-famille", c.famille);
-        if (c.dark) img.setAttribute("data-dark", "true");
-        attachBottleFallback(img, c);
-        // swap haute déf au survol
-        if (c.png) {
-          card.addEventListener("mouseenter", function () {
-            if (!img.dataset.errored) img.src = c.png;
-          });
-          card.addEventListener("mouseleave", function () {
-            if (!img.dataset.errored) img.src = c.ld;
-          });
-        }
-        fig.appendChild(img);
-      } else {
-        var ph = document.createElement("img");
-        ph.className = "bottle-placeholder bottle-img";
-        ph.alt = c.name + " — visuel à venir";
-        ph.src = placeholderBottle(c.famille, c.dark);
-        fig.appendChild(ph);
-      }
-
+      var img = document.createElement("img");
+      img.className = "bottle-img";
+      img.alt = c.name; img.loading = "lazy"; img.src = c.img;
+      img.addEventListener("error", function(){
+        if(img.dataset.err) return; img.dataset.err = "1";
+        img.src = phBottle(c.famille, c.dark);
+      });
+      fig.appendChild(img);
       card.appendChild(fig);
 
       card.insertAdjacentHTML("beforeend",
-        '<p class="cuvee-meta label">' + c.famille.toUpperCase() + ' · ' + c.cepage + '</p>' +
-        '<h3 class="cuvee-name">' + c.name + '</h3>' +
-        '<div class="cuvee-rule" aria-hidden="true"></div>' +
-        '<p class="cuvee-desc body-copy light">' + c.desc + '</p>' +
-        '<div class="cuvee-foot">' +
-          '<span class="origin label">' + c.origin + ' · ' + c.format + '</span>' +
-          '<span class="mark">Tributerre</span>' +
-        '</div>'
+        '<p class="cuvee-meta label">'+c.famille.toUpperCase()+' · '+c.cepage+'</p>'+
+        '<h3 class="cuvee-name">'+c.name+'</h3>'+
+        '<div class="cuvee-rule" aria-hidden="true"></div>'+
+        '<p class="cuvee-desc light">'+c.desc+'</p>'+
+        '<div class="cuvee-foot"><span class="origin label">'+c.origin+' · '+c.format+'</span><span class="mark">Tributerre</span></div>'
       );
-
-      card.setAttribute("data-cursor", "hover");
       frag.appendChild(card);
     });
-
     track.appendChild(frag);
   }
 
-  function attachBottleFallback(img, c) {
-    img.addEventListener("error", function onerr() {
-      if (img.dataset.errored) return;
-      img.dataset.errored = "1";
-      img.src = placeholderBottle(c.famille, c.dark);
+  function buildMarquee(){
+    var track = document.querySelector(".marquee-track");
+    if(!track) return;
+    var words = ["TRIBUTERRE","LEYTRON","RIDDES · 1908","TROIS GÉNÉRATIONS","SOUS L'ARDEVAZ","VENTE DIRECTE"];
+    var unit = "";
+    words.forEach(function(w){ unit += '<span>'+w+'</span><span class="dot">—</span>'; });
+    track.innerHTML = unit + unit; // deux copies pour boucle continue
+  }
+
+  function staticFallbacks(){
+    function apply(img){
+      if(img.dataset.err) return; img.dataset.err = "1";
+      var k = img.getAttribute("data-fallback");
+      if(k === "hero"){ img.style.display = "none"; }      /* pas de photo : on garde le dégradé sombre */
+      else if(k === "bottle") img.src = phBottle(img.getAttribute("data-famille")||"rouge", true);
+      else if(k === "terroir") img.src = phScene("L'Ardevaz · Leytron");
+      else img.src = phScene();
+    }
+    document.querySelectorAll("img[data-fallback]").forEach(function(img){
+      img.addEventListener("error", function(){ apply(img); });
+      /* image déjà en échec avant l'attache du listener */
+      if(img.complete && img.naturalWidth === 0) apply(img);
     });
   }
 
-  /* ----------------------------------------------------------
-     Fallback des images statiques (hero, logo, terroir)
-     ---------------------------------------------------------- */
-  function attachStaticFallbacks() {
-    document.querySelectorAll("img[data-fallback]").forEach(function (img) {
-      img.addEventListener("error", function () {
-        if (img.dataset.errored) return;
-        img.dataset.errored = "1";
-        var kind = img.getAttribute("data-fallback");
-        if (kind === "logo") {
-          img.src = placeholderLogo(img.getAttribute("data-on-dark") === "true");
-        } else {
-          img.src = placeholderScene("L'Ardevaz · Leytron");
-        }
-      });
-    });
-  }
-
-  /* ----------------------------------------------------------
-     Split du texte en caractères (SplitText ou fallback maison)
-     ---------------------------------------------------------- */
-  function splitChars(el) {
-    if (window.SplitText) {
-      try {
-        var s = new SplitText(el, { type: "chars" });
-        return s.chars;
-      } catch (e) { /* fallback ci-dessous */ }
-    }
-    var text = el.textContent;
-    el.textContent = "";
-    var chars = [];
-    text.split(/(\s+)/).forEach(function (token) {
-      if (/^\s+$/.test(token)) {
-        el.appendChild(document.createTextNode(token));
-        return;
-      }
-      var word = document.createElement("span");
-      word.style.display = "inline-block";
-      word.style.whiteSpace = "nowrap";
-      token.split("").forEach(function (ch) {
-        var s = document.createElement("span");
-        s.className = "char";
-        s.style.display = "inline-block";
-        s.textContent = ch;
-        word.appendChild(s);
-        chars.push(s);
-      });
-      el.appendChild(word);
-      el.appendChild(document.createTextNode(" "));
-    });
-    return chars;
-  }
-
-  /* ----------------------------------------------------------
-     Grain animé sur la section cave (limité ~24 fps)
-     ---------------------------------------------------------- */
-  function initGrain() {
-    var canvas = document.getElementById("grain-canvas");
-    if (!canvas || REDUCE) return;
-    var ctx = canvas.getContext("2d", { willReadFrequently: true });
-    var section = canvas.closest(".cave");
-
-    function resize() {
-      // résolution réduite pour la perf — étirée en CSS
-      canvas.width = Math.max(2, Math.floor((section.clientWidth || window.innerWidth) / 3));
-      canvas.height = Math.max(2, Math.floor((section.clientHeight || 400) / 3));
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    function generate() {
-      var w = canvas.width, h = canvas.height;
-      var imageData = ctx.createImageData(w, h);
-      var data = imageData.data;
-      for (var i = 0; i < data.length; i += 4) {
-        var noise = Math.random() * 255;
-        data[i] = data[i + 1] = data[i + 2] = noise;
-        data[i + 3] = 18; /* opacité très faible */
-      }
-      ctx.putImageData(imageData, 0, 0);
-    }
-
-    var last = 0;
-    var interval = 1000 / 24; /* plafond 24 fps */
-    var running = true;
-
-    // ne calcule le grain que lorsque la section est visible
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        running = entries[0].isIntersecting;
-      }, { threshold: 0 });
-      io.observe(section);
-    }
-
-    function loop(t) {
+  /* -------------------- grain (≤24fps, hors-écran en pause) -------------------- */
+  function initGrain(){
+    if(REDUCE) return;
+    document.querySelectorAll(".grain-canvas").forEach(function(canvas){
+      var ctx = canvas.getContext("2d", { willReadFrequently:true });
+      var host = canvas.parentElement;
+      function resize(){ canvas.width = Math.max(2, Math.floor((host.clientWidth||window.innerWidth)/3)); canvas.height = Math.max(2, Math.floor((host.clientHeight||400)/3)); }
+      resize(); window.addEventListener("resize", resize);
+      function gen(){ var w=canvas.width,h=canvas.height,d=ctx.createImageData(w,h),a=d.data; for(var i=0;i<a.length;i+=4){var n=Math.random()*255;a[i]=a[i+1]=a[i+2]=n;a[i+3]=16;} ctx.putImageData(d,0,0); }
+      var last=0, iv=1000/24, run=true;
+      if("IntersectionObserver" in window){ new IntersectionObserver(function(e){ run=e[0].isIntersecting; },{threshold:0}).observe(host); }
+      function loop(t){ requestAnimationFrame(loop); if(!run) return; if(t-last<iv) return; last=t; gen(); }
       requestAnimationFrame(loop);
-      if (!running) return;
-      if (t - last < interval) return;
-      last = t;
-      generate();
-    }
-    requestAnimationFrame(loop);
-  }
-
-  /* ----------------------------------------------------------
-     Curseur custom (desktop fin uniquement)
-     ---------------------------------------------------------- */
-  function initCursor() {
-    var cursor = document.querySelector(".custom-cursor");
-    if (!cursor || REDUCE) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-
-    var mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-    document.addEventListener("mousemove", function (e) {
-      mouseX = e.clientX; mouseY = e.clientY;
-    });
-
-    function tick() {
-      cursorX += (mouseX - cursorX) * 0.12;
-      cursorY += (mouseY - cursorY) * 0.12;
-      if (hasGSAP) {
-        gsap.set(cursor, { x: cursorX, y: cursorY });
-      } else {
-        cursor.style.transform = "translate(" + cursorX + "px," + cursorY + "px)";
-      }
-    }
-    if (hasGSAP) { gsap.ticker.add(tick); }
-    else { (function raf() { tick(); requestAnimationFrame(raf); })(); }
-
-    var hoverSel = "a, button, .cuvee-card, [data-cursor='hover']";
-    document.querySelectorAll(hoverSel).forEach(function (el) {
-      el.addEventListener("mouseenter", function () { cursor.classList.add("is-hover"); });
-      el.addEventListener("mouseleave", function () { cursor.classList.remove("is-hover"); });
     });
   }
 
-  /* ----------------------------------------------------------
-     Bouton magnétique
-     ---------------------------------------------------------- */
-  function initMagnetic() {
+  function initCursor(){
+    var cur = document.querySelector(".custom-cursor");
+    if(!cur || REDUCE || window.matchMedia("(pointer: coarse)").matches) return;
+    var mx=0,my=0,cx=0,cy=0;
+    document.addEventListener("mousemove", function(e){ mx=e.clientX; my=e.clientY; });
+    function tick(){ cx+=(mx-cx)*0.12; cy+=(my-cy)*0.12; if(hasGSAP) gsap.set(cur,{x:cx,y:cy}); else cur.style.transform="translate("+cx+"px,"+cy+"px)"; }
+    if(hasGSAP) gsap.ticker.add(tick); else (function r(){tick();requestAnimationFrame(r);})();
+    document.querySelectorAll("a, button, .cuvee-card, [data-cursor='hover']").forEach(function(el){
+      el.addEventListener("mouseenter", function(){ cur.classList.add("is-hover"); });
+      el.addEventListener("mouseleave", function(){ cur.classList.remove("is-hover"); });
+    });
+  }
+
+  function initMagnetic(){
     var btn = document.querySelector(".cta-magnetic");
-    if (!btn || !hasGSAP || REDUCE) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    var strength = 40;
-
-    btn.addEventListener("mousemove", function (e) {
-      var rect = btn.getBoundingClientRect();
-      var cx = rect.left + rect.width / 2;
-      var cy = rect.top + rect.height / 2;
-      var dx = (e.clientX - cx) / rect.width;
-      var dy = (e.clientY - cy) / rect.height;
-      gsap.to(btn, { x: dx * strength, y: dy * strength, duration: 0.3, ease: "power2.out" });
-    });
-    btn.addEventListener("mouseleave", function () {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
-    });
+    if(!btn || !hasGSAP || REDUCE || window.matchMedia("(pointer: coarse)").matches) return;
+    var s=40;
+    btn.addEventListener("mousemove", function(e){ var r=btn.getBoundingClientRect(),dx=(e.clientX-(r.left+r.width/2))/r.width,dy=(e.clientY-(r.top+r.height/2))/r.height; gsap.to(btn,{x:dx*s,y:dy*s,duration:0.3,ease:"power2.out"}); });
+    btn.addEventListener("mouseleave", function(){ gsap.to(btn,{x:0,y:0,duration:0.5,ease:"elastic.out(1,0.5)"}); });
   }
 
-  /* ----------------------------------------------------------
-     Nav visible après le hero
-     ---------------------------------------------------------- */
-  function initNav() {
-    var nav = document.querySelector(".nav");
-    var hero = document.querySelector(".hero");
-    if (!nav || !hero) return;
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        nav.classList.toggle("is-visible", !entries[0].isIntersecting);
-      }, { threshold: 0.15 });
-      io.observe(hero);
-    } else {
-      nav.classList.add("is-visible");
-    }
+  function initNav(){
+    var nav=document.querySelector(".nav"), hero=document.querySelector(".hero");
+    if(!nav||!hero) return;
+    if("IntersectionObserver" in window) new IntersectionObserver(function(e){ nav.classList.toggle("is-visible", !e[0].isIntersecting); },{threshold:0.12}).observe(hero);
+    else nav.classList.add("is-visible");
   }
 
-  /* ----------------------------------------------------------
-     Lenis + GSAP
-     ---------------------------------------------------------- */
-  function initSmoothAndAnimations() {
-    var ScrollTrigger = window.ScrollTrigger;
-
-    // --- Lenis ---
-    var lenis = null;
-    if (hasLenis && !REDUCE) {
-      lenis = new Lenis({ lerp: 0.08, duration: 1.4 });
-      if (hasGSAP && ScrollTrigger) {
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-      } else {
-        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-        requestAnimationFrame(raf);
-      }
-
-      // liens d'ancre -> scroll lenis
-      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-        a.addEventListener("click", function (e) {
-          var id = a.getAttribute("href");
-          if (id.length < 2) return;
-          var target = document.querySelector(id);
-          if (!target) return;
-          e.preventDefault();
-          lenis.scrollTo(target, { offset: 0 });
-        });
+  /* -------------------- Lenis + GSAP -------------------- */
+  function initMotion(){
+    var ST = window.ScrollTrigger;
+    var lenis=null;
+    if(hasLenis && !REDUCE){
+      lenis = new Lenis({ lerp:0.08, duration:1.4 });
+      if(hasGSAP && ST){ lenis.on("scroll", ST.update); gsap.ticker.add(function(t){ lenis.raf(t*1000); }); gsap.ticker.lagSmoothing(0); }
+      else { (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(); }
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener("click", function(e){ var id=a.getAttribute("href"); if(id.length<2) return; var t=document.querySelector(id); if(!t) return; e.preventDefault(); lenis.scrollTo(t,{offset:0}); });
       });
     }
 
-    if (!hasGSAP) return;
-    if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-    if (window.SplitText) { try { gsap.registerPlugin(SplitText); } catch (e) {} }
+    if(!hasGSAP) return;
+    if(ST) gsap.registerPlugin(ST);
+    if(window.SplitText){ try{ gsap.registerPlugin(SplitText); }catch(e){} }
 
-    if (REDUCE) {
-      // état final figé, aucune animation
-      if (ScrollTrigger) ScrollTrigger.refresh();
-      return;
-    }
+    if(REDUCE){ if(ST) ST.refresh(); return; }
 
-    /* ---- Hero : les textes arrivent, puis le logo arrive en grand ---- */
-    var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.to(".hero-overlay-loader", { opacity: 0, duration: 0.7, onComplete: function () {
-      var l = document.querySelector(".hero-overlay-loader");
-      if (l) l.style.display = "none";
-    }});
-    // 1. le kicker apparaît
-    tl.from(".hero-kicker", { opacity: 0, y: 16, duration: 0.6 }, "-=0.15");
-    // 2. les lignes montent derrière leur masque (effet rideau)
-    tl.from(".hero-line", { yPercent: 120, duration: 0.9, stagger: 0.14, ease: "power4.out" }, "-=0.25");
-    // 3. le logo arrive en grand (zoom + fondu)
-    tl.from(".hero-logo", { opacity: 0, scale: 0.78, y: 12, duration: 1.15, ease: "power3.out" }, "-=0.1");
-    // 4. l'indicateur de scroll
-    tl.from(".scroll-indicator", { opacity: 0, duration: 0.5 }, "-=0.3");
+    /* HERO : les textes arrivent, puis le logo arrive en grand */
+    var tl = gsap.timeline({ defaults:{ ease:"power3.out" } });
+    tl.from(".hero-kicker", { opacity:0, y:16, duration:0.6 });
+    tl.from(".hero-line", { yPercent:120, duration:0.9, stagger:0.14, ease:"power4.out" }, "-=0.25");
+    tl.from(".hero-wordmark", { opacity:0, scale:0.74, y:14, duration:1.2, ease:"power3.out" }, "-=0.1");
+    tl.from(".hero-bottle", { opacity:0, yPercent:14, duration:1.3, ease:"power3.out" }, "-=0.9");
+    tl.from(".hero-sub", { opacity:0, y:14, duration:0.6 }, "-=0.7");
+    tl.from(".scroll-indicator", { opacity:0, duration:0.5 }, "-=0.3");
 
-    if (!ScrollTrigger) return;
+    /* flottement + parallax bouteille hero */
+    var heroBottleImg = document.querySelector(".hero-bottle img");
+    if(heroBottleImg){ gsap.to(heroBottleImg, { y:-16, duration:3.4, ease:"sine.inOut", repeat:-1, yoyo:true }); }
 
-    /* ---- Parallax Ardevaz ---- */
-    gsap.to(".hero-bg", {
-      yPercent: -25,
-      ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+    if(!ST) return;
+
+    /* parallax */
+    gsap.to(".hero-bg", { yPercent:-22, ease:"none", scrollTrigger:{ trigger:".hero", start:"top top", end:"bottom top", scrub:true } });
+    gsap.to(".hero-bottle", { yPercent:-14, ease:"none", scrollTrigger:{ trigger:".hero", start:"top top", end:"bottom top", scrub:true } });
+    gsap.to(".hero-watermark", { yPercent:-30, ease:"none", scrollTrigger:{ trigger:".hero", start:"top top", end:"bottom top", scrub:true } });
+
+    /* barre de progression page */
+    gsap.to(".page-progress", { scaleX:1, ease:"none", scrollTrigger:{ start:0, end:"max", scrub:0.3 } });
+
+    /* marquee infini */
+    var mtrack = document.querySelector(".marquee-track");
+    if(mtrack){ gsap.to(mtrack, { xPercent:-50, duration:26, ease:"none", repeat:-1 }); }
+
+    /* révélations clip-path */
+    gsap.utils.toArray(".reveal-text").forEach(function(el){
+      gsap.from(el, { clipPath:"inset(0 100% 0 0)", webkitClipPath:"inset(0 100% 0 0)", opacity:0.15, duration:1.1, ease:"power4.inOut", scrollTrigger:{ trigger:el, start:"top 88%", toggleActions:"play none none none" } });
     });
 
-    /* ---- Révélations clip-path ---- */
-    gsap.utils.toArray(".reveal-text").forEach(function (el) {
-      gsap.from(el, {
-        clipPath: "inset(0 100% 0 0)",
-        webkitClipPath: "inset(0 100% 0 0)",
-        opacity: 0.2,
-        duration: 1.2,
-        ease: "power4.inOut",
-        scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" }
-      });
-    });
+    /* terroir image */
+    var tm = document.querySelector(".terroir__media");
+    if(tm){ gsap.from(tm, { clipPath:"inset(0 0 0 100%)", webkitClipPath:"inset(0 0 0 100%)", duration:1.3, ease:"power4.inOut", scrollTrigger:{ trigger:tm, start:"top 82%", toggleActions:"play none none none" } }); }
 
-    /* ---- Terroir : image révélée par clip-path ---- */
-    var terroirMedia = document.querySelector(".terroir__media");
-    if (terroirMedia) {
-      gsap.from(terroirMedia, {
-        clipPath: "inset(0 0 0 100%)",
-        webkitClipPath: "inset(0 0 0 100%)",
-        duration: 1.3,
-        ease: "power4.inOut",
-        scrollTrigger: { trigger: terroirMedia, start: "top 80%", toggleActions: "play none none none" }
-      });
-    }
-
-    /* ---- Cuvées : scroll horizontal pinned (desktop) ou grille (mobile) ---- */
+    /* CUVÉES : horizontal (desktop) ou grille (mobile) */
     var mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", function () {
-      var section = document.querySelector(".cuvees-section");
-      var track = document.querySelector(".cuvees-track");
-      if (!section || !track) return;
+    mm.add("(min-width: 769px) and (prefers-reduced-motion: no-preference)", function(){
+      var section=document.querySelector(".cuvees-section"), track=document.querySelector(".cuvees-track"), bar=document.querySelector(".cuvees-progress i");
+      if(!section||!track) return;
       section.classList.add("horizontal-mode");
-
-      var getTotal = function () { return track.scrollWidth - window.innerWidth; };
-
-      var tween = gsap.to(track, {
-        x: function () { return -getTotal(); },
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: function () { return "+=" + getTotal(); },
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
+      var total=function(){ return track.scrollWidth - window.innerWidth; };
+      var tween = gsap.to(track, { x:function(){return -total();}, ease:"none", scrollTrigger:{
+        trigger:section, start:"top top", end:function(){return "+="+total();}, pin:true, scrub:1, anticipatePin:1, invalidateOnRefresh:true,
+        onUpdate:function(self){ if(bar) bar.style.transform = "scaleX("+self.progress+")"; }
+      }});
+      var bts=[];
+      gsap.utils.toArray(".cuvee-card").forEach(function(card){
+        var b=card.querySelector(".bottle-img"); if(!b) return;
+        bts.push(gsap.from(b, { y:90, opacity:0, duration:0.8, ease:"power3.out", scrollTrigger:{ trigger:card, containerAnimation:tween, start:"left 88%", toggleActions:"play none none none" } }));
+        bts.push(gsap.from(card.querySelector(".cuvee-index"), { opacity:0, x:40, duration:0.8, ease:"power3.out", scrollTrigger:{ trigger:card, containerAnimation:tween, start:"left 90%", toggleActions:"play none none none" } }));
       });
-
-      // entrée de chaque bouteille, liée à l'animation horizontale
-      var bottleTweens = [];
-      gsap.utils.toArray(".cuvee-card").forEach(function (card) {
-        var bottle = card.querySelector(".bottle-img");
-        if (!bottle) return;
-        var t = gsap.from(bottle, {
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: tween,
-            start: "left 85%",
-            toggleActions: "play none none none"
-          }
-        });
-        bottleTweens.push(t);
+      return function(){ section.classList.remove("horizontal-mode"); gsap.set(track,{x:0}); bts.forEach(function(t){ t.scrollTrigger&&t.scrollTrigger.kill(); t.kill(); }); if(tween.scrollTrigger) tween.scrollTrigger.kill(); tween.kill(); };
+    });
+    mm.add("(max-width: 768px)", function(){
+      var ts = gsap.utils.toArray(".cuvee-card").map(function(card){
+        return gsap.from(card.querySelector(".bottle-img"), { y:50, opacity:0, duration:0.7, ease:"power3.out", scrollTrigger:{ trigger:card, start:"top 90%", toggleActions:"play none none none" } });
       });
-
-      return function cleanup() {
-        section.classList.remove("horizontal-mode");
-        gsap.set(track, { x: 0 });
-        bottleTweens.forEach(function (t) { t.scrollTrigger && t.scrollTrigger.kill(); t.kill(); });
-        if (tween.scrollTrigger) tween.scrollTrigger.kill();
-        tween.kill();
-      };
+      return function(){ ts.forEach(function(t){ t.scrollTrigger&&t.scrollTrigger.kill(); t.kill(); }); };
     });
 
-    // mobile : simple fade-in vertical des cartes
-    mm.add("(max-width: 767px)", function () {
-      var tweens = gsap.utils.toArray(".cuvee-card").map(function (card) {
-        return gsap.from(card.querySelector(".bottle-img"), {
-          y: 60, opacity: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none none" }
-        });
-      });
-      return function () { tweens.forEach(function (t) { t.scrollTrigger && t.scrollTrigger.kill(); t.kill(); }); };
-    });
-
-    ScrollTrigger.refresh();
-
-    // recalcul après chargement des polices
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
-    }
+    ST.refresh();
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ST.refresh(); }); }
   }
 
-  /* ----------------------------------------------------------
-     Boot
-     ---------------------------------------------------------- */
-  function boot() {
+  function boot(){
     document.documentElement.classList.add("lenis");
-    var yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-    attachStaticFallbacks();
+    var y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear();
+    staticFallbacks();
+    buildMarquee();
     buildCuvees();
     initNav();
     initGrain();
     initCursor();
     initMagnetic();
-    initSmoothAndAnimations();
-
-    // si les libs n'ont pas chargé, on retire le loader pour ne pas masquer le hero
-    if (!hasGSAP || REDUCE) {
-      var loader = document.querySelector(".hero-overlay-loader");
-      if (loader) loader.style.display = "none";
-    }
+    initMotion();
   }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else {
-    boot();
-  }
-
-  // filet de sécurité : ne jamais laisser le loader bloquer l'écran
-  window.addEventListener("load", function () {
-    setTimeout(function () {
-      var loader = document.querySelector(".hero-overlay-loader");
-      if (loader && loader.style.display !== "none") {
-        if (hasGSAP) { gsap.to(loader, { opacity: 0, duration: 0.6, onComplete: function () { loader.style.display = "none"; } }); }
-        else { loader.style.display = "none"; }
-      }
-    }, 2500);
-  });
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
 </script>
 </body>

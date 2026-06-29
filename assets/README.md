@@ -1,19 +1,18 @@
 # assets/ — fichiers
 
-Le site `index.html` référence les fichiers ci-dessous. Toute image manquante est
-remplacée automatiquement par un placeholder cohérent (monogramme TT dans la
-couleur de la famille, ou paysage stylisé pour l'Ardevaz) — rien ne casse.
+`index.html` référence les fichiers ci-dessous. Toute image manquante est
+remplacée automatiquement par un placeholder cohérent — rien ne casse.
 
-## Présents (photos réelles fournies)
-- `TerreRouge.png` — bouteille Terre Rouge (rouge, étiquette noire, TT rouge) — PNG transparent
-- `TerreBlanche.png` — bouteille Terre Blanche (blanc, étiquette charbon, TT vert) — PNG transparent
-- `LeBray.png` — bouteille Le Bray, Fendant de Leytron (blanc, TT vert) — PNG transparent
+## Présents : bouteilles (PNG transparents fournis → optimisés en WebP)
+Les .png d'origine (3–5 Mo chacun) ont été redimensionnés en WebP ~30 Ko,
+fond transparent, hauteur 1300 px :
+
+- `TerreRouge.webp` · `TerreN13.webp` · `VieillesVignesGamay.webp` · `TerreDAutomne.webp`
+- `MerlotPrestige.webp` · `TerreDeRose.webp` · `TerreBlanche.webp` · `LArdoisiere.webp`
 
 ## Encore attendus → placeholder automatique
-- `logo-tributerre.jpg` — monogramme TT + wordmark TRIBUTERRE (hero + favicon)
-- `ardevaz.jpg` — paroi calcaire de l'Ardevaz + vignes (hero + section terroir)
-- Bouteilles sans photo : Terre N° 13, Vieilles Vignes Gamay, Terre d'Automne,
-  Merlot Prestige, Terre de Rosée, L'Ardoisière
+- `logo-tributerre.jpg` — non utilisé pour l'instant (le hero affiche le wordmark TRIBUTERRE en texte)
+- `ardevaz.jpg` — paroi de l'Ardevaz (hero en fond + section terroir). En son absence :
+  le hero reste en dégradé sombre, le terroir montre un paysage stylisé.
 
-Déposez les fichiers manquants ici avec ces noms exacts pour activer les vrais
-visuels (aucune modification de code nécessaire).
+Déposez `ardevaz.jpg` ici pour activer la vraie photo (aucune modification de code).
