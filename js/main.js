@@ -318,7 +318,6 @@
 
   /* -------------------- AGE GATE -------------------- */
   function ageGate(){
-    if(localStorage.getItem("tt_age_ok") === "1") return;
     var overlay = document.createElement("div");
     overlay.className = "age-gate";
     overlay.setAttribute("role", "dialog");
@@ -336,7 +335,6 @@
     document.body.appendChild(overlay);
     document.body.classList.add("is-locked");
     overlay.querySelector(".age-gate__yes").addEventListener("click", function(){
-      localStorage.setItem("tt_age_ok","1");
       overlay.style.opacity = "0";
       document.body.classList.remove("is-locked");
       setTimeout(function(){ overlay.remove(); }, 520);
