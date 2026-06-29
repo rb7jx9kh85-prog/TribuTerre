@@ -84,11 +84,8 @@ body::before {  /* grain pellicule, fixe, très subtil */
 }
 .loader.is-done { opacity: 0; visibility: hidden; }
 .loader__inner { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; width: min(78vw, 420px); }
-.loader__mark {
-  font-family: var(--font-display); font-weight: 600;
-  font-size: clamp(3rem, 9vw, 5rem); letter-spacing: 0.04em; line-height: 1;
-}
-.loader__mark .tt { color: var(--tt-rouge); }
+.loader__mark { line-height: 1; }
+.loader__mark img { height: clamp(3rem, 9vw, 5rem); width: auto; }
 .loader__word { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--tt-pierre); }
 .loader__bar { width: 100%; height: 1px; background: rgba(246,243,236,0.18); overflow: hidden; }
 .loader__bar i { display: block; height: 100%; width: 0%; background: var(--tt-rouge); transition: width .2s linear; }
@@ -592,3 +589,51 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvee-card[data-famille="orange"] { --accent: #7a4210; }
 .dispo-card[data-famille="orange"] { --accent: #7a4210; }
 .wine-order-row[data-famille="orange"] .wor-name { color: #7a4210; }
+
+/* ============================================================ AGE GATE */
+.age-gate {
+  position: fixed; inset: 0; z-index: 9000;
+  background: var(--tt-noir);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  color: var(--tt-papier);
+  padding: 2rem;
+  text-align: center;
+  transition: opacity 0.5s var(--ease-soft);
+}
+.age-gate__mark { margin-bottom: 2rem; }
+.age-gate__mark img { height: clamp(4rem, 10vw, 6rem); width: auto; margin: 0 auto; }
+.age-gate__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.age-gate__sub {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  color: var(--tt-pierre);
+  line-height: 1.7;
+  margin-bottom: 2.4rem;
+  max-width: 42ch;
+}
+.age-gate__btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
+.age-gate__yes {
+  background: var(--tt-rouge); color: var(--tt-papier);
+  padding: 0.85rem 2.4rem; border-radius: 0;
+  font-family: var(--font-body); font-size: 0.78rem;
+  font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; border: none; transition: background .3s;
+}
+.age-gate__yes:hover { background: var(--tt-rouge-vif); }
+.age-gate__no {
+  background: transparent; color: var(--tt-pierre);
+  padding: 0.85rem 1.6rem; border: 1px solid rgba(185,179,166,0.3);
+  font-family: var(--font-body); font-size: 0.78rem;
+  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer; transition: border-color .3s, color .3s;
+}
+.age-gate__no:hover { border-color: var(--tt-pierre); color: var(--tt-papier); }
+.age-gate__legal {
+  font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(185,179,166,0.45);
+}

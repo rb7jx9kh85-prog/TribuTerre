@@ -315,6 +315,36 @@
   }
 
 
+  /* -------------------- AGE GATE -------------------- */
+  function ageGate(){
+    if(localStorage.getItem("tt_age_ok") === "1") return;
+    var overlay = document.createElement("div");
+    overlay.className = "age-gate";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "ag-title");
+    overlay.innerHTML =
+      '<div class="age-gate__mark"><img src="assets/tt-mark.png" alt="Tributerre" width="96" height="96"></div>'+
+      '<h2 class="age-gate__title" id="ag-title">Ce site vend de l\'alcool</h2>'+
+      '<p class="age-gate__sub">En accédant à ce site, vous confirmez avoir l\'âge légal requis — <strong>18 ans</strong> — pour l\'achat de vins et spiritueux en Suisse.</p>'+
+      '<div class="age-gate__btns">'+
+        '<button class="age-gate__yes" type="button">Oui, j\'ai 18 ans ou plus</button>'+
+        '<button class="age-gate__no" type="button">Non, je suis mineur·e</button>'+
+      '</div>'+
+      '<p class="age-gate__legal">Tributerre · Christian Vouillamoz · Riddes · Valais · Suisse</p>';
+    document.body.appendChild(overlay);
+    document.body.classList.add("is-locked");
+    overlay.querySelector(".age-gate__yes").addEventListener("click", function(){
+      localStorage.setItem("tt_age_ok","1");
+      overlay.style.opacity = "0";
+      document.body.classList.remove("is-locked");
+      setTimeout(function(){ overlay.remove(); }, 520);
+    });
+    overlay.querySelector(".age-gate__no").addEventListener("click", function(){
+      window.location.href = "https://www.ch.ch/fr/alcool/";
+    });
+  }
+
   /* -------------------- FORMULAIRE DE COMMANDE (Web3Forms) -------------------- */
   function contactForm(){
     var form = document.getElementById("orderForm"); if(!form) return;
@@ -385,6 +415,7 @@
   }
 
   function boot(){
+    ageGate();
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     buildCuvees();
     buildDispo();
