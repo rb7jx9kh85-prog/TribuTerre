@@ -9,22 +9,30 @@
 
   /* -------------------- données cuvées -------------------- */
   var CUVEES = [
-    { name:"Terre Rouge", famille:"rouge", cepage:"Blend", format:"75 cl", dark:true,
-      desc:"La cuvée phare. Étiquette noire, TT rouge gaufré.", origin:"Vin du Valais", img:"assets/TerreRouge.webp" },
-    { name:"Terre N° 13", famille:"rouge", cepage:"Merlot", format:"75 cl",
-      desc:"Merlot. Droit, élevé sans détour.", origin:"Vin de pays Suisse", img:"assets/TerreN13.webp" },
-    { name:"Vieilles Vignes Gamay", famille:"rouge", cepage:"Gamay", format:"75 cl",
-      desc:"Vieilles vignes, petits rendements, beaucoup de fruit.", origin:"Vin de pays Suisse", img:"assets/VieillesVignesGamay.webp" },
-    { name:"Terre d'Automne", famille:"rouge", cepage:"Blend rouge", format:"75 cl",
-      desc:"L'assemblage de saison de la maison.", origin:"Vin de table", img:"assets/TerreDAutomne.webp" },
-    { name:"Merlot Prestige", famille:"prestige", cepage:"Merlot", format:"75 cl", dark:true,
-      desc:"La cuvée haut de gamme. Étiquette noire.", origin:"Cuvée prestige", img:"assets/MerlotPrestige.webp" },
-    { name:"Terre de Rosée", famille:"rose", cepage:"Blend rosé", format:"50 cl",
-      desc:"Bouteille longue, capsule grège. 13 % vol.", origin:"Vin de pays Suisse", img:"assets/TerreDeRose.webp" },
-    { name:"Terre Blanche", famille:"blanc", cepage:"Blend blanc", format:"75 cl", dark:true,
-      desc:"L'assemblage blanc de la maison. TT vert.", origin:"Vin de pays Suisse", img:"assets/TerreBlanche.webp" },
-    { name:"L'Ardoisière", famille:"blanc", cepage:"Blend blanc", format:"75 cl",
-      desc:"Né du terroir ardoisier de Leytron. TT vert.", origin:"Vin de pays Suisse", img:"assets/LArdoisiere.webp" }
+    { name:"Terre Rouge", type:"Rouge · Assemblage", famille:"rouge", dark:true,
+      desc:"Nez intense et ouvert sur le cacao, le kirsch et la vanille. Bouche souple, caressante, pure, à la concentration certaine. Bel élevage discret, longue finale aux tanins fins et intégrés.",
+      origin:"Valais · MMXXII", format:"75 cl", img:"assets/TerreRouge.webp" },
+    { name:"Terre N° 13", type:"Rouge · Merlot", famille:"rouge",
+      desc:"Merlot droit, élevé sans détour. Fruit noir, profondeur et trame sobre, pour un vin franc et de caractère.",
+      origin:"Vin de pays · 2023", format:"75 cl", img:"assets/TerreN13.webp" },
+    { name:"Vieilles Vignes Gamay", type:"Rouge · Gamay", famille:"rouge",
+      desc:"Robe rubis, grand nez sur la griotte et la pivoine. Bouche ciselée, précise, sapide et aérienne, aux nuances de violette et de fraise des bois. Finale élégante aux tanins délicats.",
+      origin:"AOC Leytron", format:"75 cl", img:"assets/VieillesVignesGamay.webp" },
+    { name:"Terre d'Automne", type:"Rouge · Assemblage", famille:"rouge",
+      desc:"L'assemblage de saison de la maison. Un rouge généreux, sur le fruit mûr et la rondeur, à partager sans façon.",
+      origin:"Vin de table", format:"75 cl", img:"assets/TerreDAutomne.webp" },
+    { name:"Merlot Prestige", type:"Rouge · Merlot", famille:"prestige", dark:true,
+      desc:"La cuvée haut de gamme. Un merlot d'élevage patient, dense et raffiné, à la trame serrée et à la longue finale boisée.",
+      origin:"Prestige · 2022", format:"75 cl", img:"assets/MerlotPrestige.webp" },
+    { name:"Terre de Rosée", type:"Rosé · Assemblage", famille:"rose",
+      desc:"Belle robe saumonée. Nez expressif, ouvert, printanier. Bouche puissante, fruitée et florale, ronde, sur les fruits à noyaux (brugnon, mirabelle). Finale gourmande.",
+      origin:"VPD · 2024 · 13 % vol", format:"50 cl", img:"assets/TerreDeRose.webp" },
+    { name:"Terre Blanche", type:"Blanc · Assemblage", famille:"blanc", dark:true,
+      desc:"L'assemblage blanc de la maison. Nez fin et délicat, bouche fraîche, dynamique et équilibrée, à la finale saline et minérale.",
+      origin:"Vin de table · MMXXII", format:"75 cl", img:"assets/TerreBlanche.webp" },
+    { name:"L'Ardoisière", type:"Blanc · Assemblage", famille:"blanc",
+      desc:"Née du terroir ardoisier de Leytron. Un blanc tendu et lumineux, sur la pierre et les agrumes, à la finale précise.",
+      origin:"Vin de pays", format:"75 cl", img:"assets/LArdoisiere.webp" }
   ];
   window.TT_CUVEES = CUVEES;
 
@@ -75,7 +83,77 @@
   }
   function startIntro(){
     var hero = document.querySelector(".hero[data-intro]");
-    if(hero) requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
+    if(!hero) return;
+    if(document.getElementById("heroV1")) heroVideos(hero);
+    else requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
+  }
+
+  /* -------------------- HERO : séquence vidéo 1 -> vidéo 2 -> logo -------------------- */
+  function heroVideos(hero){
+    var v1 = document.getElementById("heroV1");
+    var v2 = document.getElementById("heroV2");
+    var cap = document.getElementById("heroCaption");
+    function caption(txt){
+      if(!cap) return;
+      cap.classList.remove("show");
+      setTimeout(function(){ var s=cap.querySelector("span"); if(s) s.textContent=txt; cap.classList.add("show"); }, 260);
+    }
+    function show(v){ if(v) v.classList.add("is-on"); }
+    function hide(v){ if(v) v.classList.remove("is-on"); }
+    function runClip(v, onDone){
+      if(!v){ onDone(); return; }
+      var done=false, MAX=6500, played=false;
+      function fin(){ if(done) return; done=true; onDone(); }
+      v.addEventListener("ended", fin, { once:true });
+      v.addEventListener("error", function(){ setTimeout(fin, 250); }, { once:true });
+      v.addEventListener("playing", function(){ played=true; }, { once:true });
+      var p = v.play && v.play(); if(p && p.catch) p.catch(function(){});
+      // injouable (autoplay bloqué / codec absent) -> on avance vite
+      setTimeout(function(){ if(!done && !played) fin(); }, 1800);
+      // borne haute : l'intro ne traîne jamais, même sur une vidéo longue
+      setTimeout(fin, MAX);
+    }
+    function phase1(){ show(v1); caption("De la terre au raisin"); runClip(v1, phase2); }
+    function phase2(){ show(v2); hide(v1); caption("Du raisin au vin"); runClip(v2, phase3); }
+    function phase3(){
+      if(cap) cap.classList.remove("show");
+      if(v2) v2.classList.add("is-dim");
+      requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
+    }
+    if(REDUCE){ phase3(); return; }
+    phase1();
+  }
+
+  /* -------------------- Scroll cinématique : bouteille qui grandit -------------------- */
+  function cinematic(){
+    var section = document.querySelector(".cinematic-scroll"); if(!section) return;
+    var img = section.querySelector(".bottle-image");
+    var copy = section.querySelector(".bottle-copy");
+    var next = section.querySelector(".next-reveal");
+    if(REDUCE){ if(next){ next.style.opacity=1; next.style.filter="none"; next.style.transform="none"; } return; }
+    var clamp=function(v,a,b){ return Math.min(Math.max(v,a),b); };
+    var lerp=function(a,b,p){ return a+(b-a)*p; };
+    var ease=function(p){ return 1-Math.pow(1-p,3); };
+    var ticking=false;
+    function update(){
+      var rect=section.getBoundingClientRect();
+      var total=section.offsetHeight - window.innerHeight;
+      var prog=clamp(-rect.top/total,0,1);
+      var zoom=ease(clamp(prog/0.5,0,1));
+      var fade=ease(clamp((prog-0.28)/0.35,0,1));
+      var nx=ease(clamp((prog-0.68)/0.32,0,1));
+      if(img){
+        img.style.transform="translateX("+lerp(20,0,zoom).toFixed(2)+"vw) scale("+lerp(0.72,4.4,zoom).toFixed(3)+") rotate("+lerp(-2,0,zoom).toFixed(2)+"deg)";
+        img.style.opacity=lerp(1,0.12,nx).toFixed(3);
+        img.style.filter="drop-shadow(0 40px 100px rgba(0,0,0,0.6)) blur("+lerp(0,12,nx).toFixed(1)+"px)";
+      }
+      if(copy){ copy.style.opacity=lerp(1,0,fade).toFixed(3); copy.style.transform="translateY(-50%) translateX("+lerp(0,-5,fade).toFixed(2)+"vw)"; }
+      if(next){ next.style.opacity=nx.toFixed(3); next.style.transform="translateY("+lerp(50,0,nx).toFixed(1)+"px)"; next.style.filter="blur("+lerp(12,0,nx).toFixed(1)+"px)"; }
+      ticking=false;
+    }
+    window.addEventListener("scroll", function(){ if(!ticking){ requestAnimationFrame(update); ticking=true; } }, { passive:true });
+    window.addEventListener("resize", update);
+    update();
   }
 
   /* -------------------- HEADER scrolled -------------------- */
@@ -192,10 +270,12 @@
         card.innerHTML =
           '<span class="cuvee-num">Cuvée '+num+'</span>'+
           '<figure class="cuvee-fig"><img loading="lazy" alt="'+c.name+'" src="'+c.img+'" data-fallback="bottle" data-famille="'+c.famille+'" data-dark="'+(c.dark?'true':'false')+'"></figure>'+
-          '<h3>'+c.name+'</h3>'+
-          '<p class="cuvee-cepage">'+c.famille.toUpperCase()+' · '+c.cepage+'</p>'+
-          '<p class="cuvee-desc">'+c.desc+'</p>'+
-          '<p class="cuvee-meta">'+c.origin+' · '+c.format+'</p>';
+          '<div class="cuvee-body">'+
+            '<h3>'+c.name+'</h3>'+
+            '<p class="cuvee-type">'+c.type+'</p>'+
+            '<p class="cuvee-desc">'+c.desc+'</p>'+
+            '<div class="cuvee-bottom"><span>'+c.origin+'</span><span>'+c.format+'</span></div>'+
+          '</div>';
         frag.appendChild(card);
       });
       host.appendChild(frag);
@@ -223,6 +303,7 @@
     parallax();
     lightCards();
     cursor();
+    cinematic();
     smooth();
     loader();
   }

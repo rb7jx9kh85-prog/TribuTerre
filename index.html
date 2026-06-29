@@ -38,19 +38,15 @@
 <main>
   <!-- HERO -->
   <section class="hero" data-intro>
-    <video class="hero__video" autoplay muted loop playsinline preload="none" poster="assets/hero-poster.jpg" aria-hidden="true">
-      <source src="assets/hero.webm" type="video/webm" />
-      <source src="assets/hero.mp4" type="video/mp4" />
-    </video>
+    <div class="hero__videos" aria-hidden="true">
+      <video class="hero__video" id="heroV1" muted playsinline preload="auto"><source src="assets/hero-1.mp4" type="video/mp4" /></video>
+      <video class="hero__video" id="heroV2" muted playsinline preload="auto"><source src="assets/hero-2.mp4" type="video/mp4" /></video>
+    </div>
+    <div class="hero__caption" id="heroCaption" aria-hidden="true"><span>De la terre au raisin</span></div>
     <div class="hero__wm" aria-hidden="true">TT</div>
     <div class="hero__inner">
-      <span class="hero__kicker kicker">Leytron · Riddes · Valais</span>
-      <div class="hero__lines">
-        <span class="mask"><span>Une cave sous la roche.</span></span>
-        <span class="mask"><span>Trois générations.</span></span>
-      </div>
       <h1 class="hero__wordmark">TRIBU<span class="tt">TER</span>RE</h1>
-      <p class="hero__sub kicker">Christian Vouillamoz · Artisan du vin · 1908</p>
+      <p class="hero__sub kicker">Christian Vouillamoz · Artisan du vin · 1908 Riddes</p>
     </div>
     <a class="scroll-cue" href="#manifeste"><span>Découvrir</span><i></i></a>
   </section>
@@ -73,13 +69,35 @@
   <section class="section section--dark" id="terroir-teaser">
     <div class="wrap split">
       <div class="parallax-frame reveal">
-        <img class="parallax-img" src="assets/ardevaz.jpg" alt="La paroi calcaire de l'Ardevaz au-dessus du vignoble de Leytron" data-fallback="scene" data-label="L'Ardevaz · Leytron" />
+        <img class="parallax-img" src="assets/ardevaz.webp" alt="La paroi calcaire de l'Ardevaz au-dessus du vignoble de Leytron" data-fallback="scene" data-label="L'Ardevaz · Leytron" />
       </div>
       <div>
         <span class="section-kicker kicker"><span class="num">02</span> · Le terroir</span>
         <h2 class="word-reveal" style="font-size:clamp(2.2rem,5.5vw,4rem);font-weight:500;">L'Ardevaz veille sur les vignes</h2>
         <p class="reveal reveal-d1" style="margin-top:1.4rem;max-width:48ch;">La paroi calcaire retient la chaleur du jour. La nuit descend froide. Culture en biodynamie, sans désherbants, vendanges à la main.</p>
         <p class="reveal reveal-d2" style="margin-top:1.8rem;"><a href="terroir.html" class="wine-btn" data-cursor>Le terroir <span class="dot"></span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLL CINÉMATIQUE -->
+  <section class="cinematic-scroll" id="bouteille">
+    <div class="bottle-stage">
+      <div class="bottle-copy">
+        <p class="section-kicker">Terre Rouge</p>
+        <h2>Le vin prend toute la place.</h2>
+        <p>Au scroll, la bouteille avance vers l'écran, grandit, puis laisse apparaître les cuvées.</p>
+      </div>
+      <div class="bottle-zoom-wrap">
+        <img src="assets/TerreRouge.webp" alt="Bouteille Terre Rouge" class="bottle-image" />
+      </div>
+      <div class="bottle-vignette" aria-hidden="true"></div>
+      <div class="next-reveal">
+        <div>
+          <p class="section-kicker">Les cuvées</p>
+          <h2>Chaque bouteille a son caractère.</h2>
+          <p>Huit cuvées, faites à la main, en vente directe depuis Riddes.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -95,6 +113,22 @@
         <a href="cuvees.html" class="wine-btn" data-cursor>Toutes les cuvées <span class="dot"></span></a>
       </div>
       <div class="cuvee-grid" data-cuvees="3"></div>
+    </div>
+  </section>
+
+  <!-- NOS GAMMES -->
+  <section class="section gammes" id="gammes">
+    <div class="wrap gammes__inner">
+      <div class="gammes__text">
+        <span class="section-kicker kicker"><span class="num">—</span> Nos gammes</span>
+        <h2 class="word-reveal">Du rouge à l'orange, une même main</h2>
+        <p class="reveal">Des rouges de garde aux blancs minéraux, d'un rosé gourmand à un nature en macération : chaque gamme dit la même chose, autrement. Peu de cuvées, beaucoup d'attention.</p>
+        <p class="reveal reveal-d1">Tout naît sous la paroi de l'Ardevaz, à Leytron, et s'élève à Riddes, sans précipitation.</p>
+        <div class="gammes__tags reveal reveal-d2"><span>Rouges</span><span>Blancs</span><span>Rosé</span><span>Prestige</span><span>Nature · Orange</span></div>
+      </div>
+      <figure class="gammes__img reveal reveal-d1">
+        <img src="assets/gammes.webp" alt="La gamme des cuvées Tributerre" style="border-radius:16px;" />
+      </figure>
     </div>
   </section>
 
