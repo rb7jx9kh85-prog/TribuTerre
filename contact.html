@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contact — Tributerre · Riddes, Valais</title>
-<meta name="description" content="Contacter la cave Tributerre, Christian Vouillamoz. Vente directe, sur rendez-vous ou à la cave. 1908 Riddes, Valais." />
+<meta name="description" content="Contacter la cave Tributerre, Christian Vouillamoz. Commandez vos cuvées en vente directe, sur rendez-vous ou à la cave. 1908 Riddes, Valais." />
 <script>document.documentElement.classList.add("js");document.documentElement.classList.remove("no-js");</script>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0c'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='56' font-weight='700' text-anchor='middle' fill='%237e0a0a'%3ETT%3C/text%3E%3C/svg%3E" />
+<link rel="icon" type="image/png" href="assets/favicon.png" /><link rel="apple-touch-icon" href="assets/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -39,25 +39,196 @@
   <section class="page-hero">
     <div class="wrap">
       <span class="kicker">04 · Contact</span>
-      <h1 class="word-reveal">Christian Vouillamoz</h1>
-      <p class="reveal reveal-d1" style="margin-top:1.6rem;max-width:46ch;font-size:clamp(1.1rem,1.8vw,1.35rem);">Vente directe — sur rendez-vous ou à la cave. Pas d'intermédiaire.</p>
+      <h1 class="word-reveal">Passer commande</h1>
+      <p class="reveal reveal-d1" style="margin-top:1.6rem;max-width:50ch;font-size:clamp(1.1rem,1.8vw,1.35rem);">Vente directe depuis la cave de Riddes — sans intermédiaire. Choisissez vos cuvées ci-dessous.</p>
     </div>
   </section>
 
   <section class="section" style="padding-top:0;">
-    <div class="wrap split" style="align-items:stretch;">
-      <div class="reveal">
-        <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;margin-bottom:1.6rem;">La cave</h2>
-        <p style="margin-bottom:0.4rem;" class="muted kicker">Adresse</p>
-        <p style="margin-bottom:1.6rem;font-size:1.15rem;">1908 Riddes<br>Valais, Suisse</p>
-        <p style="margin-bottom:0.4rem;" class="muted kicker">Vignes</p>
-        <p style="margin-bottom:1.6rem;font-size:1.15rem;">Sous la paroi de l'Ardevaz, Leytron</p>
-        <p style="margin-bottom:0.4rem;" class="muted kicker">Écrire</p>
-        <p style="font-size:1.15rem;"><a href="mailto:contact@tributerre.ch" data-cursor style="border-bottom:1px solid var(--tt-rouge);">contact@tributerre.ch</a></p>
-        <p style="margin-top:2.4rem;"><a href="mailto:contact@tributerre.ch" class="wine-btn wine-btn--solid magnetic" data-cursor>Prendre rendez-vous <span class="dot"></span></a></p>
-      </div>
-      <div class="hover-frame reveal reveal-d1">
-        <img src="assets/cave.jpg" alt="La cave de Riddes" data-fallback="scene" data-label="Riddes · 1908" style="height:100%;min-height:340px;" />
+    <div class="wrap">
+      <div class="order-layout">
+
+        <div class="order-form-wrap reveal">
+          <form id="orderForm" class="contact-form" novalidate>
+            <input type="hidden" name="access_key" value="e0abe0da-54f1-4126-8e4e-d3abd21eba1a">
+            <input type="hidden" name="subject" value="Nouvelle commande — Tributerre">
+            <input type="hidden" name="from_name" value="Site Tributerre">
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1">
+
+            <div class="cf-group">
+              <p class="cf-legend">Vos coordonnées</p>
+              <div class="cf-cols">
+                <div class="cf-field">
+                  <label for="f-nom">Nom &amp; prénom <abbr title="obligatoire">*</abbr></label>
+                  <input id="f-nom" type="text" name="nom" required autocomplete="name" placeholder="Paul Dupont">
+                </div>
+                <div class="cf-field">
+                  <label for="f-email">Email <abbr title="obligatoire">*</abbr></label>
+                  <input id="f-email" type="email" name="email" required autocomplete="email" placeholder="paul@exemple.ch">
+                </div>
+              </div>
+              <div class="cf-field" style="max-width:22rem;">
+                <label for="f-tel">Téléphone</label>
+                <input id="f-tel" type="tel" name="telephone" autocomplete="tel" placeholder="+41 79 XXX XX XX">
+              </div>
+            </div>
+
+            <div class="cf-group">
+              <p class="cf-legend">Votre sélection <span class="cf-legend-note">laisser à 0 ce qui ne vous intéresse pas</span></p>
+              <div class="wine-order-list">
+
+                <div class="wine-order-row" data-famille="rouge">
+                  <div class="wor-info">
+                    <span class="wor-name">Terre Rouge</span>
+                    <span class="wor-detail">Assemblage · MMXXII · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Terre_Rouge" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Terre Rouge">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="rouge">
+                  <div class="wor-info">
+                    <span class="wor-name">Terre N° 13</span>
+                    <span class="wor-detail">Merlot · VDP 2023 · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Terre_N13" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Terre N°13">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="rouge">
+                  <div class="wor-info">
+                    <span class="wor-name">Vieilles Vignes Gamay</span>
+                    <span class="wor-detail">AOC Leytron · 2025 · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Gamay" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Gamay">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="rouge">
+                  <div class="wor-info">
+                    <span class="wor-name">Terre d'Automne</span>
+                    <span class="wor-detail">Assemblage · Vin de table · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Automne" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Terre d'Automne">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="prestige">
+                  <div class="wor-info">
+                    <span class="wor-name">Merlot Prestige</span>
+                    <span class="wor-detail">Prestige · 2022 · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_MerlotPrestige" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Merlot Prestige">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="rose">
+                  <div class="wor-info">
+                    <span class="wor-name">Terre de Rosée</span>
+                    <span class="wor-detail">Rosé · VPD 2024 · 50 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Rose" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Terre de Rosée">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="blanc">
+                  <div class="wor-info">
+                    <span class="wor-name">Terre Blanche</span>
+                    <span class="wor-detail">Assemblage blanc · MMXXII · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Blanche" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Terre Blanche">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="blanc">
+                  <div class="wor-info">
+                    <span class="wor-name">L'Ardoisière</span>
+                    <span class="wor-detail">Blanc · Vin de pays · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Ardoisiere" min="0" max="99" value="0" class="qty-input" aria-label="Quantité L'Ardoisière">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="blanc">
+                  <div class="wor-info">
+                    <span class="wor-name">Fendant</span>
+                    <span class="wor-detail">AOC · 2025 · 75 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Fendant" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Fendant">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+                <div class="wine-order-row" data-famille="orange">
+                  <div class="wor-info">
+                    <span class="wor-name">Orange 2.4</span>
+                    <span class="wor-detail">Nature · macération · 50 cl</span>
+                  </div>
+                  <div class="wor-qty">
+                    <button type="button" class="qty-btn" data-dir="-1" aria-label="Moins">−</button>
+                    <input type="number" name="qty_Orange" min="0" max="99" value="0" class="qty-input" aria-label="Quantité Orange 2.4">
+                    <button type="button" class="qty-btn" data-dir="1" aria-label="Plus">+</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="cf-group">
+              <div class="cf-field">
+                <label for="f-message">Remarques / questions</label>
+                <textarea id="f-message" name="message" rows="4" placeholder="Questions sur les cuvées, lieu de livraison, créneau de visite à la cave…"></textarea>
+              </div>
+            </div>
+
+            <div class="cf-submit">
+              <button type="submit" class="wine-btn wine-btn--solid magnetic" id="submitBtn" data-cursor>
+                Envoyer la commande <span class="dot"></span>
+              </button>
+              <p id="form-status" class="cf-status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+
+        <aside class="order-aside reveal reveal-d2">
+          <div class="aside-card">
+            <p class="cf-legend">La cave</p>
+            <p class="aside-addr">1908 Riddes<br>Valais, Suisse</p>
+            <p class="aside-sub">Vignes sous la paroi de l'Ardevaz, Leytron</p>
+            <a href="mailto:contact@tributerre.ch" class="aside-email">contact@tributerre.ch</a>
+            <p class="aside-note">Vente directe · sur rendez-vous</p>
+          </div>
+          <div class="aside-card aside-card--note">
+            <p>Chaque commande est confirmée par email sous 24 h. Paiement à la cave ou par virement — aucun prélèvement en ligne.</p>
+          </div>
+        </aside>
+
       </div>
     </div>
   </section>
@@ -72,7 +243,7 @@
 <footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-col">
-      <h4>Tribu<span class="tt">terre</span></h4>
+      <img src="assets/logo.png" onerror="this.onerror=null;this.src='assets/logo.svg'" alt="Tributerre" class="footer-logo">
       <p class="muted" style="margin-bottom:0.8rem;">Christian Vouillamoz · Artisan du vin</p>
       <p style="opacity:.72;max-width:34ch;">Les vignes sous la paroi de l'Ardevaz, à Leytron. La cave et l'élevage à Riddes.</p>
     </div>

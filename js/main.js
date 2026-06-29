@@ -311,6 +311,66 @@
     host.appendChild(frag);
   }
 
+
+  /* -------------------- FORMULAIRE DE COMMANDE (Web3Forms) -------------------- */
+  function contactForm(){
+    var form = document.getElementById("orderForm"); if(!form) return;
+    var status = document.getElementById("form-status");
+    var btn = document.getElementById("submitBtn");
+
+    // qty +/- buttons
+    form.querySelectorAll(".qty-btn").forEach(function(b){
+      b.addEventListener("click", function(){
+        var row = b.closest(".wine-order-row");
+        var inp = row.querySelector(".qty-input");
+        var v = Math.max(0, Math.min(99, parseInt(inp.value||0) + parseInt(b.dataset.dir)));
+        inp.value = v;
+        inp.classList.toggle("is-active", v > 0);
+      });
+    });
+    // highlight non-zero on load
+    form.querySelectorAll(".qty-input").forEach(function(inp){
+      inp.addEventListener("input", function(){ inp.classList.toggle("is-active", parseInt(inp.value||0)>0); });
+    });
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if(btn) btn.disabled = true;
+      if(status){ status.textContent = "Envoi en cours…"; status.className = "cf-status"; }
+
+      var data = new FormData(form);
+
+      // Build order summary from qty fields
+      var lines = [];
+      form.querySelectorAll(".qty-input").forEach(function(inp){
+        var qty = parseInt(inp.value||0);
+        if(qty > 0){
+          var label = inp.closest(".wine-order-row").querySelector(".wor-name").textContent.trim();
+          var detail = inp.closest(".wine-order-row").querySelector(".wor-detail").textContent.trim();
+          lines.push(qty + " × " + label + " (" + detail + ")");
+        }
+        data.delete(inp.name);
+      });
+      if(lines.length) data.set("commande", lines.join("\n"));
+
+      fetch("https://api.web3forms.com/submit", { method:"POST", body:data })
+        .then(function(r){ return r.json(); })
+        .then(function(json){
+          if(json.success){
+            form.reset();
+            form.querySelectorAll(".qty-input").forEach(function(i){ i.value=0; i.classList.remove("is-active"); });
+            if(status){ status.textContent = "Commande envoyée — nous vous répondons sous 24 h."; status.className = "cf-status ok"; }
+          } else {
+            if(status){ status.textContent = "Erreur : " + (json.message||"veuillez réessayer."); status.className = "cf-status err"; }
+          }
+        })
+        .catch(function(){
+          if(status){ status.textContent = "Erreur réseau — veuillez réessayer."; status.className = "cf-status err"; }
+        })
+        .finally(function(){ if(btn) btn.disabled = false; });
+    });
+  }
+
   /* -------------------- Lenis (optionnel, si chargé) -------------------- */
   function smooth(){
     if(REDUCE || typeof window.Lenis === "undefined") return;
@@ -334,6 +394,7 @@
     lightCards();
     cursor();
     cinematic();
+    contactForm();
     smooth();
     loader();
   }

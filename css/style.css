@@ -376,3 +376,214 @@ body::before {  /* grain pellicule, fixe, très subtil */
   .js .hero[data-intro] .scroll-cue,
   .js .hero[data-intro] .mask > span { opacity: 1 !important; transform: none !important; }
 }
+
+/* ============================================================ FOOTER LOGO */
+.footer-logo {
+  height: 52px; width: auto; max-width: 180px;
+  margin-bottom: 1rem; display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.88;
+}
+
+/* ============================================================ FORMULAIRE DE COMMANDE */
+.order-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (max-width: 960px) { .order-layout { grid-template-columns: 1fr; } }
+
+.contact-form { display: flex; flex-direction: column; gap: 2.4rem; }
+
+.cf-legend {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tt-vigne);
+  margin-bottom: 1.4rem;
+}
+.cf-legend-note {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--tt-pierre);
+  display: block;
+  margin-top: 0.3rem;
+}
+.cf-group {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(27,24,18,0.1);
+}
+.cf-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+@media (max-width: 600px) { .cf-cols { grid-template-columns: 1fr; } }
+
+.cf-field { display: flex; flex-direction: column; gap: 0.5rem; }
+.cf-field label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt-texte);
+}
+.cf-field label abbr { text-decoration: none; color: var(--tt-rouge); }
+.cf-field input,
+.cf-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--tt-texte);
+  background: var(--tt-papier-2);
+  border: 1px solid rgba(27,24,18,0.18);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  outline: none;
+  transition: border-color .25s, box-shadow .25s;
+  width: 100%;
+  resize: vertical;
+}
+.cf-field input:focus,
+.cf-field textarea:focus {
+  border-color: var(--tt-rouge);
+  box-shadow: 0 0 0 3px rgba(126,10,10,0.1);
+}
+.cf-field input::placeholder,
+.cf-field textarea::placeholder { color: rgba(27,24,18,0.38); }
+
+/* wine order list */
+.wine-order-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(27,24,18,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.wine-order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  background: var(--tt-papier-2);
+  border-bottom: 1px solid rgba(27,24,18,0.08);
+  transition: background .2s;
+}
+.wine-order-row:last-child { border-bottom: none; }
+.wine-order-row:hover { background: var(--tt-papier); }
+.wine-order-row[data-famille="blanc"] .wor-name { color: var(--tt-vert); }
+.wine-order-row[data-famille="prestige"] .wor-name { color: var(--tt-rouge-fonce); font-weight: 600; }
+.wine-order-row[data-famille="rose"] .wor-name { color: #8c3f3f; }
+.wine-order-row[data-famille="orange"] .wor-name { color: #6b4010; }
+
+.wor-info { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0; }
+.wor-name {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 500;
+  color: var(--tt-rouge);
+  line-height: 1.1;
+}
+.wor-detail {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt-vigne);
+}
+
+.wor-qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 auto;
+  border: 1px solid rgba(27,24,18,0.18);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.qty-btn {
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  color: var(--tt-texte);
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background .2s, color .2s;
+  border: none;
+}
+.qty-btn:hover { background: var(--tt-rouge); color: var(--tt-papier); }
+.qty-input {
+  width: 42px; height: 34px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--tt-texte);
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(27,24,18,0.12);
+  border-right: 1px solid rgba(27,24,18,0.12);
+  outline: none;
+  -moz-appearance: textfield;
+}
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.qty-input.is-active { color: var(--tt-rouge); font-weight: 700; }
+
+/* submit */
+.cf-submit { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
+.cf-status {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 0;
+}
+.cf-status.ok { color: var(--tt-vert); }
+.cf-status.err { color: var(--tt-rouge); }
+
+/* aside */
+.order-aside { display: flex; flex-direction: column; gap: 1rem; position: sticky; top: 6rem; }
+.aside-card {
+  background: var(--tt-papier-2);
+  border: 1px solid rgba(27,24,18,0.1);
+  border-radius: 16px;
+  padding: 1.6rem 1.8rem;
+}
+.aside-card .cf-legend { margin-bottom: 1rem; }
+.aside-addr {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+}
+.aside-sub {
+  font-size: 0.85rem;
+  color: rgba(27,24,18,0.62);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+.aside-email {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--tt-rouge);
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(126,10,10,0.3);
+}
+.aside-email:hover { text-decoration-color: var(--tt-rouge); }
+.aside-note {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tt-vigne);
+}
+.aside-card--note p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(27,24,18,0.68);
+}
