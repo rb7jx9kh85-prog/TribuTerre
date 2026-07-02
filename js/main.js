@@ -103,14 +103,17 @@
     else requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
   }
 
-  /* -------------------- HERO : vidéo -> logo sur fond noir animé -------------------- */
+  /* -------------------- HERO : vidéo + proposition de valeur -> logo sur fond noir animé -------------------- */
   function heroVideos(hero){
     var v1 = document.getElementById("heroV1");
     var cap = document.getElementById("heroCaption");
-    function caption(txt){
+    function captionIn(){
       if(!cap) return;
-      cap.classList.remove("show");
-      setTimeout(function(){ var s=cap.querySelector("span"); if(s) s.textContent=txt; cap.classList.add("show"); }, 260);
+      // apparition mot à mot, cadence cinématique
+      cap.querySelectorAll(".w").forEach(function(w, i){
+        w.style.transitionDelay = (0.45 + i * 0.09).toFixed(2) + "s";
+      });
+      requestAnimationFrame(function(){ cap.classList.add("show"); });
     }
     function runClip(v, onDone){
       if(!v){ onDone(); return; }
@@ -120,12 +123,12 @@
       v.addEventListener("error", function(){ setTimeout(fin, 250); }, { once:true });
       v.addEventListener("playing", function(){ played=true; }, { once:true });
       var p = v.play && v.play(); if(p && p.catch) p.catch(function(){});
-      // injouable (autoplay bloqué / codec absent) -> on avance vite
-      setTimeout(function(){ if(!done && !played) fin(); }, 1800);
+      // injouable (autoplay bloqué / codec absent) -> on laisse la phrase se révéler sur le fond animé
+      setTimeout(function(){ if(!done && !played) fin(); }, 4500);
       // borne haute : l'intro ne traîne jamais, même sur une vidéo longue
       setTimeout(fin, MAX);
     }
-    function phase1(){ if(v1) v1.classList.add("is-on"); caption("De la terre au raisin"); runClip(v1, phase2); }
+    function phase1(){ if(v1) v1.classList.add("is-on"); captionIn(); runClip(v1, phase2); }
     function phase2(){
       if(cap) cap.classList.remove("show");
       if(v1) v1.classList.remove("is-on");
@@ -312,6 +315,17 @@
   }
 
   /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
+  // attend la fin de l'intro cinématique avant d'afficher la pop-up
+  function newsPopupDeferred(){
+    var hero = document.querySelector(".hero[data-intro]");
+    if(!hero){ newsPopup(); return; }
+    var shown = false;
+    function tryShow(){ if(shown) return; shown = true; setTimeout(newsPopup, 1400); }
+    var iv = setInterval(function(){
+      if(hero.classList.contains("intro-in")){ clearInterval(iv); tryShow(); }
+    }, 250);
+    setTimeout(function(){ clearInterval(iv); tryShow(); }, 10000);
+  }
   function newsPopup(){
     try { if(localStorage.getItem("tt_news_seen") === "1") return; } catch(e){}
     var pop = document.createElement("div");
@@ -431,7 +445,7 @@
   }
 
   function boot(){
-    ageGate(newsPopup);
+    ageGate(newsPopupDeferred);
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     spawnHeroParticles();
     buildCuvees();
