@@ -113,8 +113,9 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .theme-light .site-header:not(.scrolled) { color: var(--tt-texte); }
 .brand { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.16em; font-size: 1.15rem; text-transform: uppercase; display: flex; align-items: center; }
 .brand .tt { color: var(--tt-rouge); }
-.brand-logo { height: 52px; width: auto; display: block; transition: height .4s ease; }
-.site-header.scrolled .brand-logo { height: 40px; }
+.brand-logo { height: 72px; width: auto; display: block; transition: height .4s ease; }
+.site-header.scrolled .brand-logo { height: 52px; }
+@media (max-width: 760px){ .brand-logo { height: 54px; } .site-header.scrolled .brand-logo { height: 44px; } }
 .site-nav { display: flex; gap: clamp(1.1rem, 2.4vw, 2.4rem); align-items: center; }
 .site-nav a { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; opacity: 0.82; transition: opacity .3s; position: relative; }
 .site-nav a::after { content: ""; position: absolute; left: 0; bottom: -5px; height: 1px; width: 0; background: currentColor; transition: width .35s var(--ease-soft); }
