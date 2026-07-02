@@ -142,13 +142,12 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .hero {
   position: relative; min-height: 100svh; display: grid; place-items: center;
   overflow: hidden; isolation: isolate;
-  background: radial-gradient(125% 95% at 50% -10%, #3a0e0e 0%, #1a0c0c 40%, var(--tt-noir) 100%);
+  background: #020202;
   color: var(--tt-papier); text-align: center;
 }
 .hero__videos { position: absolute; inset: 0; z-index: 0; }
 .hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; }
 .hero__video.is-on { opacity: 0.66; }
-.hero__video.is-dim { opacity: 0.34; }
 .hero__caption { position: absolute; z-index: 2; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; padding: 0 1.4rem; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
 .hero__caption.show { opacity: 1; }
 .hero__caption span { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.8rem, 5.4vw, 4.2rem); color: var(--tt-papier); text-shadow: 0 2px 30px rgba(0,0,0,0.5); }
@@ -157,11 +156,6 @@ body::before {  /* grain pellicule, fixe, très subtil */
   background:
     radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(10,10,12,0.55) 100%),
     linear-gradient(to top, rgba(10,10,12,0.7), transparent 55%);
-}
-.hero__wm {
-  position: absolute; z-index: 1; left: 50%; top: 52%; transform: translate(-50%,-50%);
-  font-family: var(--font-display); font-weight: 600; font-size: clamp(20rem, 56vw, 52rem);
-  line-height: 1; color: var(--tt-rouge); opacity: 0.05; pointer-events: none; user-select: none;
 }
 .hero__inner { position: relative; z-index: 2; padding: 2rem 1.4rem; display: flex; flex-direction: column; align-items: center; }
 .hero__kicker { color: var(--tt-pierre); margin-bottom: clamp(1rem,3vh,1.8rem); }
@@ -202,13 +196,12 @@ body::before {  /* grain pellicule, fixe, très subtil */
   content: "";
   position: absolute; inset: -30%;
   background:
-    radial-gradient(circle at 20% 30%, rgba(210,0,55,0.38), transparent 32%),
-    radial-gradient(circle at 80% 25%, rgba(95,0,35,0.55), transparent 34%),
-    radial-gradient(circle at 50% 80%, rgba(150,0,45,0.42), transparent 38%),
-    radial-gradient(circle at 30% 70%, rgba(255,25,70,0.18), transparent 36%),
-    linear-gradient(120deg, #020202 0%, #120006 20%, #320010 40%, #6b001f 55%, #26000c 72%, #020202 100%);
-  filter: blur(55px);
-  animation: heroGlow 22s ease-in-out infinite alternate;
+    radial-gradient(circle at 22% 32%, rgba(154,20,20,0.16), transparent 30%),
+    radial-gradient(circle at 78% 22%, rgba(95,6,20,0.20), transparent 32%),
+    radial-gradient(circle at 50% 82%, rgba(126,10,10,0.12), transparent 38%),
+    #020202;
+  filter: blur(60px);
+  animation: heroGlow 26s ease-in-out infinite alternate;
 }
 .hero[data-intro].intro-in .hero__bg { opacity: 1; }
 @keyframes heroGlow {
@@ -312,8 +305,8 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvee-card:hover::before { opacity: 1; }
 .cuvee-card[data-dark="true"] {
   color: var(--tt-papier); border-color: rgba(155,29,29,0.5);
-  background: radial-gradient(circle at 50% 16%, rgba(126,31,31,0.26), transparent 38%), linear-gradient(145deg, #1a0c12, #080608);
-  box-shadow: 0 26px 90px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05);
+  background: radial-gradient(circle at 50% 16%, rgba(158,38,54,0.32), transparent 44%), linear-gradient(150deg, #2c0a14, #14050b 58%, #0d040a);
+  box-shadow: 0 26px 90px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .cuvee-card[data-dark="true"]:hover { border-color: rgba(155,29,29,0.85); }
 .cuvee-card > * { position: relative; z-index: 1; }
@@ -328,6 +321,9 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvee-card[data-dark="true"] .cuvee-type { color: var(--tt-rouge-vif); }
 .cuvee-desc { margin-bottom: 1.6rem; font-family: var(--font-body); font-size: 0.9rem; line-height: 1.62; color: rgba(21,16,12,0.7); }
 .cuvee-card[data-dark="true"] .cuvee-desc { color: rgba(245,238,228,0.74); }
+.cuvee-prix { margin-top: auto; font-family: var(--font-display); font-size: 1.45rem; font-weight: 600; color: var(--accent); }
+.cuvee-card[data-dark="true"] .cuvee-prix { color: var(--tt-papier); }
+.cuvee-prix + .cuvee-bottom { margin-top: 0.7rem; }
 .cuvee-bottom { margin-top: auto; padding-top: 0.9rem; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(21,16,12,0.55); border-top: 1px solid rgba(35,25,15,0.1); }
 .cuvee-card[data-dark="true"] .cuvee-bottom { color: rgba(245,238,228,0.62); border-top-color: rgba(245,238,228,0.12); }
 
@@ -339,6 +335,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .dispo-card img { height: 74px; width: auto; object-fit: contain; flex: 0 0 auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14)); }
 .dispo-info h4 { font-family: var(--font-display); font-size: 1.18rem; font-weight: 500; line-height: 1.04; }
 .dispo-info p { font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt-vigne); margin-top: 0.35rem; }
+.dispo-info p.dispo-prix { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--tt-texte); }
 
 /* ============================================================ BOUTON vin */
 .wine-btn {
@@ -371,28 +368,57 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cursor.hover { transform: scale(2.8); opacity: 0.25; }
 @media (pointer: coarse), (max-width: 760px){ .cursor { display: none; } }
 
-/* ============================================================ SCROLL CINÉMATIQUE */
-.cinematic-scroll {
-  position: relative; height: 360vh; color: var(--tt-papier);
-  background:
-    radial-gradient(circle at 50% 50%, rgba(126,31,31,0.18), transparent 42%),
-    linear-gradient(180deg, #080604, #020202 48%, #090705);
+/* ============================================================ TERRE BLANCHE / TERRE ROUGE */
+.terres { background: var(--tt-papier); padding-top: clamp(4rem, 10vh, 7rem); }
+.terres > .wrap { padding-inline: var(--pad-x); }
+.terres__head { margin-bottom: clamp(2.4rem, 6vh, 4rem); }
+.terres__head h2 { font-size: clamp(2.4rem, 6.5vw, 5rem); font-weight: 500; }
+.terres__intro { margin-top: 1.2rem; max-width: 58ch; font-size: clamp(1rem, 1.6vw, 1.2rem); color: rgba(27,24,18,0.75); }
+.terres__grid { display: grid; grid-template-columns: 1fr 1fr; }
+.terre-panel {
+  position: relative; display: flex; flex-direction: column; gap: 2.2rem;
+  padding: clamp(2.6rem, 6vw, 5rem); min-height: 620px;
+  overflow: hidden; isolation: isolate;
 }
-.bottle-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.bottle-copy { position: absolute; left: 7vw; top: 50%; transform: translateY(-50%); max-width: 460px; z-index: 4; will-change: transform, opacity; }
-.cinematic-scroll .section-kicker { color: var(--tt-rouge-vif); font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; }
-.bottle-copy h2, .next-reveal h2 { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 6rem); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.4rem; font-weight: 500; }
-.bottle-copy p, .next-reveal p { color: var(--tt-pierre); font-size: 1.05rem; line-height: 1.8; }
-.bottle-zoom-wrap { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-.bottle-image { width: min(52vw, 720px); height: auto; transform-origin: 50% 80%; will-change: transform, opacity, filter; filter: drop-shadow(0 40px 100px rgba(0,0,0,0.6)); }
-.bottle-vignette { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.7;
-  background: radial-gradient(circle at center, transparent 18%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.9) 100%); }
-.next-reveal { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 7vw; text-align: center; opacity: 0; transform: translateY(50px); filter: blur(12px); pointer-events: none; will-change: transform, opacity, filter; }
-.next-reveal > div { max-width: 860px; }
-@media (max-width: 900px) {
-  .cinematic-scroll { height: 320vh; }
-  .bottle-copy { left: 6vw; right: 6vw; top: 15%; transform: none; max-width: none; }
-  .bottle-image { width: 118vw; }
+.terre-panel--blanche {
+  color: var(--tt-texte);
+  background:
+    radial-gradient(circle at 80% 8%, rgba(255,255,255,0.85), transparent 42%),
+    radial-gradient(circle at 12% 88%, rgba(185,179,166,0.35), transparent 40%),
+    linear-gradient(160deg, #faf8f2, #ece5d4 58%, #ded5c1);
+}
+.terre-panel--rouge {
+  color: var(--tt-papier);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(158,38,54,0.35), transparent 42%),
+    radial-gradient(circle at 85% 90%, rgba(126,10,10,0.25), transparent 44%),
+    linear-gradient(160deg, #2e0a15, #180510 55%, #0c0308);
+}
+.terre-panel__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+.terre-panel__kicker { font-family: var(--font-body); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; }
+.terre-panel--blanche .terre-panel__kicker { color: var(--tt-vert); }
+.terre-panel--rouge .terre-panel__kicker { color: #d98a96; }
+.terre-panel h3 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 500; }
+.terre-panel__desc { max-width: 44ch; line-height: 1.75; }
+.terre-panel--blanche .terre-panel__desc { color: rgba(27,24,18,0.72); }
+.terre-panel--rouge .terre-panel__desc { color: rgba(246,243,236,0.78); }
+.terre-panel__traits { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 0.6rem; }
+.terre-panel__traits li {
+  font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid currentColor; opacity: 0.65;
+}
+.terre-panel__fig { margin-top: auto; align-self: center; }
+.terre-panel__fig img {
+  max-height: 300px; width: auto;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.35));
+  transition: transform .7s var(--ease-soft);
+}
+.terre-panel:hover .terre-panel__fig img { transform: translateY(-10px) scale(1.03); }
+.wine-btn--light { color: var(--tt-papier); }
+@media (max-width: 860px) {
+  .terres__grid { grid-template-columns: 1fr; }
+  .terre-panel { min-height: 0; }
+  .terre-panel__fig img { max-height: 240px; }
 }
 
 /* ============================================================ NOS GAMMES */
@@ -407,10 +433,6 @@ body::before {  /* grain pellicule, fixe, très subtil */
 
 /* ============================================================ reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .cinematic-scroll { height: auto; }
-  .bottle-stage { position: static; height: auto; padding: 4rem 0; flex-direction: column; }
-  .next-reveal { position: static; opacity: 1; transform: none; filter: none; padding: 3rem 7vw 0; }
-  .bottle-copy { position: static; transform: none; max-width: none; margin-bottom: 2rem; }
   body::before, .marquee__track, .hero__bg::before, .hero__bg-particles span { animation: none; }
   .reveal, .word-reveal span, .line-reveal { transition: none; opacity: 1; transform: none; filter: none; width: auto; }
   .scroll-cue i { animation: none; height: 28px; opacity: 0.6; }
@@ -685,3 +707,51 @@ body::before {  /* grain pellicule, fixe, très subtil */
   font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
   color: rgba(185,179,166,0.45);
 }
+
+/* ============================================================ BADGE NOUVEAU */
+.tag-nouveau {
+  display: inline-block; margin-right: 0.55rem; padding: 0.22rem 0.75rem;
+  border-radius: 999px; background: var(--tt-rouge); color: var(--tt-papier);
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; vertical-align: middle;
+}
+
+/* ============================================================ POP-UP NOUVEAUTÉ */
+.news-pop {
+  position: fixed; inset: 0; z-index: 8000;
+  display: grid; place-items: center; padding: 1.5rem;
+  background: rgba(2,2,2,0.55); backdrop-filter: blur(8px);
+  opacity: 0; transition: opacity .45s ease;
+}
+.news-pop.is-in { opacity: 1; }
+.news-pop__card {
+  position: relative; width: min(92vw, 460px);
+  padding: 3rem 2.4rem 2.6rem; text-align: center;
+  color: var(--tt-papier); border: 1px solid rgba(246,243,236,0.14); border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(154,20,20,0.22), transparent 55%),
+    linear-gradient(160deg, #16090e, #0a0508);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+  transform: translateY(24px) scale(0.97);
+  transition: transform .5s var(--ease-soft);
+}
+.news-pop.is-in .news-pop__card { transform: none; }
+.news-pop__close {
+  position: absolute; top: 0.7rem; right: 1rem;
+  font-size: 1.7rem; line-height: 1; padding: 0.3rem;
+  color: var(--tt-pierre); transition: color .3s;
+}
+.news-pop__close:hover { color: var(--tt-papier); }
+.news-pop__mark { height: 52px; width: auto; margin: 0 auto 1.2rem; }
+.news-pop__kicker { font-family: var(--font-body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--tt-rouge-vif); margin-bottom: 0.7rem; }
+.news-pop__title { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 500; margin-bottom: 0.9rem; }
+.news-pop__text { font-size: 0.92rem; line-height: 1.7; color: var(--tt-pierre); margin-bottom: 1.8rem; }
+.news-pop__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 50px; padding: 0 2.6rem; border-radius: 999px;
+  background: var(--tt-rouge); color: var(--tt-papier);
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  transition: background .3s, transform .3s;
+}
+.news-pop__cta:hover { background: var(--tt-rouge-vif); transform: translateY(-2px); }

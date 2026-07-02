@@ -11,44 +11,44 @@
   var CUVEES = [
     { name:"Terre Blanche", type:"Blanc · Assemblage", famille:"blanc",
       desc:"L'assemblage blanc de la maison. Nez fin et délicat, bouche fraîche, dynamique et équilibrée, à la finale saline et minérale.",
-      origin:"Vin de table · MMXXII", format:"75 cl", img:"assets/TerreBlanche.webp" },
+      origin:"Vin de table · MMXXII", format:"75 cl", prix:"CHF 19.–", img:"assets/TerreBlanche.webp" },
     { name:"L'Ardoisière", type:"Blanc · Assemblage", famille:"blanc",
       desc:"Née du terroir ardoisier de Leytron. Un blanc tendu et lumineux, sur la pierre et les agrumes, à la finale précise.",
-      origin:"Vin de pays", format:"75 cl", img:"assets/LArdoisiere.webp" },
+      origin:"Vin de pays", format:"75 cl", prix:"CHF 17.–", img:"assets/LArdoisiere.webp" },
     { name:"Orange 2.4", type:"Orange · Macération", famille:"orange",
       desc:"Macération pelliculaire longue, fermentation spontanée. Robe ambrée, nez complexe et généreux, bouche ample, texturée, à la finale légèrement tannique. Un vin vivant, nature.",
-      origin:"VDT nature", format:"50 cl", img:null },
+      origin:"VDT nature", format:"50 cl", prix:"CHF 24.–", img:null },
     { name:"Terre de Rosée", type:"Rosé · Assemblage", famille:"rose",
       desc:"Belle robe saumonée. Nez expressif, ouvert, printanier. Bouche puissante, fruitée et florale, ronde, sur les fruits à noyaux (brugnon, mirabelle). Finale gourmande.",
-      origin:"VPD · 2024 · 13 % vol", format:"50 cl", img:"assets/TerreDeRose.webp" },
+      origin:"VPD · 2024 · 13 % vol", format:"50 cl", prix:"CHF 15.–", img:"assets/TerreDeRose.webp" },
     { name:"Vieilles Vignes Gamay", type:"Rouge · Gamay", famille:"rouge",
       desc:"Robe rubis, grand nez sur la griotte et la pivoine. Bouche ciselée, précise, sapide et aérienne, aux nuances de violette et de fraise des bois. Finale élégante aux tanins délicats.",
-      origin:"AOC Leytron", format:"75 cl", img:"assets/VieillesVignesGamay.webp" },
+      origin:"AOC Leytron", format:"75 cl", prix:"CHF 18.–", img:"assets/VieillesVignesGamay.webp" },
     { name:"Terre d'Automne", type:"Rouge · Assemblage", famille:"rouge",
       desc:"L'assemblage de saison de la maison. Un rouge généreux, sur le fruit mûr et la rondeur, à partager sans façon.",
-      origin:"Vin de table", format:"75 cl", img:"assets/TerreDAutomne.webp" },
+      origin:"Vin de table", format:"75 cl", prix:"CHF 16.–", img:"assets/TerreDAutomne.webp" },
     { name:"Terre N° 13", type:"Rouge · Merlot", famille:"rouge",
       desc:"Merlot droit, élevé sans détour. Fruit noir, profondeur et trame sobre, pour un vin franc et de caractère.",
-      origin:"Vin de pays · 2023", format:"75 cl", img:"assets/TerreN13.webp" },
+      origin:"Vin de pays · 2023", format:"75 cl", prix:"CHF 21.–", img:"assets/TerreN13.webp" },
     { name:"Terre Rouge", type:"Rouge · Assemblage", famille:"rouge", dark:true,
       desc:"Nez intense et ouvert sur le cacao, le kirsch et la vanille. Bouche souple, caressante, pure, à la concentration certaine. Bel élevage discret, longue finale aux tanins fins et intégrés.",
-      origin:"Valais · MMXXII", format:"75 cl", img:"assets/TerreRouge.webp" },
+      origin:"Valais · MMXXII", format:"75 cl", prix:"CHF 25.–", img:"assets/TerreRouge.webp" },
     { name:"Merlot Prestige", type:"Rouge · Merlot", famille:"prestige", dark:true,
       desc:"La cuvée haut de gamme. Un merlot d'élevage patient, dense et raffiné, à la trame serrée et à la longue finale boisée.",
-      origin:"Prestige · 2022", format:"75 cl", img:"assets/MerlotPrestige.webp" }
+      origin:"Prestige · 2022", format:"75 cl", prix:"CHF 32.–", img:"assets/MerlotPrestige.webp" }
   ];
   window.TT_CUVEES = CUVEES;
 
   /* -------------------- vins disponibles (petites cartes) -------------------- */
   var DISPO = [
-    { name:"Fendant",        info:"AOC · 2025 · 75 cl",          famille:"blanc",  img:null },
-    { name:"Terre Blanche",  info:"VDT · MMXXII · 75 cl",        famille:"blanc",  img:"assets/TerreBlanche.webp" },
-    { name:"Orange 2.4",     info:"VDT nature · 50 cl",          famille:"orange", img:null },
-    { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          famille:"rose",   img:"assets/TerreDeRose.webp" },
-    { name:"Le Gamay",       info:"AOC Leytron · 2025 · 75 cl",  famille:"rouge",  img:"assets/VieillesVignesGamay.webp" },
-    { name:"Terre N° 13",    info:"Merlot · VDP 2023 · 75 cl",   famille:"rouge",  img:"assets/TerreN13.webp" },
-    { name:"Terre Rouge",    info:"MMXXII · 75 cl",              famille:"rouge",  img:"assets/TerreRouge.webp" },
-    { name:"Merlot Prestige",info:"2022 · 75 cl",                famille:"rouge",  img:"assets/MerlotPrestige.webp" }
+    { name:"Fendant",        info:"AOC · 2025 · 75 cl",          prix:"CHF 14.–", famille:"blanc",  img:null },
+    { name:"Terre Blanche",  info:"VDT · MMXXII · 75 cl",        prix:"CHF 19.–", famille:"blanc",  img:"assets/TerreBlanche.webp" },
+    { name:"Orange 2.4",     info:"VDT nature · 50 cl",          prix:"CHF 24.–", famille:"orange", img:null },
+    { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          prix:"CHF 15.–", famille:"rose",   img:"assets/TerreDeRose.webp" },
+    { name:"Le Gamay",       info:"AOC Leytron · 2025 · 75 cl",  prix:"CHF 18.–", famille:"rouge",  img:"assets/VieillesVignesGamay.webp" },
+    { name:"Terre N° 13",    info:"Merlot · VDP 2023 · 75 cl",   prix:"CHF 21.–", famille:"rouge",  img:"assets/TerreN13.webp" },
+    { name:"Terre Rouge",    info:"MMXXII · 75 cl",              prix:"CHF 25.–", famille:"rouge",  img:"assets/TerreRouge.webp" },
+    { name:"Merlot Prestige",info:"2022 · 75 cl",                prix:"CHF 32.–", famille:"rouge",  img:"assets/MerlotPrestige.webp" }
   ];
 
   function accent(f){ return f === "blanc" ? "#0b4a12" : "#7e0a0a"; }
@@ -103,18 +103,15 @@
     else requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
   }
 
-  /* -------------------- HERO : séquence vidéo 1 -> vidéo 2 -> logo -------------------- */
+  /* -------------------- HERO : vidéo -> logo sur fond noir animé -------------------- */
   function heroVideos(hero){
     var v1 = document.getElementById("heroV1");
-    var v2 = document.getElementById("heroV2");
     var cap = document.getElementById("heroCaption");
     function caption(txt){
       if(!cap) return;
       cap.classList.remove("show");
       setTimeout(function(){ var s=cap.querySelector("span"); if(s) s.textContent=txt; cap.classList.add("show"); }, 260);
     }
-    function show(v){ if(v) v.classList.add("is-on"); }
-    function hide(v){ if(v) v.classList.remove("is-on"); }
     function runClip(v, onDone){
       if(!v){ onDone(); return; }
       var done=false, MAX=6500, played=false;
@@ -128,48 +125,14 @@
       // borne haute : l'intro ne traîne jamais, même sur une vidéo longue
       setTimeout(fin, MAX);
     }
-    function phase1(){ show(v1); caption("De la terre au raisin"); runClip(v1, phase2); }
-    function phase2(){ show(v2); hide(v1); caption("Du raisin au vin"); runClip(v2, phase3); }
-    function phase3(){
+    function phase1(){ if(v1) v1.classList.add("is-on"); caption("De la terre au raisin"); runClip(v1, phase2); }
+    function phase2(){
       if(cap) cap.classList.remove("show");
-      if(v2) v2.classList.remove("is-on");
       if(v1) v1.classList.remove("is-on");
       requestAnimationFrame(function(){ hero.classList.add("intro-in"); });
     }
-    if(REDUCE){ phase3(); return; }
+    if(REDUCE){ phase2(); return; }
     phase1();
-  }
-
-  /* -------------------- Scroll cinématique : bouteille qui grandit -------------------- */
-  function cinematic(){
-    var section = document.querySelector(".cinematic-scroll"); if(!section) return;
-    var img = section.querySelector(".bottle-image");
-    var copy = section.querySelector(".bottle-copy");
-    var next = section.querySelector(".next-reveal");
-    if(REDUCE){ if(next){ next.style.opacity=1; next.style.filter="none"; next.style.transform="none"; } return; }
-    var clamp=function(v,a,b){ return Math.min(Math.max(v,a),b); };
-    var lerp=function(a,b,p){ return a+(b-a)*p; };
-    var ease=function(p){ return 1-Math.pow(1-p,3); };
-    var ticking=false;
-    function update(){
-      var rect=section.getBoundingClientRect();
-      var total=section.offsetHeight - window.innerHeight;
-      var prog=clamp(-rect.top/total,0,1);
-      var zoom=ease(clamp(prog/0.5,0,1));
-      var fade=ease(clamp((prog-0.28)/0.35,0,1));
-      var nx=ease(clamp((prog-0.68)/0.32,0,1));
-      if(img){
-        img.style.transform="translateX("+lerp(20,0,zoom).toFixed(2)+"vw) scale("+lerp(0.72,4.4,zoom).toFixed(3)+") rotate("+lerp(-2,0,zoom).toFixed(2)+"deg)";
-        img.style.opacity=lerp(1,0.12,nx).toFixed(3);
-        img.style.filter="drop-shadow(0 40px 100px rgba(0,0,0,0.6)) blur("+lerp(0,12,nx).toFixed(1)+"px)";
-      }
-      if(copy){ copy.style.opacity=lerp(1,0,fade).toFixed(3); copy.style.transform="translateY(-50%) translateX("+lerp(0,-5,fade).toFixed(2)+"vw)"; }
-      if(next){ next.style.opacity=nx.toFixed(3); next.style.transform="translateY("+lerp(50,0,nx).toFixed(1)+"px)"; next.style.filter="blur("+lerp(12,0,nx).toFixed(1)+"px)"; }
-      ticking=false;
-    }
-    window.addEventListener("scroll", function(){ if(!ticking){ requestAnimationFrame(update); ticking=true; } }, { passive:true });
-    window.addEventListener("resize", update);
-    update();
   }
 
   /* -------------------- HEADER scrolled -------------------- */
@@ -281,15 +244,17 @@
         card.className = "cuvee-card reveal";
         if(i % 3 === 1) card.className += " reveal-d1"; if(i % 3 === 2) card.className += " reveal-d2";
         card.setAttribute("data-famille", c.famille);
-        if(c.dark) card.setAttribute("data-dark","true");
+        var dark = c.dark || c.famille === "rouge" || c.famille === "prestige";
+        if(dark) card.setAttribute("data-dark","true");
         var num = (n<10?"0":"")+n;
         card.innerHTML =
           '<span class="cuvee-num">Cuvée '+num+'</span>'+
-          '<figure class="cuvee-fig"><img loading="lazy" alt="'+c.name+'" src="'+c.img+'" data-fallback="bottle" data-famille="'+c.famille+'" data-dark="'+(c.dark?'true':'false')+'"></figure>'+
+          '<figure class="cuvee-fig"><img loading="lazy" alt="'+c.name+'" src="'+c.img+'" data-fallback="bottle" data-famille="'+c.famille+'" data-dark="'+(dark?'true':'false')+'"></figure>'+
           '<div class="cuvee-body">'+
             '<h3>'+c.name+'</h3>'+
             '<p class="cuvee-type">'+c.type+'</p>'+
             '<p class="cuvee-desc">'+c.desc+'</p>'+
+            (c.prix ? '<p class="cuvee-prix">'+c.prix+'</p>' : '')+
             '<div class="cuvee-bottom"><span>'+c.origin+'</span><span>'+c.format+'</span></div>'+
           '</div>';
         frag.appendChild(card);
@@ -309,7 +274,8 @@
       var src = d.img || phBottle(fam, false);
       var fb = d.img ? ' data-fallback="bottle" data-famille="'+fam+'"' : '';
       card.innerHTML = '<img src="'+src+'" alt="'+d.name+'" loading="lazy"'+fb+'>'+
-        '<div class="dispo-info"><h4>'+d.name+'</h4><p>'+d.info+'</p></div>';
+        '<div class="dispo-info"><h4>'+d.name+'</h4><p>'+d.info+'</p>'+
+        (d.prix ? '<p class="dispo-prix">'+d.prix+'</p>' : '')+'</div>';
       frag.appendChild(card);
     });
     host.appendChild(frag);
@@ -317,7 +283,7 @@
 
 
   /* -------------------- AGE GATE -------------------- */
-  function ageGate(){
+  function ageGate(onPassed){
     var overlay = document.createElement("div");
     overlay.className = "age-gate";
     overlay.setAttribute("role", "dialog");
@@ -338,9 +304,40 @@
       overlay.style.opacity = "0";
       document.body.classList.remove("is-locked");
       setTimeout(function(){ overlay.remove(); }, 520);
+      if(onPassed) setTimeout(onPassed, 900);
     });
     overlay.querySelector(".age-gate__no").addEventListener("click", function(){
       window.location.href = "https://www.ch.ch/fr/alcool/";
+    });
+  }
+
+  /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
+  function newsPopup(){
+    try { if(localStorage.getItem("tt_news_seen") === "1") return; } catch(e){}
+    var pop = document.createElement("div");
+    pop.className = "news-pop";
+    pop.setAttribute("role","dialog");
+    pop.setAttribute("aria-modal","true");
+    pop.setAttribute("aria-labelledby","np-title");
+    pop.innerHTML =
+      '<div class="news-pop__card">'+
+        '<button class="news-pop__close" type="button" aria-label="Fermer">&#215;</button>'+
+        '<img src="assets/tt-mark.png" alt="" aria-hidden="true" class="news-pop__mark">'+
+        '<p class="news-pop__kicker">Nouveauté</p>'+
+        '<h3 class="news-pop__title" id="np-title">Terre Blanche · Terre Rouge</h3>'+
+        '<p class="news-pop__text">Découvrez la nouvelle identité du domaine : Terre Blanche, Terre Rouge, deux expressions du terroir sous l\'Ardevaz.</p>'+
+        '<a href="index.html#terres" class="news-pop__cta" data-cursor>Découvrir</a>'+
+      '</div>';
+    document.body.appendChild(pop);
+    try { localStorage.setItem("tt_news_seen","1"); } catch(e){}
+    requestAnimationFrame(function(){ pop.classList.add("is-in"); });
+    function close(){ pop.classList.remove("is-in"); setTimeout(function(){ pop.remove(); }, 450); }
+    pop.querySelector(".news-pop__close").addEventListener("click", close);
+    pop.addEventListener("click", function(e){ if(e.target === pop) close(); });
+    pop.querySelector(".news-pop__cta").addEventListener("click", function(e){
+      var t = document.getElementById("terres");
+      if(t){ e.preventDefault(); close(); setTimeout(function(){ t.scrollIntoView({ behavior:"smooth" }); }, 320); }
+      else close();
     });
   }
 
@@ -434,7 +431,7 @@
   }
 
   function boot(){
-    ageGate();
+    ageGate(newsPopup);
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     spawnHeroParticles();
     buildCuvees();
@@ -447,7 +444,6 @@
     parallax();
     lightCards();
     cursor();
-    cinematic();
     contactForm();
     smooth();
     loader();

@@ -31,7 +31,7 @@
     <a href="histoire.html">Histoire</a>
     <a href="terroir.html">Terroir</a>
     <a href="cuvees.html">Cuvées</a>
-    <a href="contact.html">Contact</a>
+    <a href="contact.html">Commander des vins</a>
   </nav>
   <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
 </header>
@@ -43,7 +43,6 @@
     <div class="hero__bg-particles" id="heroPart" aria-hidden="true"></div>
     <div class="hero__videos" aria-hidden="true">
       <video class="hero__video" id="heroV1" muted playsinline preload="auto"><source src="assets/hero-1.mp4" type="video/mp4" /></video>
-      <video class="hero__video" id="heroV2" muted playsinline preload="auto"><source src="assets/hero-2.mp4" type="video/mp4" /></video>
     </div>
     <div class="hero__caption" id="heroCaption" aria-hidden="true"><span>De la terre au raisin</span></div>
     <div class="hero__inner">
@@ -80,25 +79,36 @@
     </div>
   </section>
 
-  <!-- SCROLL CINÉMATIQUE -->
-  <section class="cinematic-scroll" id="bouteille">
-    <div class="bottle-stage">
-      <div class="bottle-copy">
-        <p class="section-kicker">Terre Rouge</p>
-        <h2>Le vin prend toute la place.</h2>
-        <p>Au scroll, la bouteille avance vers l'écran, grandit, puis laisse apparaître les cuvées.</p>
+  <!-- TERRE BLANCHE / TERRE ROUGE — la marque de fabrique -->
+  <section class="terres" id="terres">
+    <div class="wrap">
+      <div class="terres__head">
+        <span class="section-kicker kicker"><span class="num">—</span> La marque de fabrique</span>
+        <h2 class="word-reveal">Terre Blanche, Terre Rouge</h2>
+        <p class="reveal terres__intro">Deux expressions d'un même lieu. Sous l'Ardevaz, le calcaire et les terres profondes se répondent — le domaine en a fait sa signature.</p>
       </div>
-      <div class="bottle-zoom-wrap">
-        <img src="assets/TerreRouge.webp" alt="Bouteille Terre Rouge" class="bottle-image" />
-      </div>
-      <div class="bottle-vignette" aria-hidden="true"></div>
-      <div class="next-reveal">
-        <div>
-          <p class="section-kicker">Les cuvées</p>
-          <h2>Chaque bouteille a son caractère.</h2>
-          <p>Neuf cuvées, faites à la main, en vente directe depuis Riddes.</p>
+    </div>
+    <div class="terres__grid">
+      <article class="terre-panel terre-panel--blanche reveal">
+        <div class="terre-panel__inner">
+          <span class="terre-panel__kicker">Blanc · Calcaire</span>
+          <h3>Terre Blanche</h3>
+          <p class="terre-panel__desc">L'univers clair du domaine. La lumière du calcaire, la fraîcheur de la roche : un vin tendu, minéral, élégant, à la finale saline.</p>
+          <ul class="terre-panel__traits"><li>Minéral</li><li>Tendu</li><li>Salin</li></ul>
+          <a href="cuvees.html" class="wine-btn" data-cursor>Découvrir la cuvée <span class="dot"></span></a>
         </div>
-      </div>
+        <figure class="terre-panel__fig"><img src="assets/TerreBlanche.webp" alt="Bouteille Terre Blanche" loading="lazy" data-fallback="bottle" data-famille="blanc"></figure>
+      </article>
+      <article class="terre-panel terre-panel--rouge reveal reveal-d1">
+        <div class="terre-panel__inner">
+          <span class="terre-panel__kicker">Rouge · Profondeur</span>
+          <h3>Terre Rouge</h3>
+          <p class="terre-panel__desc">L'univers profond. La chaleur des terres sombres, un élevage patient : un vin structuré, enveloppant, à la longue finale.</p>
+          <ul class="terre-panel__traits"><li>Profond</li><li>Chaleureux</li><li>Structuré</li></ul>
+          <a href="cuvees.html" class="wine-btn wine-btn--light" data-cursor>Découvrir la cuvée <span class="dot"></span></a>
+        </div>
+        <figure class="terre-panel__fig"><img src="assets/TerreRouge.webp" alt="Bouteille Terre Rouge" loading="lazy" data-fallback="bottle" data-famille="rouge" data-dark="true"></figure>
+      </article>
     </div>
   </section>
 
@@ -123,7 +133,7 @@
         <span class="section-kicker kicker"><span class="num">—</span> Nos gammes</span>
         <h2 class="word-reveal">Du rouge à l'orange, une même main</h2>
         <p class="reveal">Des rouges de garde aux blancs minéraux, d'un rosé gourmand à un nature en macération : chaque gamme dit la même chose, autrement. Peu de cuvées, beaucoup d'attention.</p>
-        <p class="reveal reveal-d1">Tout naît sous la paroi de l'Ardevaz, à Leytron, et s'élève à Riddes, sans précipitation.</p>
+        <p class="reveal reveal-d1"><span class="tag-nouveau">Nouveau</span> Une nouvelle étape s'ouvre sous la paroi de l'Ardevaz : des vins façonnés entre Leytron et Riddes, portés par la Terre Blanche, la Terre Rouge et le temps nécessaire à chaque cuvée.</p>
         <div class="gammes__tags reveal reveal-d2"><span>Rouges</span><span>Blancs</span><span>Rosé</span><span>Prestige</span><span>Nature · Orange</span></div>
       </div>
       <figure class="gammes__img reveal reveal-d1">
@@ -136,9 +146,9 @@
   <section class="section section--noir">
     <div class="wrap--narrow" style="text-align:center;">
       <span class="section-kicker kicker"><span class="num">04</span> · La cave</span>
-      <h2 class="reveal" style="font-size:clamp(2rem,5vw,3.4rem);font-weight:500;">Christian vinifie lui-même la plus grande part de la récolte.</h2>
-      <p class="reveal reveal-d1" style="margin-top:1.4rem;color:var(--tt-pierre);max-width:52ch;margin-inline:auto;">Élevage en fûts de chêne, au calme, sans précipitation. Les bouteilles partent en vente directe — pas d'intermédiaire.</p>
-      <p class="reveal reveal-d2" style="margin-top:2.2rem;"><a href="contact.html" class="wine-btn wine-btn--solid magnetic" data-cursor>Prendre contact <span class="dot"></span></a></p>
+      <h2 class="reveal" style="font-size:clamp(2rem,5vw,3.4rem);font-weight:500;">Les vins sont élevés sans précipitation, en fonction de leurs besoins.</h2>
+      <p class="reveal reveal-d1" style="margin-top:1.4rem;color:var(--tt-pierre);max-width:52ch;margin-inline:auto;">Chaque cuvée suit son propre rythme, dans le respect du fruit, du terroir et du temps.</p>
+      <p class="reveal reveal-d2" style="margin-top:2.2rem;"><a href="contact.html" class="wine-btn wine-btn--solid magnetic" data-cursor>Commander des vins <span class="dot"></span></a></p>
     </div>
   </section>
 </main>
@@ -152,7 +162,7 @@
     </div>
     <div class="footer-col">
       <h5>Pages</h5>
-      <a href="histoire.html">Histoire</a><a href="terroir.html">Terroir</a><a href="cuvees.html">Cuvées</a><a href="contact.html">Contact</a>
+      <a href="histoire.html">Histoire</a><a href="terroir.html">Terroir</a><a href="cuvees.html">Cuvées</a><a href="contact.html">Commander des vins</a>
     </div>
     <div class="footer-col">
       <h5>La cave</h5>
