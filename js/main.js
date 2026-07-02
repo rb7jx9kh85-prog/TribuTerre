@@ -287,6 +287,10 @@
 
   /* -------------------- AGE GATE -------------------- */
   function ageGate(onPassed){
+    // mémoire navigateur : ne redemande pas l'âge à chaque visite
+    try {
+      if(localStorage.getItem("tt_age_ok") === "1"){ if(onPassed) onPassed(); return; }
+    } catch(e){}
     var overlay = document.createElement("div");
     overlay.className = "age-gate";
     overlay.setAttribute("role", "dialog");
@@ -304,6 +308,7 @@
     document.body.appendChild(overlay);
     document.body.classList.add("is-locked");
     overlay.querySelector(".age-gate__yes").addEventListener("click", function(){
+      try { localStorage.setItem("tt_age_ok","1"); } catch(e){}
       overlay.style.opacity = "0";
       document.body.classList.remove("is-locked");
       setTimeout(function(){ overlay.remove(); }, 520);
