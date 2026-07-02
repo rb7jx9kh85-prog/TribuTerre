@@ -393,17 +393,27 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cursor.hover { transform: scale(2.8); opacity: 0.25; }
 @media (pointer: coarse), (max-width: 760px){ .cursor { display: none; } }
 
-/* ============================================================ TERRE BLANCHE / TERRE ROUGE */
+/* ============================================================ TERRE BLANCHE / TERRE ROUGE — scène animée */
 .terres { background: var(--tt-papier); padding-top: clamp(4rem, 10vh, 7rem); }
 .terres > .wrap { padding-inline: var(--pad-x); }
 .terres__head { margin-bottom: clamp(2.4rem, 6vh, 4rem); }
 .terres__head h2 { font-size: clamp(2.4rem, 6.5vw, 5rem); font-weight: 500; }
 .terres__intro { margin-top: 1.2rem; max-width: 58ch; font-size: clamp(1rem, 1.6vw, 1.2rem); color: rgba(27,24,18,0.75); }
-.terres__grid { display: grid; grid-template-columns: 1fr 1fr; }
+.terres__grid { position: relative; display: flex; align-items: stretch; }
 .terre-panel {
-  position: relative; display: flex; flex-direction: column; gap: 2.2rem;
-  padding: clamp(2.6rem, 6vw, 5rem); min-height: 620px;
+  position: relative; flex: 1; display: flex; flex-direction: column; gap: 2.2rem;
+  padding: clamp(2.6rem, 6vw, 5rem); min-height: 640px;
   overflow: hidden; isolation: isolate;
+  transition: clip-path 1.5s var(--ease-soft), flex 1s var(--ease-soft);
+}
+/* rideaux : chaque panneau s'ouvre depuis la couture centrale */
+.js .terres .terre-panel--blanche { clip-path: inset(0 0 0 100%); }
+.js .terres .terre-panel--rouge   { clip-path: inset(0 100% 0 0); }
+.terres.in-view .terre-panel--blanche,
+.terres.in-view .terre-panel--rouge { clip-path: inset(0 0 0 0); }
+/* effet rideau au survol : le panneau survolé s'élargit */
+@media (hover: hover) and (pointer: fine) {
+  .terres__grid .terre-panel:hover { flex: 1.22; }
 }
 .terre-panel--blanche {
   color: var(--tt-texte);
@@ -419,8 +429,91 @@ body::before {  /* grain pellicule, fixe, très subtil */
     radial-gradient(circle at 85% 90%, rgba(126,10,10,0.25), transparent 44%),
     linear-gradient(160deg, #2e0a15, #180510 55%, #0c0308);
 }
+/* couture centrale : filet rouge qui se dessine + point pulsant */
+.terres__seam {
+  position: relative; z-index: 2; flex: 0 0 1px; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(126,10,10,0.6) 28%, rgba(126,10,10,0.6) 72%, transparent);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 1.6s var(--ease-soft) 0.3s;
+  pointer-events: none;
+}
+.terres.in-view .terres__seam { transform: scaleY(1); }
+.terres__seam::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 9px; height: 9px; border-radius: 50%; background: var(--tt-rouge);
+  transform: translate(-50%,-50%) scale(0);
+  transition: transform .6s var(--ease-soft) 1.7s;
+}
+.terres.in-view .terres__seam::after {
+  transform: translate(-50%,-50%) scale(1);
+  animation: seamPulse 3.5s ease-in-out 2.5s infinite;
+}
+@keyframes seamPulse {
+  0%, 100% { box-shadow: 0 0 12px 2px rgba(126,10,10,0.35); }
+  50%      { box-shadow: 0 0 26px 8px rgba(126,10,10,0.6); }
+}
+/* filigrane géant en parallaxe (JS) */
+.terre-panel__wm {
+  position: absolute; z-index: 0; top: 2%; right: -3%;
+  font-family: var(--font-display); font-style: italic; font-weight: 500;
+  font-size: clamp(6rem, 15vw, 14rem); line-height: 1;
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+.terre-panel--blanche .terre-panel__wm { color: rgba(27,24,18,0.05); }
+.terre-panel--rouge .terre-panel__wm { color: rgba(246,243,236,0.05); right: auto; left: -3%; }
+/* halo respirant derrière la bouteille */
+.terre-panel__glow {
+  position: absolute; z-index: 0; left: 50%; bottom: -8%;
+  width: 76%; aspect-ratio: 1; border-radius: 50%;
+  transform: translateX(-50%); pointer-events: none;
+  opacity: 0; transition: opacity 1.5s ease .9s;
+}
+.terre-panel--blanche .terre-panel__glow { background: radial-gradient(circle, rgba(255,252,240,0.9), transparent 60%); }
+.terre-panel--rouge .terre-panel__glow { background: radial-gradient(circle, rgba(158,38,54,0.45), transparent 62%); }
+.terres.in-view .terre-panel__glow { opacity: 1; animation: glowBreathe 6s ease-in-out 2.2s infinite alternate; }
+@keyframes glowBreathe {
+  from { transform: translateX(-50%) scale(1); opacity: 0.72; }
+  to   { transform: translateX(-50%) scale(1.12); opacity: 1; }
+}
+/* ambiance : braises côté rouge, poussières de calcaire côté blanc */
+.terre-panel__amb { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.terre-panel__amb span { position: absolute; bottom: -10px; border-radius: 50%; opacity: 0; }
+.terre-panel--rouge .terre-panel__amb span {
+  width: 3px; height: 3px;
+  background: rgba(255,96,110,0.75); box-shadow: 0 0 8px 2px rgba(200,40,60,0.5);
+  animation: emberRise linear infinite;
+}
+.terre-panel--blanche .terre-panel__amb span {
+  width: 4px; height: 4px;
+  background: rgba(180,160,120,0.4); box-shadow: 0 0 10px 3px rgba(220,205,170,0.35);
+  animation: moteDrift ease-in-out infinite;
+}
+@keyframes emberRise {
+  0%   { transform: translate(0,0); opacity: 0; }
+  12%  { opacity: 1; }
+  80%  { opacity: 0.5; }
+  100% { transform: translate(26px, -660px); opacity: 0; }
+}
+@keyframes moteDrift {
+  0%   { transform: translate(0,0); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(-32px, -580px); opacity: 0; }
+}
+/* contenu : cascade avec flou qui se dissipe */
 .terre-panel__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+.js .terre-panel__inner > * {
+  opacity: 0; transform: translateY(26px); filter: blur(6px);
+  transition: opacity .8s ease, transform .9s var(--ease-soft), filter .8s ease, letter-spacing 1.4s var(--ease-soft);
+}
+.terres.in-view .terre-panel__inner > * { opacity: 1; transform: none; filter: none; }
+.terres.in-view .terre-panel__inner > *:nth-child(1) { transition-delay: 0.55s; }
+.terres.in-view .terre-panel__inner > *:nth-child(2) { transition-delay: 0.68s; }
+.terres.in-view .terre-panel__inner > *:nth-child(3) { transition-delay: 0.81s; }
+.terres.in-view .terre-panel__inner > *:nth-child(4) { transition-delay: 0.94s; }
+.terres.in-view .terre-panel__inner > *:nth-child(5) { transition-delay: 1.07s; }
 .terre-panel__kicker { font-family: var(--font-body); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; }
+.js .terre-panel__kicker { letter-spacing: 0.55em; }
+.terres.in-view .terre-panel__kicker { letter-spacing: 0.26em; }
 .terre-panel--blanche .terre-panel__kicker { color: var(--tt-vert); }
 .terre-panel--rouge .terre-panel__kicker { color: #d98a96; }
 .terre-panel h3 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 500; }
@@ -432,18 +525,28 @@ body::before {  /* grain pellicule, fixe, très subtil */
   font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
   padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid currentColor; opacity: 0.65;
 }
-.terre-panel__fig { margin-top: auto; align-self: center; }
+/* bouteille : montée à l'entrée puis flottement perpétuel */
+.terre-panel__fig { position: relative; z-index: 1; margin-top: auto; align-self: center; }
+.js .terre-panel__fig { opacity: 0; transform: translateY(80px) scale(0.94); transition: opacity 1s ease .45s, transform 1.3s var(--ease-soft) .45s; }
+.terres.in-view .terre-panel__fig { opacity: 1; transform: none; }
 .terre-panel__fig img {
   max-height: 300px; width: auto;
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.35));
-  transition: transform .7s var(--ease-soft);
 }
-.terre-panel:hover .terre-panel__fig img { transform: translateY(-10px) scale(1.03); }
+.terres.in-view .terre-panel__fig img { animation: bottleFloat 7s ease-in-out 2s infinite; }
+@keyframes bottleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-12px) rotate(0.6deg); }
+}
 .wine-btn--light { color: var(--tt-papier); }
 @media (max-width: 860px) {
-  .terres__grid { grid-template-columns: 1fr; }
+  .terres__grid { flex-direction: column; }
   .terre-panel { min-height: 0; }
   .terre-panel__fig img { max-height: 240px; }
+  .terre-panel__wm { font-size: clamp(4.5rem, 22vw, 8rem); }
+  .terres__seam { width: auto; height: 1px; flex-basis: 1px; transform: scaleX(0); transform-origin: left;
+    background: linear-gradient(90deg, transparent, rgba(126,10,10,0.6) 28%, rgba(126,10,10,0.6) 72%, transparent); }
+  .terres.in-view .terres__seam { transform: scaleX(1); }
 }
 
 /* ============================================================ NOS GAMMES */
@@ -780,3 +883,35 @@ body::before {  /* grain pellicule, fixe, très subtil */
   transition: background .3s, transform .3s;
 }
 .news-pop__cta:hover { background: var(--tt-rouge-vif); transform: translateY(-2px); }
+
+/* ============================================================ BANNIÈRE COOKIES */
+.cookie-bar {
+  position: fixed; left: 50%; bottom: 1.2rem; z-index: 7000;
+  width: min(94vw, 760px);
+  display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap;
+  padding: 1.1rem 1.4rem;
+  color: var(--tt-papier); border: 1px solid rgba(246,243,236,0.14); border-radius: 16px;
+  background: linear-gradient(160deg, #14090d, #0a0508);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  transform: translate(-50%, calc(100% + 2rem));
+  transition: transform .7s var(--ease-soft);
+}
+.cookie-bar.is-in { transform: translate(-50%, 0); }
+.cookie-bar__text { flex: 1 1 320px; font-size: 0.8rem; line-height: 1.6; color: var(--tt-pierre); }
+.cookie-bar__text strong { color: var(--tt-papier); font-weight: 600; }
+.cookie-bar__actions { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+.cookie-bar__accept {
+  min-height: 42px; padding: 0 1.6rem; border-radius: 999px;
+  background: var(--tt-rouge); color: var(--tt-papier);
+  font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: background .3s;
+}
+.cookie-bar__accept:hover { background: var(--tt-rouge-vif); }
+.cookie-bar__refuse {
+  font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(185,179,166,0.75);
+  text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s;
+}
+.cookie-bar__refuse:hover { color: var(--tt-papier); }

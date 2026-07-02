@@ -319,6 +319,49 @@
     });
   }
 
+  /* -------------------- TERRE BLANCHE / TERRE ROUGE : scène animée -------------------- */
+  function terresFx(){
+    var section = document.querySelector(".terres"); if(!section) return;
+    var grid = section.querySelector(".terres__grid"); if(!grid) return;
+    if(REDUCE){ section.classList.add("in-view"); return; }
+    // particules d'ambiance : braises (rouge) et poussières de calcaire (blanche)
+    function spawn(host, n, slow){
+      if(!host) return;
+      for(var i = 0; i < n; i++){
+        var s = document.createElement("span");
+        s.style.left = (4 + Math.random() * 92).toFixed(1) + "%";
+        s.style.animationDuration = (slow ? 12 + Math.random() * 12 : 7 + Math.random() * 9).toFixed(1) + "s";
+        s.style.animationDelay = (Math.random() * 10).toFixed(1) + "s";
+        host.appendChild(s);
+      }
+    }
+    spawn(section.querySelector(".terre-panel--rouge .terre-panel__amb"), 14, false);
+    spawn(section.querySelector(".terre-panel--blanche .terre-panel__amb"), 10, true);
+    // déclenchement de la scène
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ section.classList.add("in-view"); io.disconnect(); }
+      });
+    }, { threshold: 0.22 });
+    io.observe(grid);
+    // parallaxe des filigranes géants
+    var wms = [].slice.call(section.querySelectorAll(".terre-panel__wm"));
+    if(!wms.length) return;
+    var ticking = false;
+    function update(){
+      var vh = window.innerHeight;
+      wms.forEach(function(w){
+        var r = w.parentElement.getBoundingClientRect();
+        if(r.bottom < 0 || r.top > vh) return;
+        var off = (r.top + r.height / 2 - vh / 2) * 0.12;
+        w.style.transform = "translateY(" + off.toFixed(1) + "px)";
+      });
+      ticking = false;
+    }
+    window.addEventListener("scroll", function(){ if(!ticking){ requestAnimationFrame(update); ticking = true; } }, { passive: true });
+    update();
+  }
+
   /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
   // attend la fin de l'intro cinématique avant d'afficher la pop-up
   function newsPopupDeferred(){
@@ -358,6 +401,30 @@
       if(t){ e.preventDefault(); close(); setTimeout(function(){ t.scrollIntoView({ behavior:"smooth" }); }, 320); }
       else close();
     });
+  }
+
+  /* -------------------- BANNIÈRE COOKIES (mémoire navigateur, aucune dépendance) -------------------- */
+  function cookieBanner(){
+    try { if(localStorage.getItem("tt_cookies_choice")) return; } catch(e){}
+    var bar = document.createElement("div");
+    bar.className = "cookie-bar";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Information cookies");
+    bar.innerHTML =
+      '<p class="cookie-bar__text"><strong>Cookies &amp; confidentialité.</strong> Ce site utilise uniquement la mémoire de votre navigateur pour retenir vos préférences (vérification d\'âge, affichage). Aucun suivi publicitaire, aucune donnée transmise à des tiers.</p>'+
+      '<div class="cookie-bar__actions">'+
+        '<button type="button" class="cookie-bar__accept" data-cursor>Accepter</button>'+
+        '<button type="button" class="cookie-bar__refuse" data-cursor>Continuer sans accepter</button>'+
+      '</div>';
+    document.body.appendChild(bar);
+    requestAnimationFrame(function(){ bar.classList.add("is-in"); });
+    function close(val){
+      try { localStorage.setItem("tt_cookies_choice", val); } catch(e){}
+      bar.classList.remove("is-in");
+      setTimeout(function(){ bar.remove(); }, 600);
+    }
+    bar.querySelector(".cookie-bar__accept").addEventListener("click", function(){ close("accept"); });
+    bar.querySelector(".cookie-bar__refuse").addEventListener("click", function(){ close("refuse"); });
   }
 
   /* -------------------- FORMULAIRE DE COMMANDE (Web3Forms) -------------------- */
@@ -451,8 +518,10 @@
 
   function boot(){
     ageGate(newsPopupDeferred);
+    cookieBanner();
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     spawnHeroParticles();
+    terresFx();
     buildCuvees();
     buildDispo();
     imgFallbacks();
