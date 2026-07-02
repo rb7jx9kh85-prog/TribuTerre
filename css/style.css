@@ -370,12 +370,37 @@ body::before {  /* grain pellicule, fixe, très subtil */
   font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
   overflow: hidden; isolation: isolate; transition: transform .35s ease, border-color .35s ease, color .35s ease;
 }
-.wine-btn::before { content: ""; position: absolute; inset: auto 0 0 0; height: 0; z-index: -1;
-  background: linear-gradient(180deg, var(--tt-rouge-vif), var(--tt-rouge-fonce)); transition: height .45s var(--ease-soft); }
+/* le vin qui se verse : deux nappes tournantes, la crête translucide clapote au-dessus */
+.wine-btn::before, .wine-btn::after {
+  content: ""; position: absolute; z-index: -1;
+  left: 50%; top: 105%; width: 200%; aspect-ratio: 1;
+  border-radius: 43% 45% 42% 44%;
+  transform: translateX(-50%) rotate(0deg);
+  transition: top 1.05s var(--ease-soft);
+  animation: wineSlosh 5s linear infinite paused;
+}
+.wine-btn::before { background: var(--tt-rouge); }
+.wine-btn::after {
+  background: rgba(154,20,20,0.45);
+  border-radius: 46% 42% 45% 43%;
+  animation-duration: 7.5s; animation-direction: reverse;
+  transition-delay: 0.07s;
+}
 .wine-btn:hover { transform: translateY(-3px); color: var(--tt-papier); border-color: var(--tt-rouge); }
-.wine-btn:hover::before { height: 100%; }
+.wine-btn:hover::before { top: -280%; animation-play-state: running; }
+.wine-btn:hover::after  { top: -255%; animation-play-state: running; }
+@keyframes wineSlosh {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
+}
 .wine-btn--solid { background: var(--tt-rouge); color: var(--tt-papier); border-color: var(--tt-rouge); }
 .wine-btn--solid:hover { color: var(--tt-papier); }
+.wine-btn--solid::before { background: var(--tt-rouge-fonce); }
+.wine-btn--solid::after { background: rgba(90,6,6,0.5); }
+/* variante vin blanc : robe dorée claire, texte sombre */
+.wine-btn--blanc:hover { color: var(--tt-texte); border-color: #b9a44c; }
+.wine-btn--blanc::before { background: #eadf9f; }
+.wine-btn--blanc::after { background: rgba(214,196,120,0.5); }
 .wine-btn .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
 /* ============================================================ FOOTER */
@@ -531,7 +556,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .js .terre-panel__fig { opacity: 0; transform: translateY(80px) scale(0.94); transition: opacity 1s ease .45s, transform 1.3s var(--ease-soft) .45s; }
 .terres.in-view .terre-panel__fig { opacity: 1; transform: none; }
 .terre-panel__fig img {
-  max-height: 300px; width: auto;
+  max-height: 420px; width: auto;
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.35));
 }
 .terres.in-view .terre-panel__fig img { animation: bottleFloat 7s ease-in-out 2s infinite; }
@@ -543,7 +568,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 @media (max-width: 860px) {
   .terres__grid { flex-direction: column; }
   .terre-panel { min-height: 0; }
-  .terre-panel__fig img { max-height: 240px; }
+  .terre-panel__fig img { max-height: 320px; }
   .terre-panel__wm { font-size: clamp(4.5rem, 22vw, 8rem); }
   .terres__seam { width: auto; height: 1px; flex-basis: 1px; transform: scaleX(0); transform-origin: left;
     background: linear-gradient(90deg, transparent, rgba(126,10,10,0.6) 28%, rgba(126,10,10,0.6) 72%, transparent); }
@@ -562,7 +587,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 
 /* ============================================================ reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  body::before, .marquee__track, .hero__bg::before, .hero__bg-particles span { animation: none; }
+  body::before, .marquee__track, .hero__bg::before, .hero__bg-particles span, .wine-btn::before, .wine-btn::after { animation: none; }
   .reveal, .word-reveal span, .line-reveal { transition: none; opacity: 1; transform: none; filter: none; width: auto; }
   .scroll-cue i { animation: none; height: 28px; opacity: 0.6; }
   .cursor { display: none; }
