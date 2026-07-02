@@ -319,6 +319,44 @@
     });
   }
 
+  /* -------------------- NOUVEAUTÉ FENDANT : scène cinématique -------------------- */
+  function fendantFx(){
+    var section = document.querySelector(".fendant"); if(!section) return;
+    if(REDUCE){ section.classList.add("in-view"); return; }
+    // bulles dorées autour de la bouteille
+    var amb = section.querySelector(".fendant__amb");
+    if(amb){
+      for(var i = 0; i < 16; i++){
+        var b = document.createElement("span");
+        b.style.left = (8 + Math.random() * 84).toFixed(1) + "%";
+        b.style.animationDuration = (9 + Math.random() * 11).toFixed(1) + "s";
+        b.style.animationDelay = (Math.random() * 9).toFixed(1) + "s";
+        amb.appendChild(b);
+      }
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ section.classList.add("in-view"); io.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    io.observe(section);
+    // parallaxe du filigrane
+    var wm = section.querySelector(".fendant__wm");
+    if(!wm) return;
+    var ticking = false;
+    function update(){
+      var vh = window.innerHeight;
+      var r = section.getBoundingClientRect();
+      if(r.bottom >= 0 && r.top <= vh){
+        var off = (r.top + r.height / 2 - vh / 2) * 0.14;
+        wm.style.transform = "translateY(" + off.toFixed(1) + "px)";
+      }
+      ticking = false;
+    }
+    window.addEventListener("scroll", function(){ if(!ticking){ requestAnimationFrame(update); ticking = true; } }, { passive: true });
+    update();
+  }
+
   /* -------------------- TERRE BLANCHE / TERRE ROUGE : scène animée -------------------- */
   function terresFx(){
     var section = document.querySelector(".terres"); if(!section) return;
@@ -521,6 +559,7 @@
     cookieBanner();
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     spawnHeroParticles();
+    fendantFx();
     terresFx();
     buildCuvees();
     buildDispo();
