@@ -25,13 +25,13 @@
 <div class="cursor" aria-hidden="true"></div>
 
 <header class="site-header">
-  <a href="index.html" class="brand" aria-label="Tributerre"><img class="brand-logo" src="assets/logo.png" onerror="this.onerror=null;this.src='assets/logo.svg'" alt="Tributerre"></a>
+  <a href="/" class="brand" aria-label="Tributerre"><img class="brand-logo" src="assets/logo.png" onerror="this.onerror=null;this.src='assets/logo.svg'" alt="Tributerre"></a>
   <nav class="site-nav" id="nav">
-    <a href="index.html">Accueil</a>
-    <a href="histoire.html">Histoire</a>
-    <a href="terroir.html">Terroir</a>
-    <a href="cuvees.html">Cuvées</a>
-    <a href="contact.html" aria-current="page">Commander des vins</a>
+    <a href="/">Accueil</a>
+    <a href="/histoire">Histoire</a>
+    <a href="/terroir">Terroir</a>
+    <a href="/cuvees">Cuvées</a>
+    <a href="/contact" aria-current="page">Commander des vins</a>
   </nav>
   <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
 </header>
@@ -208,6 +208,11 @@
               </div>
             </div>
 
+            <div class="cf-group cf-consent">
+              <label class="cf-check"><input type="checkbox" name="confirmation_age" value="Le client confirme avoir 18 ans révolus" required> Je confirme avoir 18 ans révolus. L'âge est vérifié à la remise du vin (à la cave ou à la livraison). <abbr title="obligatoire">*</abbr></label>
+              <label class="cf-check"><input type="checkbox" name="cgv_acceptees" value="CGV acceptées" required> J'ai lu et j'accepte les <a href="/cgv" target="_blank" rel="noopener">conditions générales de vente</a>. <abbr title="obligatoire">*</abbr></label>
+            </div>
+
             <div class="cf-submit">
               <button type="submit" class="wine-btn wine-btn--solid magnetic" id="submitBtn" data-cursor>
                 Envoyer la commande <span class="dot"></span>
@@ -220,13 +225,13 @@
         <aside class="order-aside reveal reveal-d2">
           <div class="aside-card">
             <p class="cf-legend">La cave</p>
-            <p class="aside-addr">1908 Riddes<br>Valais, Suisse</p>
+            <p class="aside-addr">Chemin du Milieu 4<br>1908 Riddes, Valais</p>
             <p class="aside-sub">Vignes sous la paroi de l'Ardevaz, Leytron</p>
-            <a href="mailto:contact@tributerre.ch" class="aside-email">contact@tributerre.ch</a>
+            <a href="mailto:tributerrre@netplus.ch" class="aside-email">tributerrre@netplus.ch</a>
             <p class="aside-note">Vente directe · sur rendez-vous</p>
           </div>
           <div class="aside-card aside-card--note">
-            <p>Chaque commande est confirmée par email sous 24 h. Paiement à la cave ou par virement — aucun prélèvement en ligne.</p>
+            <p>Chaque commande est confirmée par email sous 24 h. Retrait gratuit à la cave à Riddes ou envoi postal en Suisse (VinoLog — frais selon les tarifs de La Poste, communiqués à la confirmation). Paiement à la cave (espèces ou TWINT), par virement ou TWINT — aucun prélèvement en ligne. Prix en CHF, taxes incluses.</p>
           </div>
         </aside>
 
@@ -248,8 +253,13 @@
       <p class="muted" style="margin-bottom:0.8rem;">Christian Vouillamoz · Artisan du vin</p>
       <p style="opacity:.72;max-width:34ch;">Les vignes sous la paroi de l'Ardevaz, à Leytron. La cave et l'élevage à Riddes.</p>
     </div>
-    <div class="footer-col"><h5>Pages</h5><a href="histoire.html">Histoire</a><a href="terroir.html">Terroir</a><a href="cuvees.html">Cuvées</a><a href="contact.html">Commander des vins</a></div>
-    <div class="footer-col"><h5>La cave</h5><p>1908 Riddes, Valais</p><a href="mailto:contact@tributerre.ch">contact@tributerre.ch</a><p class="muted">Vente directe · sur rendez-vous</p></div>
+    <div class="footer-col"><h5>Pages</h5><a href="/histoire">Histoire</a><a href="/terroir">Terroir</a><a href="/cuvees">Cuvées</a><a href="/contact">Commander des vins</a></div>
+    <div class="footer-col"><h5>La cave</h5><p>Chemin du Milieu 4 · 1908 Riddes, Valais</p><a href="mailto:tributerrre@netplus.ch">tributerrre@netplus.ch</a><a href="tel:+41797090025">+41 79 709 00 25</a><p class="muted">Vente directe · sur rendez-vous</p></div>
+  </div>
+  <div class="footer-legal">
+    <span class="footer-legal__age">Vente d'alcool interdite aux moins de 18 ans</span>
+    <span class="footer-legal__note">Prix en CHF, taxes incluses</span>
+    <nav class="footer-legal__links" aria-label="Pages légales"><a href="/mentions-legales">Mentions légales</a><a href="/confidentialite">Confidentialité</a><a href="/cgv">CGV</a></nav>
   </div>
   <div class="footer-bottom"><span>© <span id="year"></span> Tributerre · Christian Vouillamoz</span><span>Leytron / Riddes · Valais · Suisse</span></div>
 </footer>

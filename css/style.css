@@ -500,13 +500,13 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .fendant.in-view .fendant__copy > *:nth-child(5) { transition-delay: 0.9s; }
 .fendant.in-view .fendant__copy > *:nth-child(6) { transition-delay: 1.05s; }
 /* la bouteille : arrivée cinématique puis flottement, balayage lumineux */
-.fendant__fig { position: relative; z-index: 2; margin: 0 auto; width: clamp(150px, 15vw, 195px); }
+.fendant__fig { position: relative; z-index: 2; margin: 0 auto; width: clamp(200px, 21vw, 265px); }
 .js .fendant__fig {
   opacity: 0; transform: translateY(110px) rotate(-7deg) scale(0.9);
   transition: opacity 1.1s ease .35s, transform 1.6s var(--ease-soft) .35s;
 }
 .fendant.in-view .fendant__fig { opacity: 1; transform: none; }
-.fendant__bottle { display: block; width: 100%; height: auto; filter: drop-shadow(0 40px 70px rgba(0,0,0,0.55)); }
+.fendant__bottle { display: block; width: 100%; max-height: min(80vh, 860px); height: auto; object-fit: contain; filter: drop-shadow(0 40px 70px rgba(0,0,0,0.55)); }
 .fendant.in-view .fendant__bottle { animation: bottleFloat 8s ease-in-out 2.2s infinite; }
 .fendant__fig::after { /* balayage lumineux sur la bouteille */
   content: ""; position: absolute; inset: -12%;
@@ -528,7 +528,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 }
 @media (max-width: 900px) {
   .fendant__inner { grid-template-columns: 1fr; }
-  .fendant__fig { width: clamp(140px, 36vw, 180px); margin-top: 2.5rem; }
+  .fendant__fig { width: clamp(170px, 46vw, 230px); margin-top: 2.5rem; }
   .fendant__glow { right: 50%; transform: translate(50%, -50%); top: auto; bottom: -10%; width: 80vw; }
   .fendant.in-view .fendant__glow { animation: none; opacity: 0.8; }
   .fendant__wm { font-size: clamp(5rem, 24vw, 9rem); top: 2%; }
@@ -1056,3 +1056,42 @@ body::before {  /* grain pellicule, fixe, très subtil */
   transition: color .3s;
 }
 .cookie-bar__refuse:hover { color: var(--tt-papier); }
+
+/* ============================================================ FOOTER LÉGAL */
+.footer-legal {
+  max-width: var(--maxw); margin: 2.4rem auto 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.8rem;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+}
+.footer-legal__age {
+  font-family: var(--font-body); font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.4rem 0.95rem; border: 1px solid rgba(246,243,236,0.3); border-radius: 999px;
+}
+.footer-legal__note { opacity: 0.65; }
+.footer-legal__links { display: flex; gap: 1.3rem; margin-left: auto; }
+.footer-legal__links a { opacity: 0.6; transition: opacity .3s; }
+.footer-legal__links a:hover { opacity: 1; }
+@media (max-width: 760px){ .footer-legal__links { margin-left: 0; } }
+
+/* ============================================================ CONSENTEMENTS FORMULAIRE */
+.cf-consent { display: flex; flex-direction: column; gap: 0.9rem; }
+.cf-check {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  font-size: 0.85rem; line-height: 1.55; color: rgba(27,24,18,0.8);
+  cursor: pointer;
+}
+.cf-check input[type="checkbox"] {
+  flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px;
+  accent-color: var(--tt-rouge); cursor: pointer;
+}
+.cf-check a { color: var(--tt-rouge); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================ PAGES LÉGALES */
+.legal-content { padding-bottom: 2rem; }
+.legal-content h2 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); font-weight: 600; margin: 2.6rem 0 0.8rem; }
+.legal-content p, .legal-content li { font-size: 0.95rem; line-height: 1.8; color: rgba(27,24,18,0.82); margin-bottom: 0.7rem; }
+.legal-content ul { padding-left: 1.2rem; margin-bottom: 0.9rem; }
+.legal-content a { color: var(--tt-rouge); text-decoration: underline; text-underline-offset: 3px; }
+.legal-content address { font-style: normal; line-height: 1.9; font-size: 0.95rem; color: rgba(27,24,18,0.82); }
+.legal-content .legal-updated { margin-top: 3rem; font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tt-vigne); }

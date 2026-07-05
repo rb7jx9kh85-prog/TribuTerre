@@ -41,7 +41,7 @@
 
   /* -------------------- vins disponibles (petites cartes) -------------------- */
   var DISPO = [
-    { name:"Fendant",        info:"AOC · 2025 · 75 cl",          prix:"CHF 14.–", famille:"blanc",  img:null },
+    { name:"Fendant",        info:"AOC · 2025 · 75 cl",          prix:"CHF 14.–", famille:"blanc",  img:"assets/Fendant.webp" },
     { name:"Terre Blanche",  info:"VDT · MMXXII · 75 cl",        prix:"CHF 19.–", famille:"blanc",  img:"assets/TerreBlanche.webp" },
     { name:"Orange 2.4",     info:"VDT nature · 50 cl",          prix:"CHF 24.–", famille:"orange", img:null },
     { name:"Terre de Rosée", info:"VPD · 2024 · 50 cl",          prix:"CHF 15.–", famille:"rose",   img:"assets/TerreDeRose.webp" },
@@ -287,6 +287,8 @@
 
   /* -------------------- AGE GATE -------------------- */
   function ageGate(onPassed){
+    // pages légales : accessibles sans vérification d'âge
+    if(document.body.hasAttribute("data-no-gate")) return;
     // mémoire navigateur : ne redemande pas l'âge à chaque visite
     try {
       if(localStorage.getItem("tt_age_ok") === "1"){ if(onPassed) onPassed(); return; }
@@ -426,7 +428,7 @@
         '<p class="news-pop__kicker">Nouveauté</p>'+
         '<h3 class="news-pop__title" id="np-title">Terre Blanche · Terre Rouge</h3>'+
         '<p class="news-pop__text">Découvrez la nouvelle identité du domaine : Terre Blanche, Terre Rouge, deux expressions du terroir sous l\'Ardevaz.</p>'+
-        '<a href="index.html#terres" class="news-pop__cta" data-cursor>Découvrir</a>'+
+        '<a href="/#terres" class="news-pop__cta" data-cursor>Découvrir</a>'+
       '</div>';
     document.body.appendChild(pop);
     try { localStorage.setItem("tt_news_seen","1"); } catch(e){}
