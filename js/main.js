@@ -416,28 +416,37 @@
       var bar   = scroller.querySelector(".cuvees-scroller__progress i");
       if(!pin || !track || !grid) return;
 
-      var active = false, extra = 0, ticking = false;
-      var SPEED = 3; // plus haut = il faut scroller moins pour voir défiler toutes les cuvées
+      var active = false, extra = 0;
+      var targetX = 0, currentX = 0;
+      var SPEED = 1.7; // plus bas = il faut scroller davantage -> carrousel plus lent
+      var LERP = 0.1;  // plus bas = mouvement plus lissé/amorti (moins saccadé)
 
       function measure(){
         extra = Math.max(0, track.scrollWidth - scroller.clientWidth);
-        var scrollDistance = Math.min(extra / SPEED, window.innerHeight * 0.85);
+        var scrollDistance = Math.min(extra / SPEED, window.innerHeight * 1.3);
         scroller.style.height = (window.innerHeight + scrollDistance) + "px";
       }
-      function update(){
-        ticking = false;
-        if(!active) return;
+      function computeTarget(){
         var rect = scroller.getBoundingClientRect();
         var total = scroller.offsetHeight - window.innerHeight;
         var prog = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
-        track.style.transform = "translateX(-" + (prog * extra).toFixed(1) + "px)";
+        targetX = prog * extra;
         if(bar) bar.style.width = (prog * 100).toFixed(1) + "%";
       }
-      function onScroll(){ if(active && !ticking){ requestAnimationFrame(update); ticking = true; } }
+      function raf(){
+        if(!active) return;
+        computeTarget();
+        currentX += (targetX - currentX) * LERP;
+        if(Math.abs(targetX - currentX) < 0.05) currentX = targetX;
+        track.style.transform = "translateX(-" + currentX.toFixed(1) + "px)";
+        requestAnimationFrame(raf);
+      }
       function enable(){
         if(active) return; active = true;
         scroller.classList.add("is-carousel");
-        measure(); update();
+        measure(); computeTarget(); currentX = targetX;
+        track.style.transform = "translateX(-" + currentX.toFixed(1) + "px)";
+        requestAnimationFrame(raf);
       }
       function disable(){
         if(!active) return; active = false;
@@ -446,14 +455,13 @@
       }
       function sync(){ if(mq.matches && !REDUCE){ enable(); } else { disable(); } }
 
-      window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", function(){ sync(); if(active) measure(); }, { passive: true });
-      window.addEventListener("load", function(){ if(active){ measure(); update(); } });
+      window.addEventListener("load", function(){ if(active) measure(); });
       // sécurité : les polices web (chargement asynchrone) peuvent décaler la mise en page une fois prêtes
       if(window.document.fonts && window.document.fonts.ready){
-        window.document.fonts.ready.then(function(){ if(active){ measure(); update(); } });
+        window.document.fonts.ready.then(function(){ if(active) measure(); });
       }
-      setTimeout(function(){ if(active){ measure(); update(); } }, 400);
+      setTimeout(function(){ if(active) measure(); }, 400);
       if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
 
       sync();
