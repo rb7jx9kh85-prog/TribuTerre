@@ -509,6 +509,101 @@
     sync();
   }
 
+  /* -------------------- LA TERRE / LA VIGNE / LE VIN : récit sticky-scroll -------------------- */
+  function premiumStory(){
+    var section = document.getElementById("ttPremiumStory"); if(!section) return;
+    var visual = document.getElementById("ttStoryVisual");
+    var visualTitle = document.getElementById("ttVisualTitle");
+    var visualLabel = document.getElementById("ttVisualLabel");
+    var progressFill = document.getElementById("ttProgressFill");
+    var glow = document.getElementById("ttCursorGlow");
+    var cards = [].slice.call(section.querySelectorAll(".tt-story-card"));
+    var backgrounds = [].slice.call(section.querySelectorAll(".tt-visual-bg"));
+    if(!cards.length) return;
+
+    var COARSE = window.matchMedia("(pointer: coarse)").matches;
+    var activeIndex = 0, ticking = false;
+
+    function clampNum(v,min,max){ return Math.min(Math.max(v,min),max); }
+
+    function setActiveCard(index){
+      if(index === activeIndex) return;
+      activeIndex = index;
+      cards.forEach(function(c,i){ c.classList.toggle("is-active", i===index); });
+      backgrounds.forEach(function(bg,i){ bg.classList.toggle("is-active", i===index); });
+      var activeCard = cards[index];
+      if(visualTitle){
+        visualTitle.style.opacity = "0"; visualTitle.style.transform = "translateY(14px)";
+        setTimeout(function(){
+          visualTitle.textContent = activeCard.dataset.title || "Tributerre";
+          if(visualLabel) visualLabel.textContent = activeCard.dataset.label || "";
+          visualTitle.style.opacity = "1"; visualTitle.style.transform = "translateY(0)";
+        }, REDUCE ? 0 : 180);
+      }
+    }
+    function updateActiveByScroll(){
+      var viewportCenter = window.innerHeight * 0.52;
+      var closestIndex = 0, closestDistance = Infinity;
+      cards.forEach(function(card, index){
+        var rect = card.getBoundingClientRect();
+        var cardCenter = rect.top + rect.height / 2;
+        var distance = Math.abs(cardCenter - viewportCenter);
+        if(distance < closestDistance){ closestDistance = distance; closestIndex = index; }
+      });
+      setActiveCard(closestIndex);
+    }
+    function updateSectionProgress(){
+      if(!progressFill) return;
+      var rect = section.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      var progress = total > 0 ? clampNum(-rect.top / total, 0, 1) : 0;
+      progressFill.style.height = (progress * 100) + "%";
+    }
+    function onScroll(){
+      if(ticking) return; ticking = true;
+      requestAnimationFrame(function(){ updateActiveByScroll(); updateSectionProgress(); ticking = false; });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    updateActiveByScroll();
+    updateSectionProgress();
+
+    // effets souris (halo + inclinaison 3D) : desktop uniquement, jamais sur tactile
+    if(!COARSE && visual){
+      var targetTiltX = 0, targetTiltY = 0, curTiltX = 0, curTiltY = 0;
+      function lerpNum(a,b,t){ return a + (b-a) * t; }
+      function onVisualMove(e){
+        var rect = visual.getBoundingClientRect();
+        var x = e.clientX - rect.left, y = e.clientY - rect.top;
+        var px = x / rect.width, py = y / rect.height;
+        targetTiltX = REDUCE ? 0 : (py - 0.5) * -7;
+        targetTiltY = REDUCE ? 0 : (px - 0.5) * 7;
+        visual.style.setProperty("--mx", (px*100) + "%");
+        visual.style.setProperty("--my", (py*100) + "%");
+        if(glow){ glow.style.opacity = "1"; glow.style.left = x + "px"; glow.style.top = y + "px"; }
+      }
+      function onVisualLeave(){ targetTiltX = 0; targetTiltY = 0; if(glow) glow.style.opacity = "0"; }
+      function animateTilt(){
+        curTiltX = lerpNum(curTiltX, targetTiltX, 0.08);
+        curTiltY = lerpNum(curTiltY, targetTiltY, 0.08);
+        visual.style.transform = "perspective(1200px) rotateX("+curTiltX.toFixed(2)+"deg) rotateY("+curTiltY.toFixed(2)+"deg)";
+        requestAnimationFrame(animateTilt);
+      }
+      visual.addEventListener("mousemove", onVisualMove);
+      visual.addEventListener("mouseleave", onVisualLeave);
+      if(!REDUCE) requestAnimationFrame(animateTilt);
+
+      cards.forEach(function(card){
+        card.addEventListener("mousemove", function(e){
+          var rect = card.getBoundingClientRect();
+          card.style.setProperty("--card-mx", (((e.clientX-rect.left)/rect.width)*100) + "%");
+          card.style.setProperty("--card-my", (((e.clientY-rect.top)/rect.height)*100) + "%");
+        });
+      });
+    }
+  }
+
   /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
   // attend la fin de l'intro cinématique avant d'afficher la pop-up
   function newsPopupDeferred(){
@@ -681,6 +776,7 @@
     buildDispo();
     cuveesCarousel();
     wineReveal();
+    premiumStory();
     imgFallbacks();
     marquee();
     header();

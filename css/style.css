@@ -712,6 +712,134 @@ body::before {  /* grain pellicule, fixe, très subtil */
   .tt-bottle-note { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; margin: 0.5rem 0; }
 }
 
+/* ============================================================ LA TERRE / LA VIGNE / LE VIN — récit sticky-scroll */
+.tt-premium-story {
+  position: relative;
+  padding: clamp(5.5rem, 13vh, 8.75rem) var(--pad-x);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(216,200,126,0.14), transparent 30%),
+    radial-gradient(circle at 90% 40%, rgba(126,10,10,0.18), transparent 34%),
+    linear-gradient(180deg, #070504 0%, #15100c 48%, #070504 100%);
+  color: var(--tt-papier);
+  overflow: visible;
+}
+.tt-story-container {
+  width: min(var(--maxw), 100%); margin: 0 auto;
+  display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(2rem, 4.5vw, 4rem);
+  align-items: start;
+}
+.tt-story-visual-wrap { position: relative; min-height: 100%; }
+.tt-story-visual {
+  position: sticky; top: 1.75rem; height: calc(100vh - 3.5rem); min-height: 480px;
+  border-radius: 32px; overflow: hidden;
+  border: 1px solid rgba(246,243,236,0.14);
+  box-shadow: 0 44px 130px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  isolation: isolate; transform-style: preserve-3d; background: #120d09;
+}
+.tt-visual-bg {
+  position: absolute; inset: 0; opacity: 0; transform: scale(1.08);
+  transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform 1.4s cubic-bezier(.2,.8,.2,1);
+  background-position: center; background-size: cover; z-index: -3;
+}
+.tt-visual-bg[data-bg="0"] { background-image: url("../assets/ardevaz.webp"); }
+.tt-visual-bg[data-bg="1"] {
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(216,200,126,0.16), transparent 42%),
+    radial-gradient(circle at 78% 82%, rgba(11,74,18,0.4), transparent 55%),
+    linear-gradient(160deg, #10160c, #0a0d07 60%, #070805);
+}
+.tt-visual-bg[data-bg="2"] {
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(216,200,126,0.22), transparent 45%),
+    radial-gradient(circle at 75% 80%, rgba(158,38,54,0.35), transparent 55%),
+    linear-gradient(160deg, #2c0a14, #14050b 58%, #0d040a);
+}
+.tt-visual-bg.is-active { opacity: 1; transform: scale(1); }
+.tt-visual-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(216,200,126,0.16), transparent 26%),
+    linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.78)),
+    linear-gradient(90deg, rgba(0,0,0,0.46), transparent);
+  z-index: -2;
+}
+.tt-visual-content { position: absolute; inset: auto 1.6rem 1.6rem 1.6rem; z-index: 3; }
+.tt-visual-label {
+  display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem;
+  color: #d8c87e; text-transform: uppercase; letter-spacing: 0.18em;
+  font-family: var(--font-body); font-size: 0.66rem; font-weight: 700;
+}
+.tt-visual-label::before { content: ""; width: 2.4rem; height: 1px; background: #d8c87e; }
+.tt-visual-content h2 {
+  margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 500; line-height: 0.92; letter-spacing: -0.01em;
+  color: rgba(246,243,236,0.92); text-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.tt-scroll-progress {
+  position: absolute; top: 1.75rem; right: 1.5rem; width: 3px; height: calc(100% - 3.5rem);
+  border-radius: 99px; background: rgba(246,243,236,0.16); overflow: hidden; z-index: 4;
+}
+.tt-scroll-progress-fill {
+  width: 100%; height: 0%; border-radius: 99px;
+  background: linear-gradient(180deg, #d8c87e, var(--tt-papier));
+  box-shadow: 0 0 24px rgba(216,200,126,0.65);
+}
+.tt-cursor-glow {
+  position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(216,200,126,0.22), transparent 66%);
+  pointer-events: none; opacity: 0; transform: translate(-50%,-50%);
+  transition: opacity .3s ease; z-index: -1;
+}
+.tt-story-content { display: grid; gap: 2rem; }
+.tt-story-card {
+  position: relative; min-height: 420px; padding: clamp(1.8rem, 4vw, 2.9rem);
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.028));
+  border: 1px solid rgba(246,243,236,0.13);
+  box-shadow: 0 34px 90px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+  transform: scale(0.965); opacity: 0.55;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s ease, border-color .5s ease, box-shadow .5s ease;
+}
+.tt-story-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--card-mx,50%) var(--card-my,50%), rgba(216,200,126,0.16), transparent 28%);
+  opacity: 0; transition: opacity .35s ease; pointer-events: none;
+}
+.tt-story-card::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 3px;
+  background: linear-gradient(90deg, transparent, #d8c87e, transparent);
+  opacity: 0; transform: scaleX(0); transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.tt-story-card.is-active {
+  opacity: 1; transform: scale(1); border-color: rgba(216,200,126,0.38);
+  box-shadow: 0 46px 130px rgba(0,0,0,0.46), 0 0 60px rgba(216,200,126,0.08), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+.tt-story-card.is-active::before { opacity: 1; }
+.tt-story-card.is-active::after { opacity: 1; transform: scaleX(1); }
+.tt-card-number {
+  position: relative; z-index: 2; font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(3.2rem, 6vw, 5rem); color: rgba(216,200,126,0.28); line-height: 1; letter-spacing: -0.02em;
+}
+.tt-story-card h3 {
+  position: relative; z-index: 2; margin: 0 0 0.9rem;
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  line-height: 1; color: var(--tt-papier);
+}
+.tt-story-card p { position: relative; z-index: 2; margin: 0; max-width: 46ch; color: rgba(246,243,236,0.78); line-height: 1.72; font-size: 0.96rem; }
+@media (max-width: 900px) {
+  .tt-premium-story { padding: clamp(3.6rem, 10vh, 5.4rem) var(--pad-x); }
+  .tt-story-container { grid-template-columns: 1fr; gap: 1.8rem; }
+  .tt-story-visual { position: relative; top: auto; height: 420px; min-height: 420px; border-radius: 24px; }
+  .tt-story-card { min-height: 0; padding: 1.8rem; border-radius: 20px; opacity: 1; transform: none; }
+  .tt-scroll-progress { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-visual-bg, .tt-story-card, .tt-story-card::after, .tt-visual-content h2 { transition: none; }
+}
+
 /* ============================================================ TERRE BLANCHE / TERRE ROUGE — scène animée */
 .terres { background: var(--tt-papier); padding-top: clamp(4rem, 10vh, 7rem); }
 .terres > .wrap { padding-inline: var(--pad-x); }
