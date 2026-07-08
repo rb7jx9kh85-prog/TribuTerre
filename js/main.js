@@ -417,10 +417,12 @@
       if(!pin || !track || !grid) return;
 
       var active = false, extra = 0, ticking = false;
+      var SPEED = 3; // plus haut = il faut scroller moins pour voir défiler toutes les cuvées
 
       function measure(){
         extra = Math.max(0, track.scrollWidth - scroller.clientWidth);
-        scroller.style.height = (window.innerHeight + extra) + "px";
+        var scrollDistance = Math.min(extra / SPEED, window.innerHeight * 0.85);
+        scroller.style.height = (window.innerHeight + scrollDistance) + "px";
       }
       function update(){
         ticking = false;
@@ -446,7 +448,12 @@
 
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", function(){ sync(); if(active) measure(); }, { passive: true });
-      window.addEventListener("load", function(){ if(active) measure(); });
+      window.addEventListener("load", function(){ if(active){ measure(); update(); } });
+      // sécurité : les polices web (chargement asynchrone) peuvent décaler la mise en page une fois prêtes
+      if(window.document.fonts && window.document.fonts.ready){
+        window.document.fonts.ready.then(function(){ if(active){ measure(); update(); } });
+      }
+      setTimeout(function(){ if(active){ measure(); update(); } }, 400);
       if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
 
       sync();
