@@ -656,7 +656,14 @@
   /* -------------------- Lenis (optionnel, si chargé) -------------------- */
   function smooth(){
     if(REDUCE || typeof window.Lenis === "undefined") return;
-    var lenis = new Lenis({ lerp: 0.09, duration: 1.3 });
+    var lenis = new Lenis({
+      lerp: 0.07,
+      duration: 1.6,
+      easing: function(t){ return 1 - Math.pow(1 - t, 4); },
+      smoothWheel: true,
+      wheelMultiplier: 0.85,
+      touchMultiplier: 1.5
+    });
     function raf(t){ lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
       a.addEventListener("click", function(e){ var id=a.getAttribute("href"); if(id.length<2) return; var t=document.querySelector(id); if(!t) return; e.preventDefault(); lenis.scrollTo(t); });
