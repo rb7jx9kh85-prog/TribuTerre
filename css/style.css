@@ -637,6 +637,81 @@ body::before {  /* grain pellicule, fixe, très subtil */
   .fendant__wm { font-size: clamp(5rem, 24vw, 9rem); top: 2%; }
 }
 
+/* ============================================================ MERLOT PRESTIGE — bouteille mise en scène */
+.tt-bottle-section {
+  padding: clamp(5rem, 12vh, 8rem) var(--pad-x);
+  background:
+    radial-gradient(circle at 50% 28%, rgba(216,200,126,0.12), transparent 30%),
+    linear-gradient(180deg, #0a0605 0%, #170f0a 100%);
+  color: var(--tt-papier);
+  overflow: hidden;
+}
+.tt-bottle-container { width: min(var(--maxw), 100%); margin: 0 auto; }
+.tt-section-head {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 4vw, 3rem);
+  align-items: end; margin-bottom: clamp(2.4rem, 6vh, 3.6rem);
+}
+.tt-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem;
+  color: #d8c87e; text-transform: uppercase; letter-spacing: 0.22em;
+  font-family: var(--font-body); font-size: 0.66rem; font-weight: 700;
+}
+.tt-eyebrow::before { content: ""; width: 2.8rem; height: 1px; background: #d8c87e; }
+.tt-section-head h2 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.4rem, 6vw, 5rem); line-height: 0.96; letter-spacing: -0.01em; margin: 0;
+}
+.tt-section-head p { color: rgba(246,243,236,0.78); line-height: 1.72; font-size: 0.98rem; margin: 0; }
+.tt-bottle-stage {
+  min-height: clamp(480px, 66vh, 700px);
+  border-radius: 40px; position: relative; overflow: hidden;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(216,200,126,0.14), transparent 26%),
+    linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+  border: 1px solid rgba(246,243,236,0.14);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.45);
+}
+.tt-bottle-stage::before {
+  content: ""; position: absolute; width: 560px; height: 560px;
+  border: 1px solid rgba(216,200,126,0.16); border-radius: 50%;
+}
+.tt-bottle-stage::after {
+  content: ""; position: absolute; width: 780px; height: 780px;
+  border: 1px solid rgba(255,255,255,0.05); border-radius: 50%;
+}
+.tt-bottle-main {
+  position: relative; z-index: 2; height: clamp(340px, 48vh, 500px); width: auto;
+  max-width: 80%; object-fit: contain;
+  filter: drop-shadow(0 50px 65px rgba(0,0,0,0.65));
+}
+.tt-bottle-note {
+  position: absolute; z-index: 3; width: 240px; padding: 1.4rem 1.5rem;
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.035));
+  border: 1px solid rgba(246,243,236,0.14);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+}
+.tt-bottle-note h3 {
+  font-family: var(--font-display); font-weight: 500; font-size: 1.5rem;
+  line-height: 1; margin: 0 0 0.55rem; color: var(--tt-papier);
+}
+.tt-bottle-note p { color: rgba(246,243,236,0.78); line-height: 1.55; font-size: 0.86rem; margin: 0; }
+.tt-note-1 { top: 8%; left: 6%; }
+.tt-note-2 { top: 12%; right: 6%; }
+.tt-note-3 { bottom: 11%; left: 9%; }
+.tt-note-4 { bottom: 9%; right: 9%; }
+@media (max-width: 900px) {
+  .tt-bottle-section { padding: clamp(3.6rem, 10vh, 5.4rem) var(--pad-x); }
+  .tt-section-head { grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 2rem; }
+  .tt-bottle-stage { min-height: 0; padding: 2.2rem 1.1rem; display: flex; flex-direction: column; border-radius: 28px; }
+  .tt-bottle-stage::before { width: 260px; height: 260px; }
+  .tt-bottle-stage::after { width: 380px; height: 380px; }
+  .tt-bottle-main { height: 260px; margin-bottom: 1.2rem; }
+  .tt-bottle-note { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; margin: 0.5rem 0; }
+}
+
 /* ============================================================ TERRE BLANCHE / TERRE ROUGE — scène animée */
 .terres { background: var(--tt-papier); padding-top: clamp(4rem, 10vh, 7rem); }
 .terres > .wrap { padding-inline: var(--pad-x); }
