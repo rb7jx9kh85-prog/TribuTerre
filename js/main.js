@@ -402,6 +402,57 @@
     update();
   }
 
+  /* -------------------- CUVÉES : carrousel horizontal au scroll (desktop uniquement) -------------------- */
+  /* Sur mobile (<= 900px) ou si le JS échoue, la grille reste la grille classique inchangée. */
+  function cuveesCarousel(){
+    var scrollers = [].slice.call(document.querySelectorAll(".cuvees-scroller"));
+    if(!scrollers.length) return;
+    var mq = window.matchMedia("(min-width: 901px)");
+
+    scrollers.forEach(function(scroller){
+      var pin   = scroller.querySelector(".cuvees-scroller__pin");
+      var track = scroller.querySelector(".cuvees-scroller__track");
+      var grid  = scroller.querySelector(".cuvee-grid");
+      var bar   = scroller.querySelector(".cuvees-scroller__progress i");
+      if(!pin || !track || !grid) return;
+
+      var active = false, extra = 0, ticking = false;
+
+      function measure(){
+        extra = Math.max(0, track.scrollWidth - scroller.clientWidth);
+        scroller.style.height = (window.innerHeight + extra) + "px";
+      }
+      function update(){
+        ticking = false;
+        if(!active) return;
+        var rect = scroller.getBoundingClientRect();
+        var total = scroller.offsetHeight - window.innerHeight;
+        var prog = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+        track.style.transform = "translateX(-" + (prog * extra).toFixed(1) + "px)";
+        if(bar) bar.style.width = (prog * 100).toFixed(1) + "%";
+      }
+      function onScroll(){ if(active && !ticking){ requestAnimationFrame(update); ticking = true; } }
+      function enable(){
+        if(active) return; active = true;
+        scroller.classList.add("is-carousel");
+        measure(); update();
+      }
+      function disable(){
+        if(!active) return; active = false;
+        scroller.classList.remove("is-carousel");
+        scroller.style.height = ""; track.style.transform = ""; if(bar) bar.style.width = "";
+      }
+      function sync(){ if(mq.matches && !REDUCE){ enable(); } else { disable(); } }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function(){ sync(); if(active) measure(); }, { passive: true });
+      window.addEventListener("load", function(){ if(active) measure(); });
+      if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
+
+      sync();
+    });
+  }
+
   /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
   // attend la fin de l'intro cinématique avant d'afficher la pop-up
   function newsPopupDeferred(){
@@ -565,6 +616,7 @@
     terresFx();
     buildCuvees();
     buildDispo();
+    cuveesCarousel();
     imgFallbacks();
     marquee();
     header();

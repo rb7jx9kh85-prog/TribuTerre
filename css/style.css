@@ -310,7 +310,7 @@ body::before {  /* grain pellicule, fixe, très subtil */
 @media (max-width: 820px){ .split, .split--reverse { grid-template-columns: 1fr; gap: 1.8rem; } }
 
 /* ============================================================ CUVÉES (grille) */
-.cuvee-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(252px, 1fr)); gap: clamp(1rem,2vw,1.4rem); align-items: stretch; }
+.cuvee-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(252px, 1fr)); gap: clamp(1rem,2vw,1.4rem); align-items: stretch; justify-content: center; }
 .cuvee-card {
   --accent: var(--tt-rouge);
   position: relative; min-height: 470px; padding: 1.6rem 1.5rem;
@@ -352,6 +352,29 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvee-prix + .cuvee-bottom { margin-top: 0.7rem; }
 .cuvee-bottom { margin-top: auto; padding-top: 0.9rem; display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(21,16,12,0.55); border-top: 1px solid rgba(35,25,15,0.1); }
 .cuvee-card[data-dark="true"] .cuvee-bottom { color: rgba(245,238,228,0.62); border-top-color: rgba(245,238,228,0.12); }
+
+/* ============================================================ CUVÉES — carrousel horizontal (desktop uniquement) */
+/* Par défaut (mobile, ou JS désactivé) : rien ne change, la grille .cuvee-grid reste telle quelle. */
+.cuvees-scroller { position: relative; }
+.cuvees-scroller__progress {
+  position: absolute; left: 0; right: 0; bottom: clamp(1.4rem, 4vh, 2.6rem);
+  height: 1px; background: rgba(27,24,18,0.14);
+  opacity: 0; pointer-events: none; transition: opacity .5s ease;
+}
+.cuvees-scroller__progress i { display: block; height: 100%; width: 0%; background: var(--tt-rouge); }
+/* état activé par JS (min-width: 901px, pas de reduced-motion) */
+.cuvees-scroller.is-carousel .cuvees-scroller__pin {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; align-items: center; overflow: hidden;
+}
+.cuvees-scroller.is-carousel .cuvees-scroller__track {
+  flex: 0 0 auto; will-change: transform;
+}
+.cuvees-scroller.is-carousel .cuvee-grid {
+  display: flex; flex-wrap: nowrap; width: max-content;
+}
+.cuvees-scroller.is-carousel .cuvee-card { flex: 0 0 clamp(280px, 27vw, 360px); }
+.cuvees-scroller.is-carousel .cuvees-scroller__progress { opacity: 1; }
 
 /* ============================================================ VINS DISPONIBLES (petites cartes) */
 .dispo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.9rem; }
