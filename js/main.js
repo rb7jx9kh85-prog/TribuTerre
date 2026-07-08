@@ -460,6 +460,55 @@
     });
   }
 
+  /* -------------------- NOTRE SÉLECTION : reveal cinématique (une bouteille à la fois) -------------------- */
+  /* Sur mobile (<= 900px), pas de scroll-jack : les cartes s'affichent normalement, en pile (voir CSS). */
+  function wineReveal(){
+    var section = document.querySelector(".wine-reveal"); if(!section) return;
+    var cards = [].slice.call(section.querySelectorAll(".wine-reveal__card"));
+    var bar = section.querySelector(".wine-reveal__progress i");
+    if(!cards.length) return;
+    var mq = window.matchMedia("(min-width: 901px)");
+    var active = false, ticking = false;
+    var PER_CARD_VH = 0.2; // fraction d'écran par bouteille -> un tout petit scroll suffit
+
+    function measure(){
+      var extra = window.innerHeight * PER_CARD_VH * (cards.length - 1);
+      section.style.height = (window.innerHeight + extra) + "px";
+    }
+    function update(){
+      ticking = false;
+      if(!active) return;
+      var rect = section.getBoundingClientRect();
+      var total = section.offsetHeight - window.innerHeight;
+      var prog = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+      var idx = Math.min(cards.length - 1, Math.floor(prog * (cards.length - 1) + 0.0001));
+      cards.forEach(function(c, i){
+        c.classList.remove("is-active", "is-prev");
+        if(i === idx) c.classList.add("is-active");
+        else if(i < idx) c.classList.add("is-prev");
+      });
+      if(bar) bar.style.width = (prog * 100).toFixed(1) + "%";
+    }
+    function onScroll(){ if(active && !ticking){ requestAnimationFrame(update); ticking = true; } }
+    function enable(){ if(active) return; active = true; measure(); update(); }
+    function disable(){
+      if(!active) return; active = false;
+      section.style.height = ""; if(bar) bar.style.width = "";
+    }
+    function sync(){ if(mq.matches && !REDUCE){ enable(); } else { disable(); } }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", function(){ sync(); if(active) measure(); }, { passive: true });
+    window.addEventListener("load", function(){ if(active){ measure(); update(); } });
+    if(window.document.fonts && window.document.fonts.ready){
+      window.document.fonts.ready.then(function(){ if(active){ measure(); update(); } });
+    }
+    setTimeout(function(){ if(active){ measure(); update(); } }, 400);
+    if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
+
+    sync();
+  }
+
   /* -------------------- POP-UP nouveauté (une seule fois par navigateur) -------------------- */
   // attend la fin de l'intro cinématique avant d'afficher la pop-up
   function newsPopupDeferred(){
@@ -624,6 +673,7 @@
     buildCuvees();
     buildDispo();
     cuveesCarousel();
+    wineReveal();
     imgFallbacks();
     marquee();
     header();

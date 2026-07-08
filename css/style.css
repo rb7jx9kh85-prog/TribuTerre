@@ -376,6 +376,86 @@ body::before {  /* grain pellicule, fixe, très subtil */
 .cuvees-scroller.is-carousel .cuvee-card { flex: 0 0 clamp(280px, 27vw, 360px); }
 .cuvees-scroller.is-carousel .cuvees-scroller__progress { opacity: 1; }
 
+/* ============================================================ NOTRE SÉLECTION — reveal cinématique */
+.wine-reveal {
+  position: relative; isolation: isolate;
+  color: var(--tt-papier);
+  background:
+    radial-gradient(circle at 15% 15%, rgba(158,38,54,0.28), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(126,10,10,0.22), transparent 46%),
+    linear-gradient(160deg, #22060d, #12040a 55%, #080306);
+}
+.wine-reveal__pin {
+  position: sticky; top: 0; height: 100vh;
+  display: grid; grid-template-columns: 0.85fr 1.15fr;
+  align-items: center; gap: clamp(2rem, 5vw, 4.5rem);
+  padding: 0 var(--pad-x); overflow: hidden;
+}
+.wine-reveal__kicker { display: block; font-family: var(--font-body); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #d8c87e; }
+.wine-reveal__title { margin-top: 1.2rem; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.4rem, 5.6vw, 4.6rem); line-height: 1; }
+.wine-reveal__lead { margin-top: 1.2rem; color: var(--tt-pierre); max-width: 34ch; font-size: clamp(0.95rem, 1.3vw, 1.05rem); }
+.wine-reveal__stack { position: relative; height: clamp(440px, 58vh, 600px); }
+.wine-reveal__card {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: clamp(1.4rem, 2.6vw, 2.4rem);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem);
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 28px;
+  background: rgba(255,255,255,0.055);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+  opacity: 0; transform: translateY(70px) scale(0.94); filter: blur(8px);
+  transition: opacity .8s var(--ease-soft), transform .9s var(--ease-soft), filter .8s ease;
+  pointer-events: none;
+}
+.wine-reveal__card.is-active { opacity: 1; transform: none; filter: none; z-index: 5; pointer-events: auto; }
+.wine-reveal__card.is-prev { opacity: 0.22; transform: translateY(-50px) scale(0.94); filter: blur(3px); z-index: 2; }
+.wine-reveal__card figure { height: 100%; display: flex; align-items: center; justify-content: center; }
+.wine-reveal__card img { max-height: min(52vh, 440px); width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 26px 46px rgba(0,0,0,0.5)); }
+.wine-reveal__type { display: block; font-family: var(--font-body); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #d8c87e; margin-bottom: 0.8rem; }
+.wine-reveal__body h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 0.9rem; }
+.wine-reveal__body p { color: rgba(246,243,236,0.78); line-height: 1.7; font-size: 0.96rem; margin-bottom: 1.2rem; }
+.wine-reveal__price { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: #d8c87e; }
+.wine-reveal__progress {
+  position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: clamp(1.4rem, 4vh, 2.4rem);
+  height: 1px; background: rgba(255,255,255,0.14);
+}
+.wine-reveal__progress i { display: block; height: 100%; width: 0%; background: #d8c87e; }
+@media (max-width: 860px) {
+  .wine-reveal__pin { position: static; height: auto; display: block; padding: 3.2rem var(--pad-x) 0; }
+  .wine-reveal__stack { position: static; height: auto; display: flex; flex-direction: column; gap: 1.6rem; padding-bottom: 3rem; margin-top: 2rem; }
+  .wine-reveal__card {
+    position: static !important; opacity: 1 !important; transform: none !important; filter: none !important;
+    grid-template-columns: 1fr; gap: 1.2rem; pointer-events: auto;
+  }
+  .wine-reveal__card img { max-height: 300px; }
+  .wine-reveal__progress { display: none; }
+}
+
+/* ============================================================ LA SUITE DE LA COLLECTION — cartes verre dépoli */
+.wine-track-section {
+  position: relative;
+  padding: clamp(4rem, 10vh, 6.5rem) 0 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(158,38,54,0.22), transparent 42%),
+    linear-gradient(160deg, #1c050c, #0d0308 60%, #070205);
+  color: var(--tt-papier);
+}
+.wine-track-head { max-width: var(--maxw); margin: 0 auto clamp(2rem, 5vh, 3rem); padding-inline: var(--pad-x); }
+.wine-track-head .wine-reveal__title { color: var(--tt-papier); }
+.wine-track-card {
+  background: rgba(255,255,255,0.055);
+  border-color: rgba(255,255,255,0.16);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 26px 80px rgba(0,0,0,0.4);
+  color: var(--tt-papier);
+}
+.wine-track-card h3 { color: var(--tt-papier); }
+.wine-track-card .cuvee-type { color: #d8c87e; }
+.wine-track-card .cuvee-desc { color: rgba(246,243,236,0.78); }
+.wine-track-card .cuvee-prix { color: #d8c87e; }
+.wine-track-card .cuvee-bottom { color: rgba(246,243,236,0.6); border-top-color: rgba(255,255,255,0.14); }
+.wine-track-card:hover { border-color: rgba(216,200,126,0.55); }
+
 /* ============================================================ VINS DISPONIBLES (petites cartes) */
 .dispo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.9rem; }
 .dispo-card { --accent: var(--tt-rouge); display: flex; gap: 1rem; align-items: center; padding: 0.85rem 1.1rem; border: 1px solid rgba(27,24,18,0.12); border-radius: 14px; background: var(--tt-papier-2); transition: transform .35s var(--ease-soft), border-color .35s ease, box-shadow .35s ease; }

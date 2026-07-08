@@ -45,7 +45,126 @@
     </div>
   </section>
 
+  <!-- NOTRE SÉLECTION — reveal cinématique (une bouteille à la fois) -->
+  <section class="wine-reveal" id="notre-selection">
+    <div class="wine-reveal__pin">
+      <div class="wine-reveal__intro">
+        <span class="wine-reveal__kicker">Notre sélection</span>
+        <h2 class="wine-reveal__title">Cinq bouteilles, cinq caractères</h2>
+        <p class="wine-reveal__lead">Scrollez pour découvrir la sélection.</p>
+      </div>
+      <div class="wine-reveal__stack">
+        <article class="wine-reveal__card is-active">
+          <figure><img src="assets/Fendant.webp" alt="Fendant" loading="lazy"></figure>
+          <div class="wine-reveal__body">
+            <span class="wine-reveal__type">Blanc · Chasselas · Nouveauté</span>
+            <h3>Fendant</h3>
+            <p>Le chasselas valaisan dans toute sa fraîcheur — fleurs blanches, tilleul, une pointe de silex.</p>
+            <span class="wine-reveal__price">CHF 14.–</span>
+          </div>
+        </article>
+        <article class="wine-reveal__card">
+          <figure><img src="assets/TerreBlanche.webp" alt="Terre Blanche" loading="lazy"></figure>
+          <div class="wine-reveal__body">
+            <span class="wine-reveal__type">Blanc · Assemblage</span>
+            <h3>Terre Blanche</h3>
+            <p>L'assemblage blanc de la maison. Nez fin et délicat, bouche fraîche et minérale, à la finale saline.</p>
+            <span class="wine-reveal__price">CHF 19.–</span>
+          </div>
+        </article>
+        <article class="wine-reveal__card">
+          <figure><img src="assets/TerreDeRose.webp" alt="Terre de Rosée" loading="lazy"></figure>
+          <div class="wine-reveal__body">
+            <span class="wine-reveal__type">Rosé · Assemblage</span>
+            <h3>Terre de Rosée</h3>
+            <p>Belle robe saumonée, nez printanier, bouche fruitée et florale sur les fruits à noyaux. Finale gourmande.</p>
+            <span class="wine-reveal__price">CHF 15.–</span>
+          </div>
+        </article>
+        <article class="wine-reveal__card">
+          <figure><img src="assets/VieillesVignesGamay.webp" alt="Vieilles Vignes Gamay" loading="lazy"></figure>
+          <div class="wine-reveal__body">
+            <span class="wine-reveal__type">Rouge · Gamay · AOC Leytron</span>
+            <h3>Vieilles Vignes Gamay</h3>
+            <p>Robe rubis, nez de griotte et de pivoine, bouche ciselée aux nuances de violette. Tanins délicats.</p>
+            <span class="wine-reveal__price">CHF 18.–</span>
+          </div>
+        </article>
+        <article class="wine-reveal__card">
+          <figure><img src="assets/TerreRouge.webp" alt="Terre Rouge" loading="lazy"></figure>
+          <div class="wine-reveal__body">
+            <span class="wine-reveal__type">Rouge · Assemblage · Signature</span>
+            <h3>Terre Rouge</h3>
+            <p>Nez intense sur le cacao, le kirsch et la vanille. Bouche souple et pure, longue finale aux tanins fins.</p>
+            <span class="wine-reveal__price">CHF 25.–</span>
+          </div>
+        </article>
+      </div>
+      <div class="wine-reveal__progress"><i></i></div>
+    </div>
+  </section>
+
+  <!-- LA SUITE DE LA COLLECTION — défilement horizontal -->
+  <section class="wine-track-section">
+    <div class="wine-track-head">
+      <span class="wine-reveal__kicker">La suite de la collection</span>
+      <h2 class="wine-reveal__title" style="font-size:clamp(2rem,4.6vw,3.4rem);">Quatre autres caractères</h2>
+    </div>
+    <div class="cuvees-scroller">
+      <div class="cuvees-scroller__pin">
+        <div class="cuvees-scroller__track">
+          <div class="cuvee-grid">
+            <article class="cuvee-card wine-track-card" data-famille="blanc">
+              <figure class="cuvee-fig"><img loading="lazy" alt="L'Ardoisière" src="assets/LArdoisiere.webp"></figure>
+              <div class="cuvee-body">
+                <h3>L'Ardoisière</h3>
+                <p class="cuvee-type">Blanc · Assemblage</p>
+                <p class="cuvee-desc">Née du terroir ardoisier de Leytron. Un blanc tendu et lumineux, sur la pierre et les agrumes.</p>
+                <p class="cuvee-prix">CHF 17.–</p>
+                <div class="cuvee-bottom"><span>Vin de pays</span><span>75 cl</span></div>
+              </div>
+            </article>
+            <article class="cuvee-card wine-track-card" data-famille="rouge">
+              <figure class="cuvee-fig"><img loading="lazy" alt="Terre d'Automne" src="assets/TerreDAutomne.webp"></figure>
+              <div class="cuvee-body">
+                <h3>Terre d'Automne</h3>
+                <p class="cuvee-type">Rouge · Assemblage</p>
+                <p class="cuvee-desc">L'assemblage de saison de la maison. Un rouge généreux, sur le fruit mûr et la rondeur.</p>
+                <p class="cuvee-prix">CHF 16.–</p>
+                <div class="cuvee-bottom"><span>Vin de table</span><span>75 cl</span></div>
+              </div>
+            </article>
+            <article class="cuvee-card wine-track-card" data-famille="rouge">
+              <figure class="cuvee-fig"><img loading="lazy" alt="Terre N° 13" src="assets/TerreN13.webp"></figure>
+              <div class="cuvee-body">
+                <h3>Terre N° 13</h3>
+                <p class="cuvee-type">Rouge · Merlot</p>
+                <p class="cuvee-desc">Merlot droit, élevé sans détour. Fruit noir, profondeur et trame sobre, pour un vin franc.</p>
+                <p class="cuvee-prix">CHF 21.–</p>
+                <div class="cuvee-bottom"><span>Vin de pays · 2023</span><span>75 cl</span></div>
+              </div>
+            </article>
+            <article class="cuvee-card wine-track-card" data-famille="prestige">
+              <figure class="cuvee-fig"><img loading="lazy" alt="Merlot Prestige" src="assets/MerlotPrestige.webp"></figure>
+              <div class="cuvee-body">
+                <h3>Merlot Prestige</h3>
+                <p class="cuvee-type">Rouge · Merlot</p>
+                <p class="cuvee-desc">La cuvée haut de gamme. Un merlot d'élevage patient, dense et raffiné, à la longue finale boisée.</p>
+                <p class="cuvee-prix">CHF 32.–</p>
+                <div class="cuvee-bottom"><span>Prestige · 2022</span><span>75 cl</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="cuvees-scroller__progress"><i></i></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" style="padding-top:0;">
+    <div class="wrap" style="margin-bottom:clamp(2rem,5vh,3rem);">
+      <span class="section-kicker kicker" style="display:block;"><span class="num">—</span> Toute la collection</span>
+    </div>
     <div class="cuvees-scroller">
       <div class="cuvees-scroller__pin">
         <div class="cuvees-scroller__track">
