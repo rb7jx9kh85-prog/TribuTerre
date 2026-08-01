@@ -653,29 +653,6 @@
     });
   }
 
-  /* -------------------- BANNIÈRE COOKIES (mémoire navigateur, aucune dépendance) -------------------- */
-  function cookieBanner(){
-    try { if(localStorage.getItem("tt_cookies_choice")) return; } catch(e){}
-    var bar = document.createElement("div");
-    bar.className = "cookie-bar";
-    bar.setAttribute("role", "region");
-    bar.setAttribute("aria-label", "Information cookies");
-    bar.innerHTML =
-      '<p class="cookie-bar__text"><strong>Cookies &amp; confidentialité.</strong> Ce site utilise uniquement la mémoire de votre navigateur pour retenir vos préférences (vérification d\'âge, affichage). Aucun suivi publicitaire, aucune donnée transmise à des tiers.</p>'+
-      '<div class="cookie-bar__actions">'+
-        '<button type="button" class="cookie-bar__accept" data-cursor>Accepter</button>'+
-        '<button type="button" class="cookie-bar__refuse" data-cursor>Continuer sans accepter</button>'+
-      '</div>';
-    document.body.appendChild(bar);
-    requestAnimationFrame(function(){ bar.classList.add("is-in"); });
-    function close(val){
-      try { localStorage.setItem("tt_cookies_choice", val); } catch(e){}
-      bar.classList.remove("is-in");
-      setTimeout(function(){ bar.remove(); }, 600);
-    }
-    bar.querySelector(".cookie-bar__accept").addEventListener("click", function(){ close("accept"); });
-    bar.querySelector(".cookie-bar__refuse").addEventListener("click", function(){ close("refuse"); });
-  }
 
   /* -------------------- FORMULAIRE DE COMMANDE (Web3Forms) -------------------- */
   function contactForm(){
@@ -775,7 +752,6 @@
 
   function boot(){
     ageGate(newsPopupDeferred);
-    cookieBanner();
     var y = document.getElementById("year"); if(y) y.textContent = new Date().getFullYear();
     spawnHeroParticles();
     fendantFx();

@@ -1331,38 +1331,6 @@ body::before {  /* grain pellicule, fixe, très subtil */
 }
 .news-pop__cta:hover { background: var(--tt-rouge-vif); transform: translateY(-2px); }
 
-/* ============================================================ BANNIÈRE COOKIES */
-.cookie-bar {
-  position: fixed; left: 50%; bottom: 1.2rem; z-index: 7000;
-  width: min(94vw, 760px);
-  display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap;
-  padding: 1.1rem 1.4rem;
-  color: var(--tt-papier); border: 1px solid rgba(246,243,236,0.14); border-radius: 16px;
-  background: linear-gradient(160deg, #14090d, #0a0508);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  transform: translate(-50%, calc(100% + 2rem));
-  transition: transform .7s var(--ease-soft);
-}
-.cookie-bar.is-in { transform: translate(-50%, 0); }
-.cookie-bar__text { flex: 1 1 320px; font-size: 0.8rem; line-height: 1.6; color: var(--tt-pierre); }
-.cookie-bar__text strong { color: var(--tt-papier); font-weight: 600; }
-.cookie-bar__actions { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
-.cookie-bar__accept {
-  min-height: 42px; padding: 0 1.6rem; border-radius: 999px;
-  background: var(--tt-rouge); color: var(--tt-papier);
-  font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  transition: background .3s;
-}
-.cookie-bar__accept:hover { background: var(--tt-rouge-vif); }
-.cookie-bar__refuse {
-  font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: rgba(185,179,166,0.75);
-  text-decoration: underline; text-underline-offset: 3px;
-  transition: color .3s;
-}
-.cookie-bar__refuse:hover { color: var(--tt-papier); }
-
 /* ============================================================ FOOTER LÉGAL */
 .footer-legal {
   max-width: var(--maxw); margin: 2.4rem auto 0;
