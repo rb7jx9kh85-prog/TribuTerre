@@ -418,12 +418,15 @@
 
       var active = false, extra = 0;
       var targetX = 0, currentX = 0;
-      var SCREENS = 4.5; // hauteurs d'écran de scroll pour parcourir tout le carrousel : long et posé, un petit scroll ne fait pas tout défiler d'un coup
-      var LERP = 0.1;    // plus bas = mouvement plus lissé/amorti (moins saccadé)
+      var SPEED = 0.35; // plus bas = il faut scroller (beaucoup) plus pour parcourir tout le carrousel
+      var LERP = 0.1;   // plus bas = mouvement plus lissé/amorti (moins saccadé)
 
       function measure(){
         extra = Math.max(0, track.scrollWidth - scroller.clientWidth);
-        var scrollDistance = window.innerHeight * SCREENS;
+        // La distance de scroll est proportionnelle au contenu réel à parcourir : le
+        // défilement se termine pile quand la dernière bouteille arrive, jamais avant
+        // (sinon la dernière carte reste seule, figée, avec un grand vide à côté).
+        var scrollDistance = extra / SPEED;
         scroller.style.height = (window.innerHeight + scrollDistance) + "px";
       }
       function computeTarget(){
