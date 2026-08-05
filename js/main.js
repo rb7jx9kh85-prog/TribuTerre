@@ -418,13 +418,12 @@
 
       var active = false, extra = 0;
       var targetX = 0, currentX = 0;
-      var SPEED = 0.75;    // plus bas = il faut scroller davantage -> défilement plus long
-      var MAX_SCREENS = 2.6; // plafond de la distance de scroll, en hauteurs d'écran
-      var LERP = 0.1;      // plus bas = mouvement plus lissé/amorti (moins saccadé)
+      var SCREENS = 4.5; // hauteurs d'écran de scroll pour parcourir tout le carrousel : long et posé, un petit scroll ne fait pas tout défiler d'un coup
+      var LERP = 0.1;    // plus bas = mouvement plus lissé/amorti (moins saccadé)
 
       function measure(){
         extra = Math.max(0, track.scrollWidth - scroller.clientWidth);
-        var scrollDistance = Math.min(extra / SPEED, window.innerHeight * MAX_SCREENS);
+        var scrollDistance = window.innerHeight * SCREENS;
         scroller.style.height = (window.innerHeight + scrollDistance) + "px";
       }
       function computeTarget(){
@@ -464,20 +463,6 @@
       }
       setTimeout(function(){ if(active) measure(); }, 400);
       if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
-
-      // Apparition des bouteilles dès que la section entre à l'écran (avant tout défilement
-      // horizontal) : sans ça, les cartes hors écran à droite gardent l'opacité 0 du .reveal
-      // générique et ne se dévoilent qu'au fur et à mesure du défilement.
-      if(REDUCE){
-        scroller.classList.add("is-revealed");
-      } else {
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(e){
-            if(e.isIntersecting){ scroller.classList.add("is-revealed"); io.disconnect(); }
-          });
-        }, { threshold: 0, rootMargin: "0px 0px -12% 0px" });
-        io.observe(scroller);
-      }
 
       sync();
     });
